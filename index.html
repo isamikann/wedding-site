@@ -8,27 +8,76 @@
 </head>
 <body>
   <header class="site-header">
-    <div class="container">
+    <div class="container header-inner">
       <h1 class="site-title">Wedding Profile</h1>
       <nav class="site-nav">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
+        <a href="#hero">Top</a>
+        <a href="#groom">新郎</a>
+        <a href="#bride">新婦</a>
+        <a href="#menu">メニュー</a>
+        <a href="#seating">席次表</a>
       </nav>
     </div>
   </header>
 
   <main>
-    <section class="hero">
-      <img src="img/main_visual.jpg" alt="Main visual" class="hero-image">
-      <div class="hero-content">
+    <section id="hero" class="hero">
+  <img src="img/main_visual.jpg" alt="メインビジュアル" class="hero-image">
+      <div class="hero-content container">
         <h2>Welcome to our wedding</h2>
-        <p>We are delighted to share our story and celebration details with you.</p>
+        <p>二人の門出をお祝いしてくれてありがとうございます。どうぞゆっくりご覧ください。</p>
       </div>
     </section>
 
-    <section class="intro container">
-      <h3>Our Story</h3>
-      <p>ここにふたりのプロフィールやストーリーを掲載します。写真や思い出、当日の案内などを載せることができます。</p>
+    <section id="groom" class="section container profile-section">
+      <h3>新郎</h3>
+      <div class="profile">
+  <img src="img/groom.svg" alt="新郎の写真" class="profile-image">
+        <div class="profile-text">
+          <h4>名前</h4>
+          <p>新郎の簡単なプロフィール。出身地・趣味・好きな食べ物など。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="bride" class="section container profile-section">
+      <h3>新婦</h3>
+      <div class="profile">
+  <img src="img/bride.svg" alt="新婦の写真" class="profile-image">
+        <div class="profile-text">
+          <h4>名前</h4>
+          <p>新婦の簡単なプロフィール。出会いのエピソードや趣味などを載せます。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="menu" class="section container">
+      <h3>お料理メニュー</h3>
+      <p>当日のコースやアレルギー対応などの案内をここに書きます。</p>
+      <ul class="menu-list">
+        <li>アミューズ</li>
+        <li>前菜</li>
+        <li>スープ</li>
+        <li>メイン（魚または肉）</li>
+        <li>デザート</li>
+      </ul>
+    </section>
+
+    <section id="seating" class="section container">
+      <h3>席次表</h3>
+      <p>簡易的な席次表を掲載します。実際の配席表はここを適宜更新してください。</p>
+      <div class="seating">
+        <table class="seating-table">
+          <thead>
+            <tr><th>テーブル</th><th>ゲスト</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>佐藤さん、鈴木さん</td></tr>
+            <tr><td>2</td><td>田中さん、山田さん</td></tr>
+            <tr><td>3</td><td>高橋さん、伊藤さん</td></tr>
+          </tbody>
+        </table>
+      </div>
     </section>
   </main>
 
