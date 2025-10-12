@@ -1,9 +1,11 @@
 :root {
-  --color-primary: #9C8374;
-  --color-secondary: #D4C3B7;
-  --color-background: #FBF7F4;
+  --color-primary: #C9DFEC;
+  --color-secondary: #E8F1F6;
+  --color-accent: #FF9966;
+  --color-background: #FAFCFD;
   --color-text: #4A4A4A;
   --color-text-light: #767676;
+  --color-link: #5BA3C9;
   --font-serif: "Cormorant Garamond", "游明朝", "Yu Mincho", serif;
   --font-sans: "Noto Sans JP", sans-serif;
 }
@@ -36,7 +38,13 @@ h1, h2, h3, h4 {
 .container {
   max-width: 720px;
   margin: 0 auto;
-  padding: 1.5rem 1rem;
+  padding: 1.5rem;
+}
+
+@media (max-width: 599px) {
+  .container {
+    padding: 1.5rem 1.25rem;
+  }
 }
 
 .site-header {
@@ -75,7 +83,7 @@ h1, h2, h3, h4 {
 
 .site-nav a:hover,
 .site-nav a.active {
-  color: var(--color-primary);
+  color: var(--color-link);
 }
 
 .site-nav a.active::after {
@@ -83,7 +91,7 @@ h1, h2, h3, h4 {
   display: block;
   width: 100%;
   height: 2px;
-  background: var(--color-primary);
+  background: var(--color-accent);
   margin-top: 2px;
   transform: scaleX(0);
   transition: transform 0.3s ease;
@@ -200,9 +208,11 @@ main {
 .seating-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 2rem 0;
+  margin: 2rem 0.5rem;
   background: white;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  border-radius: 4px;
+  overflow: hidden;
 }
 
 .seating-table th,
@@ -376,6 +386,7 @@ details p {
   background: #fff;
   margin: 0 auto;
   animation: scrollLine 2s ease-out infinite;
+  box-shadow: 0 0 8px rgba(255,153,102,0.3);
 }
 
 /* Section titles */
@@ -510,7 +521,8 @@ details p {
   transform: translateX(-50%);
   width: 2px;
   height: 100%;
-  background: var(--color-secondary);
+  background: var(--color-accent);
+  opacity: 0.3;
 }
 
 .timeline-item {
@@ -543,7 +555,7 @@ details p {
   display: block;
   font-family: var(--font-serif);
   font-size: 1.8rem;
-  color: var(--color-primary);
+  color: var(--color-accent);
 }
 
 .timeline-date .month {
@@ -640,6 +652,7 @@ details p {
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin: 0 0.5rem;
 }
 
 .qa-item summary {
@@ -657,7 +670,7 @@ details p {
   top: 50%;
   transform: translateY(-50%);
   font-size: 1.2rem;
-  color: var(--color-primary);
+  color: var(--color-accent);
   transition: transform 0.3s ease;
 }
 
