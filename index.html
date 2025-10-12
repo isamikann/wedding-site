@@ -5,34 +5,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Wedding Profile</title>
   <link rel="stylesheet" href="css/style.css">
+  <script src="js/main.js" defer></script>
 </head>
 <body>
   <header class="site-header">
     <div class="container header-inner">
-      <h1 class="site-title">Wedding Profile</h1>
+      <h1 class="site-title">Wedding Profile<span class="date">2025.10.12</span></h1>
       <nav class="site-nav">
-        <a href="#hero">トップ</a>
-        <a href="#seating">席次表</a>
-        <a href="#menu">お食事/ドリンク</a>
-        <a href="#profile">プロフィール</a>
-        <a href="#qa">Q&amp;A</a>
-        <a href="#history">新郎新婦の歩み</a>
-        <a href="#photos">ウェディングフォト</a>
-        <a href="#endroll">エンドロール</a>
+        <a href="#hero" class="nav-item">トップ</a>
+        <a href="#seating" class="nav-item">席次表</a>
+        <a href="#menu" class="nav-item">お食事</a>
+        <a href="#profile" class="nav-item">プロフィール</a>
+        <a href="#qa" class="nav-item">Q&amp;A</a>
+        <a href="#history" class="nav-item">二人の歩み</a>
+        <a href="#photos" class="nav-item">フォト</a>
+        <a href="#endroll" class="nav-item">エンドロール</a>
       </nav>
+      <button class="nav-toggle" aria-label="メニュー">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
   </header>
 
   <main>
     <section id="hero" class="hero">
-  <img src="img/main_visual.jpg" alt="メインビジュアル" class="hero-image">
+      <div class="hero-overlay"></div>
+      <img src="img/main_visual.jpg" alt="メインビジュアル" class="hero-image">
       <div class="hero-content container">
-        <h2>Welcome to our wedding</h2>
-        <p>二人の門出をお祝いしてくれてありがとうございます。どうぞゆっくりご覧ください。</p>
+        <p class="hero-date">2025.10.12</p>
+        <h2 class="hero-title fade-in">Welcome to<br>our wedding</h2>
+        <p class="hero-text fade-in-delay">二人の門出をお祝いしてくれて<br>ありがとうございます</p>
+        <div class="scroll-hint">
+          <span class="scroll-text">Scroll</span>
+          <span class="scroll-line"></span>
+        </div>
       </div>
-    </section>
-
-    <section id="seating" class="section container">
+    </section>    <section id="seating" class="section container">
       <h3>席次表</h3>
       <p>簡易的な席次表を掲載します。実際の配席表はここを適宜更新してください。</p>
       <div class="seating">
@@ -62,17 +72,51 @@
     </section>
 
     <section id="profile" class="section container profile-section">
-      <h3>プロフィール</h3>
+      <h3 class="section-title"><span>Profile</span>プロフィール</h3>
       <div class="profile two-column">
-        <div class="person">
-          <img src="img/groom.jpg" alt="新郎の写真" class="profile-image">
-          <h4>Groom — ISAMU</h4>
-          <p>新郎の簡単なプロフィール。出身地・趣味・好きな食べ物など。</p>
+        <div class="person reveal-on-scroll">
+          <div class="profile-image-wrap">
+            <img src="img/groom.jpg" alt="新郎の写真" class="profile-image">
+          </div>
+          <div class="profile-content">
+            <h4>Groom — ISAMU</h4>
+            <dl class="profile-details">
+              <div class="detail-item">
+                <dt>出身地</dt>
+                <dd>東京都</dd>
+              </div>
+              <div class="detail-item">
+                <dt>趣味</dt>
+                <dd>カメラ、旅行</dd>
+              </div>
+              <div class="detail-item">
+                <dt>好きな食べ物</dt>
+                <dd>和食全般</dd>
+              </div>
+            </dl>
+          </div>
         </div>
-        <div class="person">
-          <img src="img/bride.jpg" alt="新婦の写真" class="profile-image">
-          <h4>BRIDE — REINA</h4>
-          <p>新婦の簡単なプロフィール。出会いのエピソードや趣味など。</p>
+        <div class="person reveal-on-scroll">
+          <div class="profile-image-wrap">
+            <img src="img/bride.jpg" alt="新婦の写真" class="profile-image">
+          </div>
+          <div class="profile-content">
+            <h4>Bride — REINA</h4>
+            <dl class="profile-details">
+              <div class="detail-item">
+                <dt>出身地</dt>
+                <dd>神奈川県</dd>
+              </div>
+              <div class="detail-item">
+                <dt>趣味</dt>
+                <dd>お菓子作り、読書</dd>
+              </div>
+              <div class="detail-item">
+                <dt>好きな食べ物</dt>
+                <dd>イタリアン</dd>
+              </div>
+            </dl>
+          </div>
         </div>
       </div>
     </section>
