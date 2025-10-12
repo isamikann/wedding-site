@@ -1,14 +1,16 @@
 :root {
-  --color-primary: #FFFFFF;
+  --color-primary: #333333;
   --color-secondary: #E8F1F6;
   --color-accent: #FF9966;
-  --color-background: #C9DFEC;
-  --color-text: #1A3B4B;
-  --color-text-light: #2C4C5C;
+  --color-background: #f2f9fd;
+  --color-text: #222222;
+  --color-text-light: #666666;
   --color-link: #FF9966;
-  --color-card-bg: rgba(255, 255, 255, 0.95);
+  --color-card-bg: #FFFFFF;
   --font-serif: "Cormorant Garamond", "游明朝", "Yu Mincho", serif;
   --font-sans: "Noto Sans JP", sans-serif;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --border-color: #FF9966;
 }
 
 /* Google Fonts */
@@ -90,8 +92,15 @@ h1, h2, h3, h4 {
 
 .site-title {
   font-size: 1.1rem;
+  color: var(--color-text);
+  font-weight: bold;
+  letter-spacing: 0.05em;
+}
+
+.site-title .date {
   color: var(--color-accent);
-  text-shadow: 0 0 1px rgba(255,153,102,0.1);
+  margin-left: 0.5rem;
+  font-weight: normal;
 }
 
 .site-nav {
@@ -178,10 +187,22 @@ main {
 
 .section h3 {
   font-size: 1.8rem;
-  color: var(--color-link);
+  color: var(--color-primary);
   text-align: center;
   margin-bottom: 2rem;
-  text-shadow: 1px 1px 0 rgba(201,223,236,0.5);
+  font-weight: bold;
+  position: relative;
+}
+
+.section h3::after {
+  content: '';
+  position: absolute;
+  bottom: -0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 3px;
+  background: var(--color-accent);
 }
 
 .profile {
@@ -208,9 +229,12 @@ main {
 
 .profile h4 {
   font-size: 1.2rem;
-  color: var(--color-link);
+  color: var(--color-primary);
   margin-bottom: 0.5rem;
-  text-shadow: 1px 1px 0 rgba(201,223,236,0.5);
+  font-weight: bold;
+  border-bottom: 2px solid var(--color-accent);
+  display: inline-block;
+  padding-bottom: 0.3rem;
 }
 
 .two-column {
@@ -605,6 +629,10 @@ details p {
 .timeline-content h4 {
   color: var(--color-primary);
   margin-bottom: 0.5rem;
+  font-weight: bold;
+  font-size: 1.1rem;
+  border-left: 3px solid var(--color-accent);
+  padding-left: 0.8rem;
 }
 
 /* Menu styles */
@@ -634,6 +662,25 @@ details p {
   font-size: 1.1rem;
   color: var(--color-primary);
   margin-bottom: 0.3rem;
+  font-weight: bold;
+  position: relative;
+}
+
+.menu-title::before,
+.menu-title::after {
+  content: '―';
+  color: var(--color-accent);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.menu-title::before {
+  left: -1.5rem;
+}
+
+.menu-title::after {
+  right: -1.5rem;
 }
 
 .menu-detail {
@@ -683,9 +730,15 @@ details p {
   background: var(--color-card-bg);
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(26, 59, 75, 0.15);
+  box-shadow: 0 2px 8px var(--shadow-color);
   margin: 0 0.5rem;
-  backdrop-filter: blur(10px);
+  border: 1px solid var(--color-secondary);
+}
+
+.qa-item:hover {
+  border-color: var(--color-accent);
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
 }
 
 .qa-item summary {
