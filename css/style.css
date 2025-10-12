@@ -3,9 +3,9 @@
   --color-secondary: #E8F1F6;
   --color-accent: #FF9966;
   --color-background: #FAFCFD;
-  --color-text: #4A4A4A;
-  --color-text-light: #767676;
-  --color-link: #5BA3C9;
+  --color-text: #2C4C5C;
+  --color-text-light: #5B7A8C;
+  --color-link: #2B87B8;
   --font-serif: "Cormorant Garamond", "游明朝", "Yu Mincho", serif;
   --font-sans: "Noto Sans JP", sans-serif;
 }
@@ -36,36 +36,60 @@ h1, h2, h3, h4 {
 }
 
 .container {
+  width: 100%;
   max-width: 720px;
   margin: 0 auto;
   padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+.section.container {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
 @media (max-width: 599px) {
   .container {
-    padding: 1.5rem 1.25rem;
+    padding: 1rem;
+  }
+  
+  .section.container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .section {
+    padding: 3rem 0;
   }
 }
 
 .site-header {
-  background: rgba(251, 247, 244, 0.95);
+  background: rgba(255, 255, 255, 0.97);
   backdrop-filter: blur(10px);
   position: fixed;
   width: 100%;
   top: 0;
   z-index: 20;
+  border-bottom: 1px solid var(--color-primary);
 }
 
 .header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.8rem 1rem;
+  padding: 0.8rem;
+}
+
+@media (max-width: 599px) {
+  .header-inner {
+    padding: 0.8rem 1rem;
+  }
 }
 
 .site-title {
   font-size: 1.1rem;
-  color: var(--color-primary);
+  color: var(--color-accent);
+  text-shadow: 0 0 1px rgba(255,153,102,0.1);
 }
 
 .site-nav {
@@ -146,13 +170,16 @@ main {
 .section {
   padding: 4rem 0;
   border-bottom: 1px solid rgba(156, 131, 116, 0.1);
+  width: 100%;
+  overflow: hidden;
 }
 
 .section h3 {
   font-size: 1.8rem;
-  color: var(--color-primary);
+  color: var(--color-link);
   text-align: center;
   margin-bottom: 2rem;
+  text-shadow: 1px 1px 0 rgba(201,223,236,0.5);
 }
 
 .profile {
@@ -179,8 +206,9 @@ main {
 
 .profile h4 {
   font-size: 1.2rem;
-  color: var(--color-primary);
+  color: var(--color-link);
   margin-bottom: 0.5rem;
+  text-shadow: 1px 1px 0 rgba(201,223,236,0.5);
 }
 
 .two-column {
