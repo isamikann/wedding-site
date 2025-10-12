@@ -1,11 +1,12 @@
 :root {
-  --color-primary: #C9DFEC;
+  --color-primary: #FFFFFF;
   --color-secondary: #E8F1F6;
   --color-accent: #FF9966;
-  --color-background: #FAFCFD;
-  --color-text: #2C4C5C;
-  --color-text-light: #5B7A8C;
-  --color-link: #2B87B8;
+  --color-background: #C9DFEC;
+  --color-text: #1A3B4B;
+  --color-text-light: #2C4C5C;
+  --color-link: #FF9966;
+  --color-card-bg: rgba(255, 255, 255, 0.95);
   --font-serif: "Cormorant Garamond", "游明朝", "Yu Mincho", serif;
   --font-sans: "Noto Sans JP", sans-serif;
 }
@@ -64,13 +65,14 @@ h1, h2, h3, h4 {
 }
 
 .site-header {
-  background: rgba(255, 255, 255, 0.97);
+  background: var(--color-card-bg);
   backdrop-filter: blur(10px);
   position: fixed;
   width: 100%;
   top: 0;
   z-index: 20;
-  border-bottom: 1px solid var(--color-primary);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 8px rgba(26, 59, 75, 0.1);
 }
 
 .header-inner {
@@ -237,10 +239,11 @@ main {
   width: 100%;
   border-collapse: collapse;
   margin: 2rem 0.5rem;
-  background: white;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  background: var(--color-card-bg);
+  box-shadow: 0 4px 12px rgba(26, 59, 75, 0.15);
   border-radius: 4px;
   overflow: hidden;
+  backdrop-filter: blur(10px);
 }
 
 .seating-table th,
@@ -429,7 +432,7 @@ details p {
   display: block;
   width: 40px;
   height: 2px;
-  background: var(--color-primary);
+  background: var(--color-accent);
   margin: 1rem auto 0;
   opacity: 0.5;
 }
@@ -592,10 +595,11 @@ details p {
 }
 
 .timeline-content {
-  background: white;
+  background: var(--color-card-bg);
   padding: 1.5rem;
   border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(26, 59, 75, 0.15);
+  backdrop-filter: blur(10px);
 }
 
 .timeline-content h4 {
@@ -676,11 +680,12 @@ details p {
 }
 
 .qa-item {
-  background: white;
+  background: var(--color-card-bg);
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(26, 59, 75, 0.15);
   margin: 0 0.5rem;
+  backdrop-filter: blur(10px);
 }
 
 .qa-item summary {
