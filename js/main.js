@@ -1,4 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // 画像の遅延読み込みとローディング表示
+  document.querySelectorAll('img').forEach(img => {
+    if (img.complete) {
+      img.classList.add('loaded');
+    } else {
+      img.addEventListener('load', () => {
+        img.classList.add('loaded');
+      });
+    }
+  });
   // ナビゲーションの開閉
   const navToggle = document.querySelector('.nav-toggle');
   const nav = document.querySelector('.site-nav');

@@ -60,15 +60,59 @@
     </section>
 
     <section id="menu" class="section container">
-      <h3>お料理メニュー</h3>
-      <p>当日のコースやアレルギー対応などの案内をここに書きます。</p>
-      <ul class="menu-list">
-        <li>アミューズ</li>
-        <li>前菜</li>
-        <li>スープ</li>
-        <li>メイン（魚または肉）</li>
-        <li>デザート</li>
-      </ul>
+      <h3 class="section-title"><span>Menu</span>お料理とドリンク</h3>
+      <div class="menu-grid">
+        <div class="menu-course reveal-on-scroll">
+          <h4>Course Menu</h4>
+          <ul class="menu-list">
+            <li>
+              <span class="menu-title">Amuse-bouche</span>
+              <span class="menu-detail">シェフからの特製一品</span>
+            </li>
+            <li>
+              <span class="menu-title">Appetizer</span>
+              <span class="menu-detail">季節の前菜盛り合わせ</span>
+            </li>
+            <li>
+              <span class="menu-title">Soup</span>
+              <span class="menu-detail">オマール海老のビスク</span>
+            </li>
+            <li>
+              <span class="menu-title">Fish</span>
+              <span class="menu-detail">本日の鮮魚のポワレ</span>
+            </li>
+            <li>
+              <span class="menu-title">Meat</span>
+              <span class="menu-detail">国産牛フィレ肉のロースト</span>
+            </li>
+            <li>
+              <span class="menu-title">Dessert</span>
+              <span class="menu-detail">ウェディングケーキと小菓子</span>
+            </li>
+          </ul>
+        </div>
+        <div class="menu-drinks reveal-on-scroll">
+          <h4>Drinks</h4>
+          <div class="drinks-list">
+            <div class="drink-category">
+              <h5>Champagne & Wine</h5>
+              <ul>
+                <li>乾杯用シャンパン</li>
+                <li>白ワイン / 赤ワイン</li>
+              </ul>
+            </div>
+            <div class="drink-category">
+              <h5>Soft Drinks</h5>
+              <ul>
+                <li>オレンジジュース</li>
+                <li>ウーロン茶</li>
+                <li>コーヒー / 紅茶</li>
+              </ul>
+            </div>
+          </div>
+          <p class="menu-note">※アレルギーや食事制限をお持ちの方は、お気軽にご相談ください</p>
+        </div>
+      </div>
     </section>
 
     <section id="profile" class="section container profile-section">
@@ -83,11 +127,11 @@
             <dl class="profile-details">
               <div class="detail-item">
                 <dt>出身地</dt>
-                <dd>東京都</dd>
+                <dd>愛知県</dd>
               </div>
               <div class="detail-item">
                 <dt>趣味</dt>
-                <dd>カメラ、旅行</dd>
+                <dd>読書、コンテンツ視聴、ポッドキャスト</dd>
               </div>
               <div class="detail-item">
                 <dt>好きな食べ物</dt>
@@ -105,7 +149,7 @@
             <dl class="profile-details">
               <div class="detail-item">
                 <dt>出身地</dt>
-                <dd>神奈川県</dd>
+                <dd>北海道</dd>
               </div>
               <div class="detail-item">
                 <dt>趣味</dt>
@@ -122,25 +166,95 @@
     </section>
 
     <section id="qa" class="section container">
-      <h3>Q&amp;A</h3>
-      <details>
-        <summary>服装はどうすればいいですか？</summary>
-        <p>カジュアルすぎない服装でお願いいたします。式場の指定がある場合はその指示に従ってください。</p>
-      </details>
-      <details>
-        <summary>駐車場はありますか？</summary>
-        <p>式場の駐車場が利用可能です。台数に限りがある場合は事前にご連絡ください。</p>
-      </details>
+      <h3 class="section-title"><span>Questions</span>よくある質問</h3>
+      <div class="qa-grid">
+        <details class="qa-item reveal-on-scroll">
+          <summary>服装について教えてください</summary>
+          <div class="qa-content">
+            <p>ご列席の皆様には、セミフォーマルからフォーマルな装いでお越しいただければ幸いです。</p>
+            <ul class="qa-tips">
+              <li>男性：スーツ、ジャケパンなど</li>
+              <li>女性：ワンピース、パンツスーツなど</li>
+              <li>※白の全身着用はお控えください</li>
+            </ul>
+          </div>
+        </details>
+        <details class="qa-item reveal-on-scroll">
+          <summary>アクセス・駐車場について</summary>
+          <div class="qa-content">
+            <p>式場には専用駐車場をご用意しております。</p>
+            <ul class="qa-tips">
+              <li>最寄り駅：○○駅から徒歩5分</li>
+              <li>駐車場：20台完備（要予約）</li>
+              <li>タクシー：駅前から約5分</li>
+            </ul>
+          </div>
+        </details>
+        <details class="qa-item reveal-on-scroll">
+          <summary>ご祝儀について</summary>
+          <div class="qa-content">
+            <p>ご祝儀袋には「御祝」「寿」などの表書きでお包みください。</p>
+            <p>金額の目安などについては、ご負担のない範囲でお気持ちを込めていただければ幸いです。</p>
+          </div>
+        </details>
+        <details class="qa-item reveal-on-scroll">
+          <summary>お子様の参列について</summary>
+          <div class="qa-content">
+            <p>小さなお子様連れの方も安心してご参列いただけます。</p>
+            <ul class="qa-tips">
+              <li>お子様メニューあり</li>
+              <li>授乳室完備</li>
+              <li>ベビーカー置き場あり</li>
+            </ul>
+          </div>
+        </details>
+      </div>
     </section>
 
     <section id="history" class="section container">
-      <h3>新郎新婦の歩み</h3>
-      <p>出会いからの年表やエピソードをここに記載します。</p>
-      <ol>
-        <li>2018年 — 出会い</li>
-        <li>2019年 — 交際開始</li>
-        <li>2024年 — プロポーズ</li>
-      </ol>
+      <h3 class="section-title"><span>Our Story</span>二人の歩み</h3>
+      <div class="timeline">
+        <div class="timeline-item reveal-on-scroll">
+          <div class="timeline-date">
+            <span class="year">2018</span>
+            <span class="month">4</span>
+          </div>
+          <div class="timeline-content">
+            <h4>運命の出会い</h4>
+            <p>友人の紹介で出会い、最初の印象は「笑顔が素敵な人」でした</p>
+          </div>
+        </div>
+        <div class="timeline-item reveal-on-scroll">
+          <div class="timeline-date">
+            <span class="year">2019</span>
+            <span class="month">6</span>
+          </div>
+          <div class="timeline-content">
+            <h4>交際スタート</h4>
+            <p>意気投合し、共通の趣味である旅行を通じて絆を深めていきました</p>
+          </div>
+        </div>
+        <div class="timeline-item reveal-on-scroll">
+          <div class="timeline-date">
+            <span class="year">2024</span>
+            <span class="month">12</span>
+          </div>
+          <div class="timeline-content">
+            <h4>プロポーズ</h4>
+            <p>クリスマスイブの夜、サプライズプロポーズ。人生の新たな一歩を踏み出すことを誓いました</p>
+          </div>
+        </div>
+        <div class="timeline-item reveal-on-scroll">
+          <div class="timeline-date">
+            <span class="year">2025</span>
+            <span class="month">10</span>
+          </div>
+          <div class="timeline-content">
+            <h4>結婚式</h4>
+            <p>たくさんの方々に見守られながら、新しい家族として歩み始めます</p>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section id="photos" class="section container">
