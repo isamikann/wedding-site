@@ -1,0 +1,41 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+
+# Temporary files
+*.tmp
+.cache/
+
+# Backup files
+*.bak
+*~
+
+# Node modules (if you add build tools later)
+node_modules/
+
+# Build output (if you add build process)
+dist/
+build/
+
+# Environment variables
+.env
+.env.local
+
+# Actual images (keep placeholders, replace with real ones)
+# Uncomment below if you want to keep actual photos private in git
+# img/main_visual.jpg
+# img/groom.jpg
+# img/bride.jpg
+# img/photos.jpg
+# img/endroll.jpg

@@ -3,23 +3,59 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Wedding Profile</title>
+  <title>Wedding Profile - ISAMU & REINA | 2026.5.16</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="ISAMUとREINAの結婚式プロフィール。2026年5月16日に挙式。二人の出会いから今日までの歩みをご紹介します。">
+  <meta name="keywords" content="結婚式,ウェディング,プロフィール,ISAMU,REINA,2026年5月16日">
+  <meta name="author" content="ISAMU & REINA">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://yourwedding.example.com/">
+  <meta property="og:title" content="Wedding Profile - ISAMU & REINA | 2026.5.16">
+  <meta property="og:description" content="ISAMUとREINAの結婚式プロフィール。2026年5月16日に挙式。">
+  <meta property="og:image" content="https://yourwedding.example.com/img/main_visual.jpg">
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://yourwedding.example.com/">
+  <meta property="twitter:title" content="Wedding Profile - ISAMU & REINA | 2026.5.16">
+  <meta property="twitter:description" content="ISAMUとREINAの結婚式プロフィール。2026年5月16日に挙式。">
+  <meta property="twitter:image" content="https://yourwedding.example.com/img/main_visual.jpg">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+  <link rel="alternate icon" href="img/favicon.ico">
+  
   <link rel="stylesheet" href="css/style.css">
   <script src="js/main.js" defer></script>
 </head>
 <body>
+  <!-- Loading Screen -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-content">
+      <div class="loading-rings">
+        <div class="ring"></div>
+        <div class="ring"></div>
+      </div>
+      <p class="loading-text">Loading...</p>
+    </div>
+  </div>
+
   <header class="site-header">
     <div class="container header-inner">
       <h1 class="site-title">Wedding Profile<span class="date">2026.5.16</span></h1>
       <nav class="site-nav">
         <a href="#hero" class="nav-item">トップ</a>
+        <a href="#welcome" class="nav-item">ご挨拶</a>
         <a href="#seating" class="nav-item">席次表</a>
         <a href="#menu" class="nav-item">お食事</a>
         <a href="#profile" class="nav-item">プロフィール</a>
+        <a href="#trivia" class="nav-item">豆知識</a>
         <a href="#qa" class="nav-item">Q&amp;A</a>
         <a href="#history" class="nav-item">二人の歩み</a>
         <a href="#photos" class="nav-item">フォト</a>
-        <a href="#endroll" class="nav-item">エンドロール</a>
       </nav>
       <button class="nav-toggle" aria-label="メニュー">
         <span></span>
@@ -32,19 +68,57 @@
   <main>
     <section id="hero" class="hero">
       <div class="hero-overlay"></div>
-      <img src="img/main_visual.jpg" alt="メインビジュアル" class="hero-image">
+      <img src="img/main_visual.jpg" alt="ISAMUとREINAのウェディングフォト - 幸せそうに微笑む二人" class="hero-image">
       <div class="hero-content container">
         <p class="hero-date">2026.5.16</p>
         <h2 class="hero-title fade-in">Welcome to<br>our wedding</h2>
         <p class="hero-text fade-in-delay">二人の門出をお祝いしてくれて<br>ありがとうございます</p>
-        <div class="scroll-hint">
-          <span class="scroll-text">Scroll</span>
-          <span class="scroll-line"></span>
+      </div>
+      <div class="scroll-hint">
+        <span class="scroll-text">Scroll</span>
+        <span class="scroll-line"></span>
+      </div>
+    </section>
+
+    <!-- Welcome Message Section -->
+    <section id="welcome" class="section welcome-section">
+      <div class="container">
+        <div class="welcome-content reveal-on-scroll">
+          <div class="welcome-icon">
+            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#FF9966"/>
+            </svg>
+          </div>
+          <h3 class="welcome-title">Welcome to Our Wedding</h3>
+          <p class="welcome-subtitle">本日はご列席いただき、誠にありがとうございます</p>
+          
+          <div class="welcome-message">
+            <p>
+              私たちISAMUとREINAは、本日皆様の前で<br class="pc-only">
+              夫婦としての新たな一歩を踏み出すことができました。
+            </p>
+            <p>
+              ここまで支えてくださった家族、友人、<br class="pc-only">
+              そして今日この場に足を運んでくださった皆様に、<br class="pc-only">
+              心から感謝申し上げます。
+            </p>
+            <p>
+              これからも、二人で力を合わせて、<br class="pc-only">
+              笑顔あふれる温かい家庭を築いていきます。<br>
+              どうぞ、末永く見守っていただけますと幸いです。
+            </p>
+            <div class="signature">
+              <p class="signature-name">ISAMU & REINA</p>
+              <p class="signature-date">2026.5.16</p>
+            </div>
+          </div>
         </div>
       </div>
-    </section>    <section id="seating" class="section container">
-      <h3>席次表</h3>
-      <p>簡易的な席次表を掲載します。実際の配席表はここを適宜更新してください。</p>
+    </section>
+
+    <section id="seating" class="section container">
+      <h3 class="section-title"><span>Seating</span>席次表</h3>
+      <p class="section-intro">本日の座席配置をご確認ください</p>
       <div class="seating">
         <table class="seating-table">
           <thead>
@@ -60,7 +134,8 @@
     </section>
 
     <section id="menu" class="section container">
-      <h3 class="section-title"><span>Menu</span>お料理とドリンク</h3>
+      <h3 class="section-title"><span>Menu</span>本日のお料理とドリンク</h3>
+      <p class="section-intro">シェフが心を込めてご用意したコースをお楽しみください</p>
       <div class="menu-grid">
         <div class="menu-course reveal-on-scroll">
           <h4>Course Menu</h4>
@@ -110,7 +185,7 @@
               </ul>
             </div>
           </div>
-          <p class="menu-note">※アレルギーや食事制限をお持ちの方は、お気軽にご相談ください</p>
+          <p class="menu-note">※アレルギーや食事制限をお持ちの方は、お気軽にスタッフまでお声がけください</p>
         </div>
       </div>
     </section>
@@ -120,7 +195,7 @@
       <div class="profile two-column">
         <div class="person reveal-on-scroll">
           <div class="profile-image-wrap">
-            <img src="img/groom.jpg" alt="新郎の写真" class="profile-image">
+            <img src="img/groom.jpg" alt="新郎ISAMU - 笑顔でカメラを見つめる優しい表情" class="profile-image">
           </div>
           <div class="profile-content">
             <h4>Groom — ISAMU</h4>
@@ -142,7 +217,7 @@
         </div>
         <div class="person reveal-on-scroll">
           <div class="profile-image-wrap">
-            <img src="img/bride.jpg" alt="新婦の写真" class="profile-image">
+            <img src="img/bride.jpg" alt="新婦REINA - 上品な笑顔が印象的なポートレート" class="profile-image">
           </div>
           <div class="profile-content">
             <h4>Bride — REINA</h4>
@@ -223,6 +298,49 @@
       </div>
     </section>
 
+    <section id="trivia" class="section container">
+      <h3 class="section-title"><span>Fun Facts</span>二人の豆知識</h3>
+      <p class="section-intro">ゲストの皆様にもっと二人のことを知っていただきたくて...</p>
+      
+      <div class="trivia-grid">
+        <div class="trivia-card reveal-on-scroll">
+          <div class="trivia-icon">🎂</div>
+          <h4>初めてのデート</h4>
+          <p>名古屋のおしゃれなカフェ。ISAMUが緊張しすぎて、REINAの分のコーヒーまで注文し忘れた</p>
+        </div>
+
+        <div class="trivia-card reveal-on-scroll">
+          <div class="trivia-icon">🎮</div>
+          <h4>共通の趣味</h4>
+          <p>二人とも読書好き。月に一度、読んだ本について語り合う「ブッククラブ」を開催中</p>
+        </div>
+
+        <div class="trivia-card reveal-on-scroll">
+          <div class="trivia-icon">🍳</div>
+          <h4>料理担当</h4>
+          <p>普段はREINAが料理担当。ISAMUは盛り付けとデザート担当という絶妙な役割分担</p>
+        </div>
+
+        <div class="trivia-card reveal-on-scroll">
+          <div class="trivia-icon">✈️</div>
+          <h4>初めての旅行</h4>
+          <p>京都。清水寺で二人の未来を誓い合った。その時の写真は今でもリビングに飾ってある</p>
+        </div>
+
+        <div class="trivia-card reveal-on-scroll">
+          <div class="trivia-icon">☕</div>
+          <h4>好きなコーヒー店</h4>
+          <p>表参道にある小さなロースタリー。毎月違う豆を買って、家で淹れるのが二人の楽しみ</p>
+        </div>
+
+        <div class="trivia-card reveal-on-scroll">
+          <div class="trivia-icon">💍</div>
+          <h4>プロポーズの言葉</h4>
+          <p>「一緒にいると、毎日が特別な日になる。これからもずっと一緒にいてください」</p>
+        </div>
+      </div>
+    </section>
+
     <section id="history" class="section container">
       <h3 class="section-title"><span>Our Story</span>二人の歩み</h3>
       <div class="timeline">
@@ -270,15 +388,63 @@
     </section>
 
     <section id="photos" class="section container">
-      <h3>ウェディングフォト</h3>
-      <p>当日の写真はここに掲載します。</p>
-      <img src="img/photos.jpg" alt="ウェディングフォト" style="width:100%;max-width:720px;border-radius:8px"/>
+      <h3 class="section-title"><span>Photos</span>ウェディングフォト</h3>
+      <p class="section-intro">二人の大切な思い出をご覧ください</p>
+      
+      <div class="photo-gallery">
+        <div class="photo-item reveal-on-scroll" data-photo="1">
+          <img src="img/photo1.jpg" alt="前撮り写真1" class="gallery-image">
+          <div class="photo-overlay">
+            <span class="photo-icon">🔍</span>
+          </div>
+        </div>
+        <div class="photo-item reveal-on-scroll" data-photo="2">
+          <img src="img/photo2.jpg" alt="前撮り写真2" class="gallery-image">
+          <div class="photo-overlay">
+            <span class="photo-icon">🔍</span>
+          </div>
+        </div>
+        <div class="photo-item reveal-on-scroll" data-photo="3">
+          <img src="img/photo3.jpg" alt="前撮り写真3" class="gallery-image">
+          <div class="photo-overlay">
+            <span class="photo-icon">🔍</span>
+          </div>
+        </div>
+        <div class="photo-item reveal-on-scroll" data-photo="4">
+          <img src="img/photo4.jpg" alt="思い出の写真4" class="gallery-image">
+          <div class="photo-overlay">
+            <span class="photo-icon">🔍</span>
+          </div>
+        </div>
+        <div class="photo-item reveal-on-scroll" data-photo="5">
+          <img src="img/photo5.jpg" alt="思い出の写真5" class="gallery-image">
+          <div class="photo-overlay">
+            <span class="photo-icon">🔍</span>
+          </div>
+        </div>
+        <div class="photo-item reveal-on-scroll" data-photo="6">
+          <img src="img/photo6.jpg" alt="思い出の写真6" class="gallery-image">
+          <div class="photo-overlay">
+            <span class="photo-icon">🔍</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Lightbox -->
+      <div id="lightbox" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-content" id="lightboxImg" alt="">
+        <div class="lightbox-nav">
+          <button class="lightbox-prev">&#10094;</button>
+          <button class="lightbox-next">&#10095;</button>
+        </div>
+      </div>
     </section>
 
     <section id="endroll" class="section container">
-      <h3>エンドロールムービー</h3>
+      <h3 class="section-title"><span>Endroll</span>エンドロールムービー</h3>
       <p>式後に掲載します。準備ができ次第ここに埋め込みます。</p>
-      <img src="img/endroll.jpg" alt="エンドロールプレースホルダー" style="width:100%;max-width:720px;border-radius:8px"/>
+      <img src="img/endroll.jpg" alt="エンドロールムービーのサムネイル画像" style="width:100%;max-width:720px;border-radius:8px"/>
     </section>
   </main>
 
