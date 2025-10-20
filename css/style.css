@@ -348,8 +348,15 @@ main {
   border-radius: 50%;
   background: linear-gradient(90deg, #f0f0f0 25%, #f8f8f8 50%, #f0f0f0 75%);
   background-size: 200% 100%;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   animation: shimmer 2s infinite;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-image:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(255, 153, 102, 0.15);
 }
 
 .profile-image.loaded {
@@ -358,19 +365,31 @@ main {
 }
 
 .profile h4 {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   color: var(--color-primary);
-  margin-bottom: 0.5rem;
-  font-weight: bold;
-  border-bottom: 2px solid var(--color-accent);
-  display: inline-block;
-  padding-bottom: 0.3rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 0.1em;
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+.profile h4::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
 }
 
 .two-column {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 3rem;
+  gap: 4rem;
 }
 
 .two-column .person {
@@ -609,22 +628,47 @@ details p {
 
 /* Profile details */
 .profile-details {
-  margin-top: 1.5rem;
+  margin-top: 2rem;
+  background: rgba(255, 255, 255, 0.5);
+  padding: 2rem 1.5rem;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
 }
 
 .detail-item {
   display: flex;
-  margin-bottom: 0.8rem;
-  font-size: 0.95rem;
+  align-items: baseline;
+  margin-bottom: 1.2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 153, 102, 0.1);
+  transition: all 0.3s ease;
+}
+
+.detail-item:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.detail-item:hover {
+  padding-left: 0.5rem;
+  border-bottom-color: rgba(255, 153, 102, 0.3);
 }
 
 .detail-item dt {
-  width: 100px;
-  color: var(--color-text-light);
+  min-width: 120px;
+  font-weight: 600;
+  color: var(--color-accent);
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
 }
 
 .detail-item dd {
   flex: 1;
+  color: var(--color-text);
+  font-size: 0.95rem;
+  line-height: 1.6;
 }
 
 /* Media queries */
