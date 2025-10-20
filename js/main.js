@@ -99,39 +99,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 浮遊するハートの装飾
-  function createFloatingHearts() {
-    const heartsContainer = document.createElement('div');
-    heartsContainer.className = 'decorative-hearts';
-    document.body.appendChild(heartsContainer);
-    
-    function addHeart() {
-      const heart = document.createElement('div');
-      heart.className = 'heart';
-      heart.innerHTML = '💕';
-      heart.style.left = Math.random() * 100 + '%';
-      heart.style.animationDelay = Math.random() * 5 + 's';
-      heart.style.fontSize = (Math.random() * 10 + 15) + 'px';
-      heartsContainer.appendChild(heart);
-      
-      // 15秒後に削除
-      setTimeout(() => {
-        heart.remove();
-      }, 15000);
-    }
-    
-    // 初期配置
-    for (let i = 0; i < 5; i++) {
-      setTimeout(addHeart, i * 3000);
-    }
-    
-    // 定期的に追加
-    setInterval(addHeart, 8000);
-  }
-  
-  // ハートエフェクトを起動（控えめに）
-  createFloatingHearts();
-
   // フォトギャラリー - ライトボックス機能
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightboxImg');
