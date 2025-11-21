@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   // 画像パスの自動設定
   function initImagePaths() {
-    if (typeof imageConfig === 'undefined') {
+    if (typeof imageConfig === 'undefined' || typeof getImagePath !== 'function') {
       console.warn('imageConfig が読み込まれていません');
       return;
     }
@@ -9,20 +9,24 @@ document.addEventListener('DOMContentLoaded', () => {
     // data-image-key 属性を持つ画像要素を処理
     document.querySelectorAll('img[data-image-key]').forEach(async (img) => {
       const imageKey = img.dataset.imageKey;
-      const imagePath = getImagePath(imageKey);
-      
-      if (imagePath && imagePath !== img.src) {
-        // 画像が存在するかチェック
-        const exists = await checkImageExists(imagePath);
-        if (exists) {
+      try {
+        const imagePath = getImagePath(imageKey);
+        
+        if (imagePath && imagePath !== img.src) {
           img.src = imagePath;
         }
+      } catch (error) {
+        console.warn('画像パスの取得に失敗:', imageKey, error);
       }
     });
   }
 
-  // 画像パス初期化を実行
-  initImagePaths();
+  // 画像パス初期化を実行（エラーでも続行）
+  try {
+    initImagePaths();
+  } catch (error) {
+    console.warn('画像パス初期化エラー:', error);
+  }
 
   // ローディング画面の非表示
   window.addEventListener('load', () => {
