@@ -12,6 +12,7 @@ const imageConfig = {
     menu: 'menu/',           // メニュー画像
     seating: 'seating/',     // 席次表画像
     endroll: 'endroll/',     // エンドロール画像
+    history: 'history/',     // 二人の歩み画像
     photos: 'photos/'        // フォトギャラリー
   },
   
@@ -51,6 +52,28 @@ const imageConfig = {
       directory: 'endroll',
       defaultFile: 'endroll.jpg',
       alt: 'エンドロールムービーのサムネイル画像'
+    },
+    
+    // 二人の歩み画像
+    historyMeeting: {
+      directory: 'history',
+      defaultFile: 'meeting.jpg',
+      alt: '運命の出会い'
+    },
+    historyDating: {
+      directory: 'history',
+      defaultFile: 'dating.jpg',
+      alt: '交際スタート'
+    },
+    historyProposal: {
+      directory: 'history',
+      defaultFile: 'proposal.jpg',
+      alt: 'プロポーズ'
+    },
+    historyWedding: {
+      directory: 'history',
+      defaultFile: 'wedding.jpg',
+      alt: '結婚式'
     }
   },
   
