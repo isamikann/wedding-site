@@ -358,4 +358,42 @@ document.addEventListener('DOMContentLoaded', () => {
       showPrevPhoto();
     }
   });
+
+  // タッチ/スワイプ操作
+  let touchStartX = 0;
+  let touchEndX = 0;
+  let touchStartY = 0;
+  let touchEndY = 0;
+
+  if (lightbox) {
+    lightbox.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    lightbox.addEventListener('touchend', (e) => {
+      if (!lightbox.classList.contains('active')) return;
+      
+      touchEndX = e.changedTouches[0].screenX;
+      touchEndY = e.changedTouches[0].screenY;
+      handleSwipe();
+    }, { passive: true });
+  }
+
+  function handleSwipe() {
+    const diffX = touchEndX - touchStartX;
+    const diffY = touchEndY - touchStartY;
+    const minSwipeDistance = 50;
+
+    // 横スワイプが縦スワイプより大きい場合のみ反応
+    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > minSwipeDistance) {
+      if (diffX > 0) {
+        // 右にスワイプ = 前の画像
+        showPrevPhoto();
+      } else {
+        // 左にスワイプ = 次の画像
+        showNextPhoto();
+      }
+    }
+  }
 });
