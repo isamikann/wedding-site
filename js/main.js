@@ -213,9 +213,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
       galleryContainer.innerHTML = photosToDisplay.map((photo, index) => `
         <div class="photo-item reveal-on-scroll" data-index="${index}" data-category="${photo.category}">
-          <img src="${photo.src}" alt="${photo.alt}" class="gallery-image" loading="lazy">
-          <div class="photo-overlay">
-            <span class="photo-icon">🔍</span>
+          <div class="photo-image-wrapper">
+            <img src="${photo.src}" alt="${photo.alt}" class="gallery-image" loading="lazy">
+            <div class="photo-overlay">
+              <span class="photo-icon">🔍</span>
+            </div>
           </div>
         </div>
       `).join('');

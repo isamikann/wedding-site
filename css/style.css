@@ -366,27 +366,29 @@ main {
 }
 
 .section:not(#hero)::before {
-  content: '';
+  content: '❀ ✿ ❀';
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 80px;
-  background: linear-gradient(to bottom right, var(--color-accent) 0%, transparent 100%);
-  opacity: 0.05;
-  z-index: -1;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--color-rose-gold);
+  font-size: 1.2rem;
+  letter-spacing: 1rem;
+  opacity: 0.4;
+  z-index: 1;
 }
 
 .section:not(#hero)::after {
   content: '';
   position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 100%;
-  height: 80px;
-  background: linear-gradient(to top left, var(--color-accent) 0%, transparent 100%);
-  opacity: 0.05;
-  z-index: -1;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-rose-gold), var(--color-gold), var(--color-rose-gold), transparent);
+  opacity: 0.3;
+  z-index: 1;
 }
 
 .profile {
@@ -1254,6 +1256,47 @@ details p {
   }
 }
 
+/* Couple Monogram */
+.couple-monogram {
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.monogram-letter {
+  font-family: var(--font-script);
+  font-size: 5rem;
+  background: linear-gradient(135deg, var(--color-rose-gold), var(--color-gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 400;
+  text-shadow: 0 2px 10px rgba(212, 165, 116, 0.3);
+  filter: drop-shadow(0 2px 4px rgba(212, 165, 116, 0.2));
+  animation: monogramGlow 3s ease-in-out infinite;
+}
+
+.monogram-ampersand {
+  font-family: var(--font-script);
+  font-size: 3rem;
+  color: var(--color-accent);
+  opacity: 0.6;
+  margin: 0 0.3rem;
+}
+
+@keyframes monogramGlow {
+  0%, 100% {
+    filter: drop-shadow(0 2px 4px rgba(212, 165, 116, 0.2));
+  }
+  50% {
+    filter: drop-shadow(0 4px 12px rgba(212, 165, 116, 0.4));
+  }
+}
+
 .welcome-title {
   font-family: var(--font-script);
   font-size: 3.5rem;
@@ -1329,6 +1372,18 @@ details p {
     font-size: 2.5rem;
   }
   
+  .couple-monogram {
+    margin-bottom: 1.5rem;
+  }
+  
+  .monogram-letter {
+    font-size: 3.5rem;
+  }
+  
+  .monogram-ampersand {
+    font-size: 2rem;
+  }
+  
   .welcome-message {
     padding: 2rem 1.5rem;
   }
@@ -1400,8 +1455,8 @@ details p {
 
 .photo-gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+  gap: 2rem;
   margin: 0 auto;
   max-width: 1200px;
   min-height: 300px;
@@ -1410,76 +1465,105 @@ details p {
 .photo-item {
   position: relative;
   aspect-ratio: 1;
-  overflow: hidden;
-  border-radius: 12px;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   background: white;
-  padding: 12px;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 12px 12px 50px 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.1);
+  transform: rotate(0deg);
 }
 
-.photo-item::before {
-  content: '';
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  right: 8px;
-  bottom: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  border-radius: 8px;
-  pointer-events: none;
-  z-index: 2;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+.photo-item:nth-child(3n+1) {
+  transform: rotate(-2deg);
 }
 
-.photo-item:hover::before {
-  opacity: 1;
+.photo-item:nth-child(3n+2) {
+  transform: rotate(1deg);
 }
 
-.photo-item::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(45deg, 
-    rgba(212, 165, 116, 0.15) 0%, 
-    rgba(255, 153, 102, 0.1) 50%, 
-    rgba(201, 169, 97, 0.15) 100%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-  z-index: 1;
-  border-radius: 12px;
-}
-
-.photo-item:hover::after {
-  opacity: 1;
+.photo-item:nth-child(3n+3) {
+  transform: rotate(-1deg);
 }
 
 .photo-item:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 12px 24px rgba(255, 153, 102, 0.3);
+  transform: rotate(0deg) translateY(-10px) scale(1.02);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25), 0 4px 8px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+}
+
+.photo-item::after {
+  content: attr(data-caption);
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: 'Crimson Text', serif;
+  font-size: 0.9rem;
+  color: #666;
+  letter-spacing: 0.05em;
+  pointer-events: none;
+}
+
+/* マスキングテープ風装飾 */
+.photo-item::before {
+  position: absolute;
+  z-index: 20;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+}
+
+.photo-item:nth-child(3n+1)::before {
+  content: '';
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 25px;
+  background: rgba(255, 220, 100, 0.75);
+}
+
+.photo-item:nth-child(3n+2)::before {
+  content: '';
+  top: -10px;
+  right: 10px;
+  width: 60px;
+  height: 25px;
+  background: rgba(255, 180, 180, 0.75);
+  transform: rotate(15deg);
+}
+
+.photo-item:nth-child(3n+3)::before {
+  content: '';
+  top: -10px;
+  left: 10px;
+  width: 60px;
+  height: 25px;
+  background: rgba(150, 200, 255, 0.75);
+  transform: rotate(-15deg);
 }
 
 .gallery-image {
-  width: calc(100% - 24px);
-  height: calc(100% - 24px);
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  transition: transform 0.3s ease, filter 0.3s ease;
-  border-radius: 8px;
-  position: absolute;
-  top: 12px;
-  left: 12px;
+  transition: filter 0.3s ease;
+  display: block;
+}
+
+.photo-image-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: visible;
+}
+
+.photo-image-wrapper img {
+  border-radius: 2px;
 }
 
 .photo-item:hover .gallery-image {
-  transform: scale(1.05);
-  filter: brightness(1.05) saturate(1.1);
+  filter: brightness(1.05) saturate(1.15) contrast(1.05);
 }
 
 .photo-overlay {
@@ -1634,8 +1718,17 @@ details p {
 
 @media (max-width: 599px) {
   .photo-gallery {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(min(150px, 100%), 1fr));
+    gap: 1.5rem;
+  }
+  
+  .photo-item {
+    padding: 10px 10px 10px 10px;
+  }
+  
+  .photo-item::after {
+    bottom: 15px;
+    font-size: 0.8rem;
   }
   
   .lightbox-close {
