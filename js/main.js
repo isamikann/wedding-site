@@ -264,6 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   let currentPhotoIndex = 0;
   let photoSources = [];
+  let slideDirection = null;
 
   function initLightbox(photos) {
     photoSources = photos.map(photo => ({
@@ -275,6 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
     photoItems.forEach((item, index) => {
       item.addEventListener('click', () => {
         currentPhotoIndex = index;
+        slideDirection = null; // 最初のクリックはズームイン
         showLightbox();
       });
     });
@@ -282,10 +284,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function showLightbox() {
     if (photoSources[currentPhotoIndex]) {
-      lightboxImg.src = photoSources[currentPhotoIndex].src;
-      lightboxImg.alt = photoSources[currentPhotoIndex].alt;
-      lightbox.classList.add('active');
-      document.body.style.overflow = 'hidden';
+      // アニメーションクラスをリセット
+      lightboxImg.classList.remove('slide-left', 'slide-right');
+      
+      // 少し待ってから新しい画像を設定（スムーズな切り替えのため）
+      setTimeout(() => {
+        lightboxImg.src = photoSources[currentPhotoIndex].src;
+        lightboxImg.alt = photoSources[currentPhotoIndex].alt;
+        
+        // スライド方向に応じてクラスを追加
+        if (slideDirection === 'next') {
+          lightboxImg.classList.add('slide-left');
+        } else if (slideDirection === 'prev') {
+          lightboxImg.classList.add('slide-right');
+        }
+        
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }, slideDirection ? 50 : 0);
     }
   }
 
@@ -296,11 +312,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function showNextPhoto() {
     currentPhotoIndex = (currentPhotoIndex + 1) % photoSources.length;
+    slideDirection = 'next';
     showLightbox();
   }
 
   function showPrevPhoto() {
     currentPhotoIndex = (currentPhotoIndex - 1 + photoSources.length) % photoSources.length;
+    slideDirection = 'prev';
     showLightbox();
   }
 

@@ -1514,6 +1514,15 @@ details p {
   object-fit: contain;
   border-radius: 8px;
   animation: zoomIn 0.3s ease;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+}
+
+.lightbox-content.slide-left {
+  animation: slideFromRight 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.lightbox-content.slide-right {
+  animation: slideFromLeft 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @keyframes zoomIn {
@@ -1523,6 +1532,28 @@ details p {
   }
   to {
     transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slideFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideFromLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
     opacity: 1;
   }
 }
