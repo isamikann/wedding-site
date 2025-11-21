@@ -500,7 +500,7 @@ summary {
 details p {
   margin-top: 1rem;
   padding: 1rem;
-  background: var(--color-background);
+  background: transparent;
   border-radius: 4px;
 }
 
@@ -1040,6 +1040,7 @@ details p {
 
 .qa-content {
   padding: 0 1.2rem 1.2rem;
+  background: transparent;
 }
 
 .qa-person {
@@ -1047,16 +1048,18 @@ details p {
   padding: 1rem 1rem 1rem 4rem;
   margin-bottom: 1rem;
   border-radius: 8px;
-  background: var(--color-background);
+  background: linear-gradient(135deg, var(--color-champagne) 0%, #FFFFFF 100%);
+  border: 1px solid rgba(212, 165, 116, 0.2);
 }
 
 .qa-person.groom {
   margin-right: 2rem;
+  background: linear-gradient(135deg, #F7E7CE 0%, #FFFFFF 100%);
 }
 
 .qa-person.bride {
   margin-left: 2rem;
-  background: rgba(255, 153, 102, 0.05);
+  background: linear-gradient(135deg, #FFE5D9 0%, #FFFFFF 100%);
 }
 
 .qa-label {
@@ -1065,7 +1068,7 @@ details p {
   top: 1rem;
   font-family: var(--font-serif);
   font-weight: bold;
-  color: var(--color-accent);
+  color: var(--color-rose-gold);
 }
 
 .qa-person p {
@@ -1088,7 +1091,7 @@ details p {
 }
 
 .qa-item[open] summary {
-  color: var(--color-accent);
+  color: var(--color-text);
 }
 
 @media (max-width: 599px) {
