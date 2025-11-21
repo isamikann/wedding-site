@@ -106,11 +106,28 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // アクティブセクションの検出
+  // アクティブセクションの検出とパララックス効果
   const sections = document.querySelectorAll('section[id]');
   const navItems = document.querySelectorAll('.nav-item');
+  const heroImage = document.querySelector('.hero-image');
+  const pageTopButton = createPageTopButton();
 
   window.addEventListener('scroll', () => {
+    const scrollY = window.pageYOffset;
+
+    // パララックス効果（ヒーロー画像）
+    if (heroImage && scrollY < window.innerHeight) {
+      heroImage.style.transform = `translateY(${scrollY * 0.5}px) scale(1.1)`;
+    }
+
+    // ページトップボタンの表示/非表示
+    if (scrollY > 300) {
+      pageTopButton.classList.add('visible');
+    } else {
+      pageTopButton.classList.remove('visible');
+    }
+
+    // アクティブセクションの検出
     let current = '';
     sections.forEach(section => {
       const sectionTop = section.offsetTop;
@@ -127,6 +144,21 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // ページトップボタンの作成
+  function createPageTopButton() {
+    const button = document.createElement('button');
+    button.className = 'page-top';
+    button.setAttribute('aria-label', 'ページトップへ戻る');
+    button.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+    document.body.appendChild(button);
+    return button;
+  }
 
   // 写真ギャラリーの動的生成（ディレクトリベース）
   function initPhotoGallery() {
