@@ -129,9 +129,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // 写真ギャラリーの動的生成（ディレクトリベース）
-  async function initPhotoGallery() {
-    if (typeof photoCategoryNames === 'undefined') {
-      console.error('photoCategoryNames が読み込まれていません');
+  function initPhotoGallery() {
+    if (typeof photoCategoryNames === 'undefined' || typeof photoFiles === 'undefined') {
+      console.warn('photoCategoryNames または photoFiles が読み込まれていません');
       return;
     }
 
@@ -141,31 +141,22 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!categoriesContainer || !galleryContainer) return;
 
     let allPhotos = [];
-    const categories = Object.keys(photoCategoryNames);
-    let activeCategory = 'all';
+    const categories = Object.keys(photoFiles);
 
     // 各カテゴリーのディレクトリから画像を読み込む
-    for (const categoryKey of categories) {
-      try {
-        const categoryPath = photoBasePath + categoryKey + '/';
-        
-        // ディレクトリ内の画像を取得する
-        // 実際のファイルリストは静的に定義するか、サーバーサイドで取得する必要があります
-        // ここでは画像の存在をチェックして自動検出します
-        const detectedPhotos = await detectImagesInDirectory(categoryPath, categoryKey);
-        
-        detectedPhotos.forEach(photo => {
-          allPhotos.push({
-            category: categoryKey,
-            src: photo.src,
-            alt: photo.alt,
-            categoryTitle: photoCategoryNames[categoryKey]
-          });
+    categories.forEach(categoryKey => {
+      const files = photoFiles[categoryKey] || [];
+      const categoryPath = photoBasePath + categoryKey + '/';
+      
+      files.forEach((filename, index) => {
+        allPhotos.push({
+          category: categoryKey,
+          src: categoryPath + filename,
+          alt: `${photoCategoryNames[categoryKey]} ${index + 1}`,
+          categoryTitle: photoCategoryNames[categoryKey]
         });
-      } catch (error) {
-        console.log(`カテゴリー ${categoryKey} の読み込みをスキップ`);
-      }
-    }
+      });
+    });
 
     // カテゴリータブを作成（写真が存在するカテゴリーのみ）
     const availableCategories = [...new Set(allPhotos.map(p => p.category))];
@@ -230,73 +221,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 初期表示
     displayPhotos('all');
-  }
-
-  // ディレクトリ内の画像を検出する関数
-  async function detectImagesInDirectory(basePath, categoryKey) {
-    const photos = [];
-    const imageExtensions = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
-    
-    // 一般的な画像ファイル名のパターンをチェック
-    // 実際のプロジェクトでは、画像のリストを別途管理するか、
-    // サーバーサイドでディレクトリの内容を取得する必要があります
-    
-    // ここでは、ファイルの存在を試行してチェックする方法を使用
-    for (let i = 1; i <= 50; i++) {
-      for (const ext of imageExtensions) {
-        const filename = `photo${i}.${ext}`;
-        const fullPath = basePath + filename;
-        
-        try {
-          // 画像の存在をチェック
-          const exists = await checkImageExists(fullPath);
-          if (exists) {
-            photos.push({
-              src: fullPath,
-              alt: `${photoCategoryNames[categoryKey]} ${i}`
-            });
-            break; // この番号で見つかったら次の番号へ
-          }
-        } catch (e) {
-          // エラーは無視
-        }
-      }
-    }
-    
-    // 追加: 任意のファイル名パターンもチェック
-    const commonNames = ['001', '002', '003', '004', '005', '1', '2', '3', '4', '5'];
-    for (const name of commonNames) {
-      for (const ext of imageExtensions) {
-        const filename = `${name}.${ext}`;
-        const fullPath = basePath + filename;
-        
-        try {
-          const exists = await checkImageExists(fullPath);
-          if (exists && !photos.find(p => p.src === fullPath)) {
-            photos.push({
-              src: fullPath,
-              alt: `${photoCategoryNames[categoryKey]} ${name}`
-            });
-          }
-        } catch (e) {
-          // エラーは無視
-        }
-      }
-    }
-    
-    return photos;
-  }
-
-  // 画像の存在をチェックする関数
-  function checkImageExists(url) {
-    return new Promise((resolve) => {
-      const img = new Image();
-      img.onload = () => resolve(true);
-      img.onerror = () => resolve(false);
-      img.src = url;
-      // タイムアウトを設定
-      setTimeout(() => resolve(false), 1000);
-    });
   }
 
   // フォトギャラリー - ライトボックス機能

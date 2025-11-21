@@ -1,11 +1,10 @@
 # 写真管理ガイド
 
-## 📸 写真の追加方法（超シンプル！）
+## 📸 写真の追加方法
 
-### 1. カテゴリーフォルダに写真を入れるだけ！
+### 1. カテゴリーフォルダに写真を入れる
 
 写真を追加したいカテゴリーのフォルダに画像ファイルを入れてください。
-それだけで自動的にギャラリーに表示されます！
 
 ```
 wedding-site/
@@ -18,13 +17,21 @@ wedding-site/
         ├── memories/       ← 思い出の写真
         │   ├── photo1.jpg
         │   └── ...
-        ├── travel/         ← 旅行の写真
-        │   └── ...
-        └── ceremony/       ← 挙式の写真
-            └── ...
+        └── ...
 ```
 
-### 2. 新しいカテゴリーを追加する場合
+### 2. 設定ファイルにファイル名を追加
+
+`photos-config.js` を開いて、`photoFiles` に追加した写真のファイル名を記述します。
+
+```javascript
+const photoFiles = {
+  'prewedding': ['photo1.jpg', 'photo2.jpg'],  // ← ここに追加
+  'memories': ['photo1.jpg']
+};
+```
+
+### 新しいカテゴリーを追加する場合
 
 #### ステップ1: フォルダを作成
 `img/photos/` の中に新しいフォルダを作成します。
@@ -32,20 +39,21 @@ wedding-site/
 例: `img/photos/honeymoon/` （ハネムーンの写真用）
 
 #### ステップ2: カテゴリー名を設定
-`photos-config.js` を開いて、フォルダ名と表示名を追加します。
+`photos-config.js` を開いて設定を追加します。
 
 ```javascript
 const photoCategoryNames = {
   'prewedding': '前撮り',
   'memories': '思い出',
-  'travel': '旅行',
-  'honeymoon': 'ハネムーン',  // ← 追加
-  // ...
+  'honeymoon': 'ハネムーン',  // ← カテゴリー名を追加
+};
+
+const photoFiles = {
+  'prewedding': ['photo1.jpg', 'photo2.jpg'],
+  'memories': ['photo1.jpg'],
+  'honeymoon': ['photo1.jpg', 'photo2.jpg']  // ← ファイルリストを追加
 };
 ```
-
-#### ステップ3: 写真を入れる
-作成したフォルダに写真を入れるだけ！
 
 ## 🎨 デフォルトカテゴリー
 
@@ -66,25 +74,19 @@ const photoCategoryNames = {
 ## 💡 ヒント
 
 ### ファイル名
-特に制限はありませんが、推奨形式:
-- ✅ `photo1.jpg`, `001.jpg`, `wedding-01.jpg`
-- ✅ 連番（photo1.jpg, photo2.jpg...）が自動検出されやすい
+推奨形式:
+- ✅ `photo1.jpg`, `photo2.jpg`, `photo3.jpg` (連番推奨)
+- ✅ `001.jpg`, `002.jpg`, `003.jpg`
 
 ### 画像サイズ
 表示速度のため、幅1000-2000px程度に最適化推奨
 
-### 写真の順序
-ファイル名順で表示されます（例: photo1.jpg → photo2.jpg → photo3.jpg）
-
 ## 🚀 使い方まとめ
 
-1. カテゴリーフォルダを選ぶ（または新規作成）
-2. そこに写真を入れる
-3. 以上！
-
-**設定ファイルの編集は不要です！**
-（新しいカテゴリーを追加する時だけ `photos-config.js` でカテゴリー名を設定）
+1. カテゴリーフォルダに写真を入れる
+2. `photos-config.js` の `photoFiles` にファイル名を追加
+3. ブラウザをリロード
 
 ## 🔄 変更の反映
 
-ブラウザをリロードするだけで、新しい写真が自動的に表示されます！
+写真を追加したら、ブラウザをリロードするだけで表示されます！
