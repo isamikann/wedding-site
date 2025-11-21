@@ -1,40 +1,17 @@
-// 写真の設定ファイル
-// このファイルで写真を管理します
-// ジャンルごとに写真を追加してください
+// 写真カテゴリーの設定
+// フォルダ名がカテゴリーIDになります
+// 表示名のみここで設定してください
 
-const photoConfig = {
-  // 前撮り写真
-  prewedding: {
-    title: '前撮り',
-    description: 'プレウェディングフォト',
-    photos: [
-      { filename: 'photo1.jpg', alt: '前撮り写真1' },
-      { filename: 'photo2.jpg', alt: '前撮り写真2' },
-      { filename: 'photo3.jpg', alt: '前撮り写真3' }
-    ]
-  },
-  
-  // 思い出の写真
-  memories: {
-    title: '思い出',
-    description: '二人の大切な思い出',
-    photos: [
-      { filename: 'photo4.jpg', alt: '思い出の写真1' },
-      { filename: 'photo5.jpg', alt: '思い出の写真2' },
-      { filename: 'photo6.jpg', alt: '思い出の写真3' }
-    ]
-  },
-  
-  // 旅行の写真（例）
-  // travel: {
-  //   title: '旅行',
-  //   description: '二人で訪れた場所',
-  //   photos: [
-  //     { filename: 'travel1.jpg', alt: '旅行写真1' },
-  //     { filename: 'travel2.jpg', alt: '旅行写真2' }
-  //   ]
-  // }
+const photoCategoryNames = {
+  'prewedding': '前撮り',
+  'memories': '思い出',
+  'travel': '旅行',
+  'ceremony': '挙式',
+  'reception': '披露宴',
+  'casual': '日常'
+  // 新しいカテゴリーを追加する場合は、
+  // img/photos/ 内に同じ名前のフォルダを作成してください
 };
 
-// 画像のベースパス（img/photos/ ディレクトリを使用）
+// 画像のベースパス
 const photoBasePath = 'img/photos/';

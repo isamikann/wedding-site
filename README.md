@@ -25,12 +25,25 @@ ISAMUとREINAの結婚式用プロフィールサイト
 wedding-site/
 ├── index.html          # メインページ
 ├── CUSTOMIZE.md        # カスタマイズガイド
+├── IMAGE_MANAGEMENT.md # 画像管理ガイド
+├── PHOTO_MANAGEMENT.md # フォトギャラリー管理ガイド
 ├── README.md           # このファイル
+├── images-config.js    # 画像設定ファイル
+├── photos-config.js    # 写真カテゴリー設定
 ├── css/
 │   └── style.css      # スタイルシート
 ├── js/
 │   └── main.js        # JavaScript
-└── img/               # 画像フォルダ
+└── img/               # 画像フォルダ（ディレクトリベース管理）
+    ├── main/          # メインビジュアル
+    ├── profile/       # プロフィール写真
+    ├── menu/          # メニュー画像
+    ├── seating/       # 席次表画像
+    ├── endroll/       # エンドロール画像
+    ├── photos/        # フォトギャラリー
+    │   ├── prewedding/  # 前撮り写真
+    │   ├── memories/    # 思い出の写真
+    │   └── ...          # その他のカテゴリー
     ├── favicon.svg           # ファビコン
     ├── placeholder.svg       # プレースホルダー画像
     └── profile_placeholder.svg
@@ -144,12 +157,21 @@ npx http-server -p 8000
 
 ## 📝 TODO（オプショナル）
 
-- [ ] 実際の画像を `img/` フォルダに配置
+- [ ] 実際の画像を各ディレクトリに配置（詳細: [IMAGE_MANAGEMENT.md](IMAGE_MANAGEMENT.md)）
+- [ ] フォトギャラリーに写真を追加（詳細: [PHOTO_MANAGEMENT.md](PHOTO_MANAGEMENT.md)）
 - [ ] プロフィール情報をカスタマイズ
 - [ ] 席次表を実際のゲスト情報に更新
 - [ ] Cloudflare Pagesで公開
 - [ ] 独自ドメイン設定
 - [ ] Google Analytics追加（アクセス解析）
+
+> **💡 画像管理がとても簡単！**  
+> カテゴリーフォルダに画像を入れるだけで自動的に表示されます。
+> - メインビジュアル: `img/main/` に配置
+> - プロフィール写真: `img/profile/` に配置
+> - フォトギャラリー: `img/photos/[カテゴリー]/` に配置
+> 
+> 詳しくは [IMAGE_MANAGEMENT.md](IMAGE_MANAGEMENT.md) をご覧ください。
 
 > **💡 メッセージ機能が必要な場合**  
 > Google Forms や Formspree などの外部サービスと連携可能です。詳しくはCUSTOMIZE.mdをご覧ください。
