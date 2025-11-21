@@ -99,29 +99,119 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // 写真ギャラリーの動的生成
+  function initPhotoGallery() {
+    if (typeof photoConfig === 'undefined') {
+      console.error('photoConfig が読み込まれていません');
+      return;
+    }
+
+    const categoriesContainer = document.getElementById('photoCategories');
+    const galleryContainer = document.getElementById('photoGallery');
+    
+    if (!categoriesContainer || !galleryContainer) return;
+
+    let allPhotos = [];
+    const categories = Object.keys(photoConfig);
+    let activeCategory = 'all';
+
+    // カテゴリータブを作成
+    const categoryTabsHTML = `
+      <button class="category-tab active" data-category="all">すべて</button>
+      ${categories.map(categoryKey => {
+        const category = photoConfig[categoryKey];
+        return `<button class="category-tab" data-category="${categoryKey}">${category.title}</button>`;
+      }).join('')}
+    `;
+    categoriesContainer.innerHTML = categoryTabsHTML;
+
+    // すべての写真を収集
+    categories.forEach(categoryKey => {
+      const category = photoConfig[categoryKey];
+      category.photos.forEach(photo => {
+        allPhotos.push({
+          category: categoryKey,
+          src: photoBasePath + photo.filename,
+          alt: photo.alt || photo.filename,
+          categoryTitle: category.title
+        });
+      });
+    });
+
+    // 写真を表示する関数
+    function displayPhotos(categoryFilter = 'all') {
+      const photosToDisplay = categoryFilter === 'all' 
+        ? allPhotos 
+        : allPhotos.filter(photo => photo.category === categoryFilter);
+
+      galleryContainer.innerHTML = photosToDisplay.map((photo, index) => `
+        <div class="photo-item reveal-on-scroll" data-index="${index}" data-category="${photo.category}">
+          <img src="${photo.src}" alt="${photo.alt}" class="gallery-image">
+          <div class="photo-overlay">
+            <span class="photo-icon">🔍</span>
+          </div>
+        </div>
+      `).join('');
+
+      // 新しく追加された要素にスクロールアニメーションを適用
+      const newRevealElements = galleryContainer.querySelectorAll('.reveal-on-scroll');
+      newRevealElements.forEach(el => {
+        observer.observe(el);
+        // 既に表示領域にある場合は即座に表示
+        setTimeout(() => {
+          if (el.getBoundingClientRect().top < window.innerHeight) {
+            el.classList.add('is-visible');
+          }
+        }, 100);
+      });
+
+      // ライトボックス機能を再初期化
+      initLightbox(photosToDisplay);
+    }
+
+    // カテゴリータブのクリックイベント
+    categoriesContainer.addEventListener('click', (e) => {
+      if (e.target.classList.contains('category-tab')) {
+        // アクティブなタブを切り替え
+        categoriesContainer.querySelectorAll('.category-tab').forEach(tab => {
+          tab.classList.remove('active');
+        });
+        e.target.classList.add('active');
+
+        // カテゴリーで写真をフィルタリング
+        const category = e.target.dataset.category;
+        displayPhotos(category);
+      }
+    });
+
+    // 初期表示
+    displayPhotos('all');
+  }
+
   // フォトギャラリー - ライトボックス機能
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightboxImg');
   const lightboxClose = document.querySelector('.lightbox-close');
   const lightboxPrev = document.querySelector('.lightbox-prev');
   const lightboxNext = document.querySelector('.lightbox-next');
-  const photoItems = document.querySelectorAll('.photo-item');
   
   let currentPhotoIndex = 0;
-  const photoSources = Array.from(photoItems).map(item => {
-    const img = item.querySelector('.gallery-image');
-    return {
-      src: img.src,
-      alt: img.alt
-    };
-  });
+  let photoSources = [];
 
-  photoItems.forEach((item, index) => {
-    item.addEventListener('click', () => {
-      currentPhotoIndex = index;
-      showLightbox();
+  function initLightbox(photos) {
+    photoSources = photos.map(photo => ({
+      src: photo.src,
+      alt: photo.alt
+    }));
+
+    const photoItems = document.querySelectorAll('.photo-item');
+    photoItems.forEach((item, index) => {
+      item.addEventListener('click', () => {
+        currentPhotoIndex = index;
+        showLightbox();
+      });
     });
-  });
+  }
 
   function showLightbox() {
     if (photoSources[currentPhotoIndex]) {
@@ -146,6 +236,9 @@ document.addEventListener('DOMContentLoaded', () => {
     currentPhotoIndex = (currentPhotoIndex - 1 + photoSources.length) % photoSources.length;
     showLightbox();
   }
+
+  // 写真ギャラリーを初期化
+  initPhotoGallery();
 
   if (lightboxClose) {
     lightboxClose.addEventListener('click', closeLightbox);

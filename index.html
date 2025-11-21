@@ -34,6 +34,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Crimson+Text:wght@400;600&family=Great+Vibes&family=Noto+Serif+JP:wght@300;400;500;600&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="css/style.css">
+  <script src="photos-config.js"></script>
   <script src="js/main.js" defer></script>
 </head>
 <body>
@@ -423,44 +424,11 @@
       <h3 class="section-title">Photos<span>ウェディングフォト</span></h3>
       <p class="section-intro">二人の大切な思い出をご覧ください</p>
       
-      <div class="photo-gallery">
-        <div class="photo-item reveal-on-scroll" data-photo="1">
-          <img src="img/photo1.jpg" alt="前撮り写真1" class="gallery-image">
-          <div class="photo-overlay">
-            <span class="photo-icon">🔍</span>
-          </div>
-        </div>
-        <div class="photo-item reveal-on-scroll" data-photo="2">
-          <img src="img/photo2.jpg" alt="前撮り写真2" class="gallery-image">
-          <div class="photo-overlay">
-            <span class="photo-icon">🔍</span>
-          </div>
-        </div>
-        <div class="photo-item reveal-on-scroll" data-photo="3">
-          <img src="img/photo3.jpg" alt="前撮り写真3" class="gallery-image">
-          <div class="photo-overlay">
-            <span class="photo-icon">🔍</span>
-          </div>
-        </div>
-        <div class="photo-item reveal-on-scroll" data-photo="4">
-          <img src="img/photo4.jpg" alt="思い出の写真4" class="gallery-image">
-          <div class="photo-overlay">
-            <span class="photo-icon">🔍</span>
-          </div>
-        </div>
-        <div class="photo-item reveal-on-scroll" data-photo="5">
-          <img src="img/photo5.jpg" alt="思い出の写真5" class="gallery-image">
-          <div class="photo-overlay">
-            <span class="photo-icon">🔍</span>
-          </div>
-        </div>
-        <div class="photo-item reveal-on-scroll" data-photo="6">
-          <img src="img/photo6.jpg" alt="思い出の写真6" class="gallery-image">
-          <div class="photo-overlay">
-            <span class="photo-icon">🔍</span>
-          </div>
-        </div>
-      </div>
+      <!-- 写真のカテゴリータブ -->
+      <div class="photo-categories" id="photoCategories"></div>
+      
+      <!-- 写真ギャラリー（動的に生成されます） -->
+      <div class="photo-gallery" id="photoGallery"></div>
       
       <!-- Lightbox -->
       <div id="lightbox" class="lightbox">
