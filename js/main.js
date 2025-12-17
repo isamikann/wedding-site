@@ -217,12 +217,12 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
           const response = await fetch(url, { method: 'HEAD', cache: 'no-store' });
 
-          // 404以外でも、HTMLが返ってきた場合やContent-Lengthが0の場合は存在しないとみなす
+          // 一部サーバーはHEADでContent-Lengthを返さないことがあるため
+          // content-typeがimage/なら存在とみなす。content-typeが空でも200なら存在とみなす。
           const contentType = response.headers.get('content-type') || '';
-          const isImage = contentType.startsWith('image/');
-          const contentLength = parseInt(response.headers.get('content-length') || '0', 10);
+          const isImage = contentType === '' || contentType.startsWith('image/');
 
-          if (response.ok && isImage && contentLength !== 0) {
+          if (response.ok && isImage) {
             detectedImages.push(filename);
             console.log(`  ✓ ${filename}`);
             foundThisIndex = true;
