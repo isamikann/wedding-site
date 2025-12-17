@@ -160,10 +160,49 @@ document.addEventListener('DOMContentLoaded', () => {
     return button;
   }
 
+  // ディレクトリから画像を自動検出する関数
+  async function detectImagesInDirectory(categoryKey) {
+    const categoryPath = photoBasePath + categoryKey + '/';
+    const detectedImages = [];
+    
+    // 一般的な画像ファイル名パターンをチェック
+    const patterns = [
+      // 連番パターン (1.jpg, 2.jpg, ...)
+      Array.from({length: 50}, (_, i) => `${i + 1}.jpg`),
+      Array.from({length: 50}, (_, i) => `${i + 1}.jpeg`),
+      Array.from({length: 50}, (_, i) => `${i + 1}.png`),
+      Array.from({length: 50}, (_, i) => `${i + 1}.webp`),
+      // photo連番パターン
+      Array.from({length: 50}, (_, i) => `photo${i + 1}.jpg`),
+      Array.from({length: 50}, (_, i) => `photo${i + 1}.jpeg`),
+      Array.from({length: 50}, (_, i) => `photo${i + 1}.png`),
+      Array.from({length: 50}, (_, i) => `photo${i + 1}.webp`),
+      // IMG連番パターン
+      Array.from({length: 50}, (_, i) => `IMG_${String(i + 1).padStart(4, '0')}.jpg`),
+      Array.from({length: 50}, (_, i) => `IMG_${String(i + 1).padStart(4, '0')}.jpeg`),
+    ].flat();
+    
+    // 画像の存在を並列チェック（最初の10個まで）
+    const checkPromises = patterns.slice(0, 50).map(async (filename) => {
+      try {
+        const response = await fetch(categoryPath + filename, { method: 'HEAD' });
+        if (response.ok) {
+          return filename;
+        }
+      } catch (error) {
+        return null;
+      }
+      return null;
+    });
+    
+    const results = await Promise.all(checkPromises);
+    return results.filter(Boolean);
+  }
+
   // 写真ギャラリーの動的生成（ディレクトリベース）
-  function initPhotoGallery() {
-    if (typeof photoCategoryNames === 'undefined' || typeof photoFiles === 'undefined') {
-      console.warn('photoCategoryNames または photoFiles が読み込まれていません');
+  async function initPhotoGallery() {
+    if (typeof photoCategoryNames === 'undefined') {
+      console.warn('photoCategoryNames が読み込まれていません');
       return;
     }
 
@@ -173,11 +212,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!categoriesContainer || !galleryContainer) return;
 
     let allPhotos = [];
-    const categories = Object.keys(photoFiles);
+    const categories = Object.keys(photoCategoryNames);
 
-    // 各カテゴリーのディレクトリから画像を読み込む
-    categories.forEach(categoryKey => {
-      const files = photoFiles[categoryKey] || [];
+    // ローディング表示
+    galleryContainer.innerHTML = '<p style="text-align: center; color: var(--color-text-light); grid-column: 1/-1;">📷 写真を読み込んでいます...</p>';
+
+    // 各カテゴリーのディレクトリから画像を自動検出
+    for (const categoryKey of categories) {
+      const files = await detectImagesInDirectory(categoryKey);
       const categoryPath = photoBasePath + categoryKey + '/';
       
       files.forEach((filename, index) => {
@@ -188,7 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
           categoryTitle: photoCategoryNames[categoryKey]
         });
       });
-    });
+    }
 
     // カテゴリータブを作成（写真が存在するカテゴリーのみ）
     const availableCategories = [...new Set(allPhotos.map(p => p.category))];
@@ -199,6 +241,23 @@ document.addEventListener('DOMContentLoaded', () => {
       }).join('')}
     `;
     categoriesContainer.innerHTML = categoryTabsHTML;
+
+    // 画像の遅延読み込み用Intersection Observer
+    const lazyImageObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          const src = img.dataset.src;
+          if (src && !img.src) {
+            img.src = src;
+            img.removeAttribute('data-src');
+            lazyImageObserver.unobserve(img);
+          }
+        }
+      });
+    }, {
+      rootMargin: '50px' // 画面に入る50px前に読み込み開始
+    });
 
     // 写真を表示する関数
     function displayPhotos(categoryFilter = 'all') {
@@ -211,16 +270,25 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
+      // プレースホルダー用の1x1透明画像
+      const placeholder = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"%3E%3C/svg%3E';
+
       galleryContainer.innerHTML = photosToDisplay.map((photo, index) => `
         <div class="photo-item reveal-on-scroll" data-index="${index}" data-category="${photo.category}">
           <div class="photo-image-wrapper">
-            <img src="${photo.src}" alt="${photo.alt}" class="gallery-image" loading="lazy">
+            <img src="${placeholder}" data-src="${photo.src}" alt="${photo.alt}" class="gallery-image lazy-image">
             <div class="photo-overlay">
               <span class="photo-icon">🔍</span>
             </div>
           </div>
         </div>
       `).join('');
+
+      // 新しく追加された画像に遅延読み込みを適用
+      const lazyImages = galleryContainer.querySelectorAll('.lazy-image');
+      lazyImages.forEach(img => {
+        lazyImageObserver.observe(img);
+      });
 
       // 新しく追加された要素にスクロールアニメーションを適用
       const newRevealElements = galleryContainer.querySelectorAll('.reveal-on-scroll');

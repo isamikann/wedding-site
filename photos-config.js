@@ -1,5 +1,6 @@
 // 写真カテゴリーの設定
 // フォルダ名がカテゴリーIDになります
+// フォルダに画像を追加するだけで自動的に表示されます
 
 const photoCategoryNames = {
   'prewedding': '前撮り',
@@ -10,14 +11,8 @@ const photoCategoryNames = {
   'casual': '日常'
 };
 
-// 各カテゴリーの写真リスト
-// カテゴリーフォルダに写真を追加したら、ここにファイル名を追加してください
-const photoFiles = {
-  'prewedding': ['photo1.jpg', 'photo2.jpg'],
-  'memories': ['photo1.jpg']
-  // 写真を追加したら以下のように記述:
-  // 'travel': ['photo1.jpg', 'photo2.jpg', 'photo3.jpg']
-};
-
 // 画像のベースパス
 const photoBasePath = 'img/photos/';
+
+// サポートされる画像拡張子
+const supportedImageExtensions = ['.jpg', '.jpeg', '.png', '.webp', '.gif'];
