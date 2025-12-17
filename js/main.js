@@ -202,12 +202,29 @@ document.addEventListener('DOMContentLoaded', () => {
     // 拡張子（jpg/jpeg両方チェック）
     const extensions = ['jpg', 'jpeg', 'png', 'webp'];
     
-    let index = 1;
-    let consecutiveNotFound = 0;
-    const maxNotFound = 3; // 3回連続で見つからなかったら終了
+    // まずphoto1が存在するかチェック（存在しなければこのカテゴリーはスキップ）
+    let hasPhoto1 = false;
+    for (const ext of extensions) {
+      try {
+        const response = await fetch(categoryPath + `photo1.${ext}`, { method: 'HEAD' });
+        if (response.ok) {
+          hasPhoto1 = true;
+          break;
+        }
+      } catch (error) {
+        // 無視
+      }
+    }
     
-    // photo1, photo2, photo3... の形式で検索
-    while (consecutiveNotFound < maxNotFound && index <= 100) {
+    if (!hasPhoto1) {
+      console.log(`  → スキップ（写真なし）`);
+      return [];
+    }
+    
+    // photo1が見つかったので、順番に検索開始（連番前提）
+    let index = 1;
+    
+    while (index <= 100) {
       let foundThisIndex = false;
       
       // 各拡張子を試す
@@ -220,17 +237,17 @@ document.addEventListener('DOMContentLoaded', () => {
             detectedImages.push(filename);
             console.log(`  ✓ ${filename}`);
             foundThisIndex = true;
-            break; // この番号で見つかったら次の番号へ
+            break;
           }
         } catch (error) {
-          // エラーは無視
+          // 無視
         }
       }
       
-      if (foundThisIndex) {
-        consecutiveNotFound = 0;
-      } else {
-        consecutiveNotFound++;
+      // 連番なので、見つからなかったら即終了
+      if (!foundThisIndex) {
+        console.log(`  → photo${index} が見つからないため終了`);
+        break;
       }
       
       index++;
