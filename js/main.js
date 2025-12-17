@@ -366,9 +366,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // 新しく追加された画像に遅延読み込みを適用
       const lazyImages = galleryContainer.querySelectorAll('.lazy-image');
-      lazyImages.forEach(img => {
-        lazyImageObserver.observe(img);
-      });
+
+      // IntersectionObserverが使える場合は遅延読み込み
+      if ('IntersectionObserver' in window) {
+        lazyImages.forEach(img => {
+          lazyImageObserver.observe(img);
+        });
+      }
+
+      // フェイルセーフ: 一定時間後に未ロードの画像を強制ロード
+      setTimeout(() => {
+        lazyImages.forEach(img => {
+          const dataSrc = img.getAttribute('data-src');
+          if (dataSrc) {
+            img.src = dataSrc;
+            img.removeAttribute('data-src');
+          }
+        });
+      }, 800);
 
       // 新しく追加された要素にスクロールアニメーションを適用
       const newRevealElements = galleryContainer.querySelectorAll('.reveal-on-scroll');
