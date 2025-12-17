@@ -192,28 +192,29 @@ document.addEventListener('DOMContentLoaded', () => {
     return originalUrl;
   }
 
-  // ディレクトリから画像を自動検出する関数
+  // ディレクトリから画像を自動検出する関数（並列処理で高速化）
   async function detectImagesInDirectory(categoryKey) {
     const categoryPath = photoBasePath + categoryKey + '/';
     const detectedImages = [];
     
+    console.log(`📸 検出開始: ${categoryKey}`);
+    
     // チェックする拡張子
     const extensions = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
     
-    // パターンごとにチェック（連続して見つからなくなったら終了）
+    // パターンごとにチェック
     const patterns = [
       { prefix: '', start: 1 },           // 1.jpg, 2.jpg, ...
       { prefix: 'photo', start: 1 },      // photo1.jpg, photo2.jpg, ...
       { prefix: 'IMG_', start: 1, pad: 4 } // IMG_0001.jpg, IMG_0002.jpg, ...
     ];
     
+    // 並列でチェック（パフォーマンス向上）
+    const checkPromises = [];
+    
     for (const pattern of patterns) {
       for (const ext of extensions) {
-        let consecutiveNotFound = 0;
-        let index = pattern.start;
-        const maxConsecutiveNotFound = 3; // 3回連続で見つからなかったら終了
-        
-        while (consecutiveNotFound < maxConsecutiveNotFound && index < 100) {
+        for (let index = pattern.start; index <= 20; index++) {
           let filename;
           if (pattern.pad) {
             filename = `${pattern.prefix}${String(index).padStart(pattern.pad, '0')}.${ext}`;
@@ -221,40 +222,52 @@ document.addEventListener('DOMContentLoaded', () => {
             filename = `${pattern.prefix}${index}.${ext}`;
           }
           
-          try {
-            const response = await fetch(categoryPath + filename, { method: 'HEAD' });
-            if (response.ok) {
-              // 同じファイルが複数回追加されないようにチェック
-              if (!detectedImages.includes(filename)) {
-                detectedImages.push(filename);
-              }
-              consecutiveNotFound = 0; // リセット
-            } else {
-              consecutiveNotFound++;
-            }
-          } catch (error) {
-            consecutiveNotFound++;
-          }
-          
-          index++;
+          checkPromises.push(
+            fetch(categoryPath + filename, { method: 'HEAD' })
+              .then(response => response.ok ? filename : null)
+              .catch(() => null)
+          );
         }
       }
     }
     
-    return detectedImages;
+    try {
+      const results = await Promise.all(checkPromises);
+      const foundFiles = results.filter(Boolean);
+      
+      // 重複を除去してソート
+      const uniqueFiles = [...new Set(foundFiles)];
+      uniqueFiles.sort((a, b) => {
+        // 数値部分を抽出して比較
+        const numA = parseInt(a.match(/\d+/) || 0);
+        const numB = parseInt(b.match(/\d+/) || 0);
+        return numA - numB;
+      });
+      
+      console.log(`✅ ${categoryKey}: ${uniqueFiles.length}枚検出`, uniqueFiles);
+      return uniqueFiles;
+    } catch (error) {
+      console.error(`❌ ${categoryKey}の検出エラー:`, error);
+      return [];
+    }
   }
 
   // 写真ギャラリーの動的生成（ディレクトリベース）
   async function initPhotoGallery() {
+    console.log('🚀 フォトギャラリー初期化開始');
+    
     if (typeof photoCategoryNames === 'undefined') {
-      console.warn('photoCategoryNames が読み込まれていません');
+      console.error('❌ photoCategoryNames が読み込まれていません');
       return;
     }
 
     const categoriesContainer = document.getElementById('photoCategories');
     const galleryContainer = document.getElementById('photoGallery');
     
-    if (!categoriesContainer || !galleryContainer) return;
+    if (!categoriesContainer || !galleryContainer) {
+      console.error('❌ 必要な要素が見つかりません');
+      return;
+    }
 
     let allPhotos = [];
     const categories = Object.keys(photoCategoryNames);
@@ -262,19 +275,27 @@ document.addEventListener('DOMContentLoaded', () => {
     // ローディング表示
     galleryContainer.innerHTML = '<p style="text-align: center; color: var(--color-text-light); grid-column: 1/-1;">📷 写真を読み込んでいます...</p>';
 
-    // 各カテゴリーのディレクトリから画像を自動検出
-    for (const categoryKey of categories) {
-      const files = await detectImagesInDirectory(categoryKey);
-      const categoryPath = photoBasePath + categoryKey + '/';
-      
-      files.forEach((filename, index) => {
-        allPhotos.push({
-          category: categoryKey,
-          src: categoryPath + filename,
-          alt: `${photoCategoryNames[categoryKey]} ${index + 1}`,
-          categoryTitle: photoCategoryNames[categoryKey]
+    try {
+      // 各カテゴリーのディレクトリから画像を自動検出
+      for (const categoryKey of categories) {
+        const files = await detectImagesInDirectory(categoryKey);
+        const categoryPath = photoBasePath + categoryKey + '/';
+        
+        files.forEach((filename, index) => {
+          allPhotos.push({
+            category: categoryKey,
+            src: categoryPath + filename,
+            alt: `${photoCategoryNames[categoryKey]} ${index + 1}`,
+            categoryTitle: photoCategoryNames[categoryKey]
+          });
         });
-      });
+      }
+      
+      console.log(`✅ 合計 ${allPhotos.length}枚の写真を検出`);
+    } catch (error) {
+      console.error('❌ 画像検出エラー:', error);
+      galleryContainer.innerHTML = '<p style="text-align: center; color: red; grid-column: 1/-1;">⚠️ 写真の読み込みに失敗しました</p>';
+      return;
     }
 
     // カテゴリータブを作成（写真が存在するカテゴリーのみ）
@@ -372,7 +393,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // 初期表示
-    displayPhotos('all');
+    if (allPhotos.length === 0) {
+      console.warn('⚠️ 検出された写真が0枚です');
+      galleryContainer.innerHTML = '<p style="text-align: center; color: var(--color-text-light); grid-column: 1/-1;">📷 写真がまだ追加されていません。<br>img/photos/ フォルダに画像を追加してください。</p>';
+    } else {
+      console.log('🎉 写真表示開始');
+      displayPhotos('all');
+    }
   }
 
   // フォトギャラリー - ライトボックス機能
