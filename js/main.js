@@ -255,12 +255,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const galleryContainer = document.getElementById('photoGallery');
     
     if (!categoriesContainer || !galleryContainer) {
-      console.error('❌ 必要な要素が見つかりません');
+      console.error('❌ 必要な要素が見つかりません', {
+        categoriesContainer: !!categoriesContainer,
+        galleryContainer: !!galleryContainer
+      });
       return;
     }
 
     let allPhotos = [];
     const categories = Object.keys(photoCategoryNames);
+    console.log('📂 カテゴリー:', categories);
 
     // ローディング表示
     galleryContainer.innerHTML = '<p style="text-align: center; color: var(--color-text-light); grid-column: 1/-1;">📷 写真を読み込んでいます...</p>';
@@ -268,20 +272,27 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       // 各カテゴリーのディレクトリから画像を自動検出
       for (const categoryKey of categories) {
-        const files = await detectImagesInDirectory(categoryKey);
-        const categoryPath = photoBasePath + categoryKey + '/';
-        
-        files.forEach((filename, index) => {
-          allPhotos.push({
-            category: categoryKey,
-            src: categoryPath + filename,
-            alt: `${photoCategoryNames[categoryKey]} ${index + 1}`,
-            categoryTitle: photoCategoryNames[categoryKey]
+        console.log(`\n--- ${categoryKey} 処理開始 ---`);
+        try {
+          const files = await detectImagesInDirectory(categoryKey);
+          console.log(`${categoryKey}: ${files.length}枚取得完了`);
+          
+          const categoryPath = photoBasePath + categoryKey + '/';
+          
+          files.forEach((filename, index) => {
+            allPhotos.push({
+              category: categoryKey,
+              src: categoryPath + filename,
+              alt: `${photoCategoryNames[categoryKey]} ${index + 1}`,
+              categoryTitle: photoCategoryNames[categoryKey]
+            });
           });
-        });
+        } catch (error) {
+          console.error(`❌ ${categoryKey}でエラー:`, error);
+        }
       }
       
-      console.log(`✅ 合計 ${allPhotos.length}枚の写真を検出`);
+      console.log(`\n✅ 合計 ${allPhotos.length}枚の写真を検出しました`);
     } catch (error) {
       console.error('❌ 画像検出エラー:', error);
       galleryContainer.innerHTML = '<p style="text-align: center; color: red; grid-column: 1/-1;">⚠️ 写真の読み込みに失敗しました</p>';
