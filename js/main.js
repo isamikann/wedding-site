@@ -192,60 +192,48 @@ document.addEventListener('DOMContentLoaded', () => {
     return originalUrl;
   }
 
-  // ディレクトリから画像を自動検出する関数（シンプル版）
+  // ディレクトリから画像を自動検出する関数
   async function detectImagesInDirectory(categoryKey) {
     const categoryPath = photoBasePath + categoryKey + '/';
     const detectedImages = [];
     
     console.log(`📸 検出開始: ${categoryKey}`);
     
-    // 拡張子の優先順位
+    // 拡張子（jpg/jpeg両方チェック）
     const extensions = ['jpg', 'jpeg', 'png', 'webp'];
     
-    // パターン定義（シンプルに）
-    const patterns = [
-      { name: 'photo連番', prefix: 'photo', format: (n) => `photo${n}` },
-      { name: '連番', prefix: '', format: (n) => `${n}` },
-      { name: 'IMG連番', prefix: 'IMG_', format: (n) => `IMG_${String(n).padStart(4, '0')}` }
-    ];
+    let index = 1;
+    let consecutiveNotFound = 0;
+    const maxNotFound = 3; // 3回連続で見つからなかったら終了
     
-    // パターンごとに検出
-    for (const pattern of patterns) {
-      let foundInPattern = false;
+    // photo1, photo2, photo3... の形式で検索
+    while (consecutiveNotFound < maxNotFound && index <= 100) {
+      let foundThisIndex = false;
       
+      // 各拡張子を試す
       for (const ext of extensions) {
-        let index = 1;
-        let notFoundCount = 0;
+        const filename = `photo${index}.${ext}`;
         
-        // 連続2回見つからなかったら次のパターンへ
-        while (notFoundCount < 2 && index <= 30) {
-          const filename = `${pattern.format(index)}.${ext}`;
-          
-          try {
-            const response = await fetch(categoryPath + filename, { method: 'HEAD' });
-            if (response.ok) {
-              if (!detectedImages.includes(filename)) {
-                detectedImages.push(filename);
-                foundInPattern = true;
-                console.log(`  ✓ 発見: ${filename}`);
-              }
-              notFoundCount = 0;
-            } else {
-              notFoundCount++;
-            }
-          } catch (error) {
-            notFoundCount++;
+        try {
+          const response = await fetch(categoryPath + filename, { method: 'HEAD' });
+          if (response.ok) {
+            detectedImages.push(filename);
+            console.log(`  ✓ ${filename}`);
+            foundThisIndex = true;
+            break; // この番号で見つかったら次の番号へ
           }
-          
-          index++;
+        } catch (error) {
+          // エラーは無視
         }
       }
       
-      // このパターンで見つかったら他のパターンはスキップ
-      if (foundInPattern && detectedImages.length > 0) {
-        console.log(`  → ${pattern.name}パターンで検出完了`);
-        break;
+      if (foundThisIndex) {
+        consecutiveNotFound = 0;
+      } else {
+        consecutiveNotFound++;
       }
+      
+      index++;
     }
     
     console.log(`✅ ${categoryKey}: ${detectedImages.length}枚検出`);
