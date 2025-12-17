@@ -192,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return originalUrl;
   }
 
-  // ディレクトリから画像を自動検出する関数
+  // ディレクトリから画像を自動検出する関数（連番前提）
   async function detectImagesInDirectory(categoryKey) {
     const categoryPath = photoBasePath + categoryKey + '/';
     const detectedImages = [];
@@ -202,26 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 拡張子（jpg/jpeg両方チェック）
     const extensions = ['jpg', 'jpeg', 'png', 'webp'];
     
-    // まずphoto1が存在するかチェック（存在しなければこのカテゴリーはスキップ）
-    let hasPhoto1 = false;
-    for (const ext of extensions) {
-      try {
-        const response = await fetch(categoryPath + `photo1.${ext}`, { method: 'HEAD' });
-        if (response.ok) {
-          hasPhoto1 = true;
-          break;
-        }
-      } catch (error) {
-        // 無視
-      }
-    }
-    
-    if (!hasPhoto1) {
-      console.log(`  → スキップ（写真なし）`);
-      return [];
-    }
-    
-    // photo1が見つかったので、順番に検索開始（連番前提）
+    // photo1から順番に検索（連番前提なので見つからなかったら即終了）
     let index = 1;
     
     while (index <= 100) {
@@ -246,7 +227,11 @@ document.addEventListener('DOMContentLoaded', () => {
       
       // 連番なので、見つからなかったら即終了
       if (!foundThisIndex) {
-        console.log(`  → photo${index} が見つからないため終了`);
+        if (index === 1) {
+          console.log(`  → スキップ（写真なし）`);
+        } else {
+          console.log(`  → 終了（photo${index}が見つからない）`);
+        }
         break;
       }
       
