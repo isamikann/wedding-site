@@ -204,24 +204,32 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // photo1から順番に検索（連番前提なので見つからなかったら即終了）
     let index = 1;
+    const maxIndex = 30; // 上限
     
-    while (index <= 100) {
+    while (index <= maxIndex) {
       let foundThisIndex = false;
       
       // 各拡張子を試す
       for (const ext of extensions) {
         const filename = `photo${index}.${ext}`;
+        const url = categoryPath + filename;
         
         try {
-          const response = await fetch(categoryPath + filename, { method: 'HEAD' });
-          if (response.ok) {
+          const response = await fetch(url, { method: 'HEAD', cache: 'no-store' });
+
+          // 404以外でも、HTMLが返ってきた場合やContent-Lengthが0の場合は存在しないとみなす
+          const contentType = response.headers.get('content-type') || '';
+          const isImage = contentType.startsWith('image/');
+          const contentLength = parseInt(response.headers.get('content-length') || '0', 10);
+
+          if (response.ok && isImage && contentLength !== 0) {
             detectedImages.push(filename);
             console.log(`  ✓ ${filename}`);
             foundThisIndex = true;
             break;
           }
         } catch (error) {
-          // 無視
+          // 無視（次の拡張子を試す）
         }
       }
       
