@@ -192,64 +192,64 @@ document.addEventListener('DOMContentLoaded', () => {
     return originalUrl;
   }
 
-  // ディレクトリから画像を自動検出する関数（並列処理で高速化）
+  // ディレクトリから画像を自動検出する関数（シンプル版）
   async function detectImagesInDirectory(categoryKey) {
     const categoryPath = photoBasePath + categoryKey + '/';
     const detectedImages = [];
     
     console.log(`📸 検出開始: ${categoryKey}`);
     
-    // チェックする拡張子
-    const extensions = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
+    // 拡張子の優先順位
+    const extensions = ['jpg', 'jpeg', 'png', 'webp'];
     
-    // パターンごとにチェック
+    // パターン定義（シンプルに）
     const patterns = [
-      { prefix: '', start: 1 },           // 1.jpg, 2.jpg, ...
-      { prefix: 'photo', start: 1 },      // photo1.jpg, photo2.jpg, ...
-      { prefix: 'IMG_', start: 1, pad: 4 } // IMG_0001.jpg, IMG_0002.jpg, ...
+      { name: 'photo連番', prefix: 'photo', format: (n) => `photo${n}` },
+      { name: '連番', prefix: '', format: (n) => `${n}` },
+      { name: 'IMG連番', prefix: 'IMG_', format: (n) => `IMG_${String(n).padStart(4, '0')}` }
     ];
     
-    // 並列でチェック（パフォーマンス向上）
-    const checkPromises = [];
-    
+    // パターンごとに検出
     for (const pattern of patterns) {
+      let foundInPattern = false;
+      
       for (const ext of extensions) {
-        for (let index = pattern.start; index <= 20; index++) {
-          let filename;
-          if (pattern.pad) {
-            filename = `${pattern.prefix}${String(index).padStart(pattern.pad, '0')}.${ext}`;
-          } else {
-            filename = `${pattern.prefix}${index}.${ext}`;
+        let index = 1;
+        let notFoundCount = 0;
+        
+        // 連続2回見つからなかったら次のパターンへ
+        while (notFoundCount < 2 && index <= 30) {
+          const filename = `${pattern.format(index)}.${ext}`;
+          
+          try {
+            const response = await fetch(categoryPath + filename, { method: 'HEAD' });
+            if (response.ok) {
+              if (!detectedImages.includes(filename)) {
+                detectedImages.push(filename);
+                foundInPattern = true;
+                console.log(`  ✓ 発見: ${filename}`);
+              }
+              notFoundCount = 0;
+            } else {
+              notFoundCount++;
+            }
+          } catch (error) {
+            notFoundCount++;
           }
           
-          checkPromises.push(
-            fetch(categoryPath + filename, { method: 'HEAD' })
-              .then(response => response.ok ? filename : null)
-              .catch(() => null)
-          );
+          index++;
         }
+      }
+      
+      // このパターンで見つかったら他のパターンはスキップ
+      if (foundInPattern && detectedImages.length > 0) {
+        console.log(`  → ${pattern.name}パターンで検出完了`);
+        break;
       }
     }
     
-    try {
-      const results = await Promise.all(checkPromises);
-      const foundFiles = results.filter(Boolean);
-      
-      // 重複を除去してソート
-      const uniqueFiles = [...new Set(foundFiles)];
-      uniqueFiles.sort((a, b) => {
-        // 数値部分を抽出して比較
-        const numA = parseInt(a.match(/\d+/) || 0);
-        const numB = parseInt(b.match(/\d+/) || 0);
-        return numA - numB;
-      });
-      
-      console.log(`✅ ${categoryKey}: ${uniqueFiles.length}枚検出`, uniqueFiles);
-      return uniqueFiles;
-    } catch (error) {
-      console.error(`❌ ${categoryKey}の検出エラー:`, error);
-      return [];
-    }
+    console.log(`✅ ${categoryKey}: ${detectedImages.length}枚検出`);
+    return detectedImages;
   }
 
   // 写真ギャラリーの動的生成（ディレクトリベース）
