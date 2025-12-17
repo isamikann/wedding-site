@@ -1553,12 +1553,17 @@ details p {
   transition: filter 0.3s ease, opacity 0.3s ease;
   display: block;
   background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+  /* 大きな画像でもメモリ効率を維持 */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
 }
 
 /* 遅延読み込み中の画像 */
 .lazy-image {
   opacity: 0;
   transition: opacity 0.4s ease;
+  /* ブラウザのデコード最適化 */
+  decoding: async;
 }
 
 .lazy-image[src]:not([src=""]):not([src*="data:image"]) {
@@ -1568,6 +1573,9 @@ details p {
 .photo-image-wrapper {
   position: relative;
   width: 100%;
+  /* 最大サイズを制限してメモリ使用量を削減 */
+  max-width: 100%;
+  max-height: 800px;
   aspect-ratio: 1;
   overflow: visible;
   background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);

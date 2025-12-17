@@ -160,43 +160,88 @@ document.addEventListener('DOMContentLoaded', () => {
     return button;
   }
 
+  // 画像URLを最適化する関数
+  function optimizeImageUrl(originalUrl) {
+    // 最適化が無効の場合は元のURLを返す
+    if (typeof imageOptimizationConfig === 'undefined' || !imageOptimizationConfig.enabled) {
+      return originalUrl;
+    }
+
+    // デバイスの画面幅を取得
+    const screenWidth = window.innerWidth * (window.devicePixelRatio || 1);
+    
+    // 最適なサイズを決定
+    let targetWidth = imageOptimizationConfig.maxWidth;
+    if (screenWidth <= 768) {
+      targetWidth = Math.min(imageOptimizationConfig.responsiveSizes.mobile, screenWidth);
+    } else if (screenWidth <= 1024) {
+      targetWidth = Math.min(imageOptimizationConfig.responsiveSizes.tablet, screenWidth);
+    } else {
+      targetWidth = Math.min(imageOptimizationConfig.responsiveSizes.desktop, screenWidth);
+    }
+
+    // Cloudflare Image Resizingを使用
+    if (imageOptimizationConfig.useCloudflare) {
+      // Cloudflare Image Resizing形式
+      // /cdn-cgi/image/width=800,quality=85,format=auto/img/photos/...
+      const format = imageOptimizationConfig.preferWebP ? 'auto' : 'jpeg';
+      return `/cdn-cgi/image/width=${targetWidth},quality=${imageOptimizationConfig.quality},format=${format}/${originalUrl}`;
+    }
+
+    // フォールバック: ブラウザ側で制限（CSSで対応）
+    return originalUrl;
+  }
+
   // ディレクトリから画像を自動検出する関数
   async function detectImagesInDirectory(categoryKey) {
     const categoryPath = photoBasePath + categoryKey + '/';
     const detectedImages = [];
     
-    // 一般的な画像ファイル名パターンをチェック
+    // チェックする拡張子
+    const extensions = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
+    
+    // パターンごとにチェック（連続して見つからなくなったら終了）
     const patterns = [
-      // 連番パターン (1.jpg, 2.jpg, ...)
-      Array.from({length: 50}, (_, i) => `${i + 1}.jpg`),
-      Array.from({length: 50}, (_, i) => `${i + 1}.jpeg`),
-      Array.from({length: 50}, (_, i) => `${i + 1}.png`),
-      Array.from({length: 50}, (_, i) => `${i + 1}.webp`),
-      // photo連番パターン
-      Array.from({length: 50}, (_, i) => `photo${i + 1}.jpg`),
-      Array.from({length: 50}, (_, i) => `photo${i + 1}.jpeg`),
-      Array.from({length: 50}, (_, i) => `photo${i + 1}.png`),
-      Array.from({length: 50}, (_, i) => `photo${i + 1}.webp`),
-      // IMG連番パターン
-      Array.from({length: 50}, (_, i) => `IMG_${String(i + 1).padStart(4, '0')}.jpg`),
-      Array.from({length: 50}, (_, i) => `IMG_${String(i + 1).padStart(4, '0')}.jpeg`),
-    ].flat();
+      { prefix: '', start: 1 },           // 1.jpg, 2.jpg, ...
+      { prefix: 'photo', start: 1 },      // photo1.jpg, photo2.jpg, ...
+      { prefix: 'IMG_', start: 1, pad: 4 } // IMG_0001.jpg, IMG_0002.jpg, ...
+    ];
     
-    // 画像の存在を並列チェック（最初の10個まで）
-    const checkPromises = patterns.slice(0, 50).map(async (filename) => {
-      try {
-        const response = await fetch(categoryPath + filename, { method: 'HEAD' });
-        if (response.ok) {
-          return filename;
+    for (const pattern of patterns) {
+      for (const ext of extensions) {
+        let consecutiveNotFound = 0;
+        let index = pattern.start;
+        const maxConsecutiveNotFound = 3; // 3回連続で見つからなかったら終了
+        
+        while (consecutiveNotFound < maxConsecutiveNotFound && index < 100) {
+          let filename;
+          if (pattern.pad) {
+            filename = `${pattern.prefix}${String(index).padStart(pattern.pad, '0')}.${ext}`;
+          } else {
+            filename = `${pattern.prefix}${index}.${ext}`;
+          }
+          
+          try {
+            const response = await fetch(categoryPath + filename, { method: 'HEAD' });
+            if (response.ok) {
+              // 同じファイルが複数回追加されないようにチェック
+              if (!detectedImages.includes(filename)) {
+                detectedImages.push(filename);
+              }
+              consecutiveNotFound = 0; // リセット
+            } else {
+              consecutiveNotFound++;
+            }
+          } catch (error) {
+            consecutiveNotFound++;
+          }
+          
+          index++;
         }
-      } catch (error) {
-        return null;
       }
-      return null;
-    });
+    }
     
-    const results = await Promise.all(checkPromises);
-    return results.filter(Boolean);
+    return detectedImages;
   }
 
   // 写真ギャラリーの動的生成（ディレクトリベース）
@@ -273,16 +318,21 @@ document.addEventListener('DOMContentLoaded', () => {
       // プレースホルダー用の1x1透明画像
       const placeholder = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"%3E%3C/svg%3E';
 
-      galleryContainer.innerHTML = photosToDisplay.map((photo, index) => `
-        <div class="photo-item reveal-on-scroll" data-index="${index}" data-category="${photo.category}">
-          <div class="photo-image-wrapper">
-            <img src="${placeholder}" data-src="${photo.src}" alt="${photo.alt}" class="gallery-image lazy-image">
-            <div class="photo-overlay">
-              <span class="photo-icon">🔍</span>
+      galleryContainer.innerHTML = photosToDisplay.map((photo, index) => {
+        // 画像URLを最適化
+        const optimizedSrc = optimizeImageUrl(photo.src);
+        
+        return `
+          <div class="photo-item reveal-on-scroll" data-index="${index}" data-category="${photo.category}">
+            <div class="photo-image-wrapper">
+              <img src="${placeholder}" data-src="${optimizedSrc}" alt="${photo.alt}" class="gallery-image lazy-image">
+              <div class="photo-overlay">
+                <span class="photo-icon">🔍</span>
+              </div>
             </div>
           </div>
-        </div>
-      `).join('');
+        `;
+      }).join('');
 
       // 新しく追加された画像に遅延読み込みを適用
       const lazyImages = galleryContainer.querySelectorAll('.lazy-image');
@@ -337,10 +387,24 @@ document.addEventListener('DOMContentLoaded', () => {
   let slideDirection = null;
 
   function initLightbox(photos) {
-    photoSources = photos.map(photo => ({
-      src: photo.src,
-      alt: photo.alt
-    }));
+    photoSources = photos.map(photo => {
+      // ライトボックスでは少し大きめの画像を使用
+      const lightboxConfig = {
+        ...imageOptimizationConfig,
+        maxWidth: imageOptimizationConfig.responsiveSizes.desktop
+      };
+      
+      // 一時的に設定を上書き
+      const originalConfig = { ...imageOptimizationConfig };
+      Object.assign(imageOptimizationConfig, lightboxConfig);
+      const optimizedSrc = optimizeImageUrl(photo.src);
+      Object.assign(imageOptimizationConfig, originalConfig);
+      
+      return {
+        src: optimizedSrc,
+        alt: photo.alt
+      };
+    });
 
     const photoItems = document.querySelectorAll('.photo-item');
     photoItems.forEach((item, index) => {
