@@ -1,20 +1,20 @@
 :root {
-  --color-primary: #333333;
+  --color-primary: #1F1F1F;
   --color-secondary: #E8F1F6;
-  --color-accent: #FF9966;
+  --color-accent: #D4A574;
   --color-rose-gold: #D4A574;
-  --color-gold: #C9A961;
-  --color-champagne: #F7E7CE;
-  --color-background: #f2f9fd;
-  --color-text: #222222;
-  --color-text-light: #666666;
-  --color-link: #FF9966;
+  --color-gold: #C5865F;
+  --color-champagne: #F7F1E9;
+  --color-background: #F7F1E9;
+  --color-text: #1F1F1F;
+  --color-text-light: #5A5A5A;
+  --color-link: #C5865F;
   --color-card-bg: #FFFFFF;
-  --color-section-1: #E3EDF5;
+  --color-section-1: #F1F5F8;
   --color-section-2: #FFFFFF;
-  --color-section-3: #E8F1F6;
+  --color-section-3: #F7F1E9;
   --color-section-4: #FFFFFF;
-  --color-section-5: #E3EDF5;
+  --color-section-5: #F1F5F8;
   --font-serif: "Playfair Display", "Noto Serif JP", "游明朝", serif;
   --font-script: "Great Vibes", cursive;
   --font-body: "Crimson Text", "Noto Serif JP", "游明朝", serif;
@@ -188,11 +188,12 @@ h1, h2, h3, h4 {
   }
   
   .section {
-    padding: 4rem 0;
+    padding: 3rem 0;
   }
   
   .section-title {
     font-size: 2.5rem;
+    margin-bottom: 2rem;
   }
   
   .section-title span {
@@ -200,7 +201,13 @@ h1, h2, h3, h4 {
   }
   
   :root {
-    --section-spacing: 4rem;
+    --section-spacing: 3.25rem;
+  }
+
+  .hero {
+    height: 78vh;
+    min-height: 360px;
+    margin-bottom: 1rem;
   }
 }
 
@@ -282,7 +289,7 @@ main {
   position: relative;
   text-align: center;
   margin-bottom: 2rem;
-  height: calc(100vh - 4rem);
+  height: calc(92vh - 4rem);
   min-height: 480px;
   overflow: hidden;
 }
@@ -310,7 +317,7 @@ main {
 
 .hero-content h2 {
   font-family: var(--font-script);
-  font-size: 3rem;
+  font-size: clamp(2.2rem, 6vw, 3rem);
   margin-bottom: 1rem;
   line-height: 1.4;
   font-weight: 400;
@@ -318,13 +325,13 @@ main {
 
 .hero-date {
   font-family: var(--font-script);
-  font-size: 1.8rem;
+  font-size: clamp(1.4rem, 4.5vw, 1.8rem);
   margin-bottom: 1rem;
   letter-spacing: 0.1em;
 }
 
 .hero-content p {
-  font-size: 1.1rem;
+  font-size: 1rem;
   line-height: 1.6;
 }
 
@@ -339,6 +346,10 @@ main {
 .section:not(#hero) {
   position: relative;
   z-index: 1;
+}
+
+.today-link span {
+  font-size: 1rem;
 }
 
 #seating {
@@ -656,7 +667,7 @@ details p {
   margin-bottom: 3rem;
   position: relative;
   font-family: var(--font-serif);
-  font-size: 3.5rem;
+  font-size: clamp(2.2rem, 5.8vw, 3.5rem);
   color: var(--color-primary);
   font-weight: 600;
   letter-spacing: 0.05em;
@@ -684,7 +695,7 @@ details p {
 .section-title span {
   display: block;
   font-family: var(--font-body);
-  font-size: 0.85rem;
+  font-size: clamp(0.78rem, 2.6vw, 0.95rem);
   color: var(--color-text-light);
   margin-top: 0.5rem;
   letter-spacing: 0.15em;
@@ -883,11 +894,12 @@ details p {
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  aspect-ratio: 4 / 3;
 }
 
 .timeline-image {
   width: 100%;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 4 / 3;
   object-fit: cover;
   display: block;
   transition: transform 0.3s ease, filter 0.3s ease;
@@ -1019,8 +1031,10 @@ details p {
   position: relative;
   padding: 1.2rem;
   cursor: pointer;
-  font-weight: 500;
+  font-weight: 600;
   list-style: none;
+  font-size: clamp(1rem, 3.2vw, 1.1rem);
+  transition: color 0.3s ease;
 }
 
 .qa-item summary::after {
@@ -1041,53 +1055,64 @@ details p {
 .qa-content {
   padding: 0 1.2rem 1.2rem;
   background: transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
 .qa-person {
   position: relative;
-  padding: 1rem 1rem 1rem 4rem;
-  margin-bottom: 1rem;
+  padding: 1rem;
+  margin: 0;
   border-radius: 8px;
   background: linear-gradient(135deg, var(--color-champagne) 0%, #FFFFFF 100%);
   border: 1px solid rgba(212, 165, 116, 0.2);
+  max-width: 86%;
+  z-index: 0;
+  overflow: hidden;
 }
 
 .qa-person.groom {
-  margin-right: 2rem;
+  align-self: flex-start;
   background: linear-gradient(135deg, #F7E7CE 0%, #FFFFFF 100%);
 }
 
 .qa-person.bride {
-  margin-left: 2rem;
+  align-self: flex-end;
   background: linear-gradient(135deg, #FFE5D9 0%, #FFFFFF 100%);
 }
 
-.qa-label {
-  position: absolute;
-  left: 1rem;
-  top: 1rem;
-  font-family: var(--font-serif);
-  font-weight: bold;
-  color: var(--color-rose-gold);
+.qa-person .qa-avatar {
+  width: 4.2rem;
+  height: 4.2rem;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+  border: 2px solid #fff;
+  z-index: 2;
+}
+
+.qa-person.groom .qa-avatar {
+  float: left;
+  shape-outside: circle(50%);
+  margin: 0 0.9rem 0.4rem 0;
+}
+
+.qa-person.bride .qa-avatar {
+  float: right;
+  shape-outside: circle(50%);
+  margin: 0 0 0.4rem 0.9rem;
 }
 
 .qa-person p {
   margin: 0;
-  line-height: 1.8;
+  line-height: 1.7;
+  font-size: 0.98rem;
 }
 
 .qa-item {
   margin-bottom: 1.5rem;
-}
-
-.qa-item summary {
-  font-size: 1.1rem;
-  position: relative;
-  cursor: pointer;
-  padding: 1.5rem;
-  font-weight: bold;
-  list-style: none;
-  transition: color 0.3s ease;
 }
 
 .qa-item[open] summary {
@@ -1096,16 +1121,25 @@ details p {
 
 @media (max-width: 599px) {
   .qa-person {
-    padding: 3rem 1rem 1rem;
-    margin: 1rem 0;
+    padding: 1rem;
+    margin: 0.75rem 0;
+    max-width: 92%;
   }
   
-  .qa-person.groom,
+  .qa-person.groom {
+    align-self: flex-start;
+  }
+ 
   .qa-person.bride {
-    margin-left: 0;
-    margin-right: 0;
+    align-self: flex-end;
   }
-  
+
+  .qa-person .qa-avatar {
+    width: 3.8rem;
+    height: 3.8rem;
+    margin: 0 0.75rem 0.35rem 0.75rem;
+  }
+}
   /* Timeline mobile adjustments */
   .timeline {
     padding: 1rem 0;
@@ -1256,47 +1290,6 @@ details p {
   }
   20%, 40% {
     transform: scale(1.1);
-  }
-}
-
-/* Couple Monogram */
-.couple-monogram {
-  text-align: center;
-  margin-bottom: 2rem;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-}
-
-.monogram-letter {
-  font-family: var(--font-script);
-  font-size: 5rem;
-  background: linear-gradient(135deg, var(--color-rose-gold), var(--color-gold));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-weight: 400;
-  text-shadow: 0 2px 10px rgba(212, 165, 116, 0.3);
-  filter: drop-shadow(0 2px 4px rgba(212, 165, 116, 0.2));
-  animation: monogramGlow 3s ease-in-out infinite;
-}
-
-.monogram-ampersand {
-  font-family: var(--font-script);
-  font-size: 3rem;
-  color: var(--color-accent);
-  opacity: 0.6;
-  margin: 0 0.3rem;
-}
-
-@keyframes monogramGlow {
-  0%, 100% {
-    filter: drop-shadow(0 2px 4px rgba(212, 165, 116, 0.2));
-  }
-  50% {
-    filter: drop-shadow(0 4px 12px rgba(212, 165, 116, 0.4));
   }
 }
 

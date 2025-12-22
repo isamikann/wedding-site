@@ -68,8 +68,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const navToggle = document.querySelector('.nav-toggle');
   const nav = document.querySelector('.site-nav');
   
+  // モバイルナビの開閉状態を同期
+  function setNavExpanded(isExpanded) {
+    if (!navToggle || !nav) return;
+    nav.classList.toggle('is-open', isExpanded);
+    navToggle.setAttribute('aria-expanded', String(isExpanded));
+  }
+
   navToggle?.addEventListener('click', () => {
-    nav?.classList.toggle('is-open');
+    const willExpand = !(nav?.classList.contains('is-open'));
+    setNavExpanded(willExpand);
   });
 
   // スクロールアニメーション
@@ -101,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // モバイルメニューを閉じる
-        nav?.classList.remove('is-open');
+        setNavExpanded(false);
       }
     });
   });

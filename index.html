@@ -33,6 +33,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Crimson+Text:wght@400;600&family=Great+Vibes&family=Noto+Serif+JP:wght@300;400;500;600&display=swap" rel="stylesheet">
   
+  <link rel="preload" as="image" href="img/main/main_visual.jpg" fetchpriority="high">
   <link rel="stylesheet" href="css/style.css">
   <script src="images-config.js"></script>
   <script src="photos-config.js"></script>
@@ -53,18 +54,17 @@
   <header class="site-header">
     <div class="container header-inner">
       <h1 class="site-title">Wedding Profile<span class="date">2026.5.16</span></h1>
-      <nav class="site-nav">
+      <nav id="primary-nav" class="site-nav" aria-label="メインメニュー">
         <a href="#hero" class="nav-item">トップ</a>
         <a href="#welcome" class="nav-item">ご挨拶</a>
         <a href="#seating" class="nav-item">席次表</a>
         <a href="#menu" class="nav-item">お食事</a>
         <a href="#profile" class="nav-item">プロフィール</a>
-        <a href="#trivia" class="nav-item">豆知識</a>
-        <a href="#qa" class="nav-item">Q&amp;A</a>
         <a href="#history" class="nav-item">二人の歩み</a>
+        <a href="#qa" class="nav-item">Q&amp;A</a>
         <a href="#photos" class="nav-item">フォト</a>
       </nav>
-      <button class="nav-toggle" aria-label="メニュー">
+      <button class="nav-toggle" aria-label="メニュー" aria-expanded="false" aria-controls="primary-nav">
         <span></span>
         <span></span>
         <span></span>
@@ -75,11 +75,11 @@
   <main>
     <section id="hero" class="hero">
       <div class="hero-overlay"></div>
-      <img src="img/main/main_visual.jpg" alt="ISAMUとREINAのウェディングフォト - 幸せそうに微笑む二人" class="hero-image" data-image-key="heroImage">
+      <img src="img/main/main_visual.jpg" alt="ISAMUとREINAのウェディングフォト - 幸せそうに微笑む二人" class="hero-image" data-image-key="heroImage" fetchpriority="high" decoding="async">
       <div class="hero-content container">
         <p class="hero-date">2026.5.16</p>
         <h2 class="hero-title fade-in">The Wedding of<br>Isamu & Reina</h2>
-        <p class="hero-text fade-in-delay">THE GATE HOUSE
+        <p class="hero-text fade-in-delay">THE GATE HOUSE</p>
       </div>
       <div class="scroll-hint">
         <span class="scroll-text">Scroll</span>
@@ -91,19 +91,12 @@
     <section id="welcome" class="section welcome-section">
       <div class="container">
         <div class="welcome-content reveal-on-scroll">
-          <!-- カップルモノグラム -->
-          <div class="couple-monogram">
-            <span class="monogram-letter">I</span>
-            <span class="monogram-ampersand">&</span>
-            <span class="monogram-letter">R</span>
-          </div>
-          
           <h3 class="welcome-title">Welcome to Our Wedding</h3>
           <p class="welcome-subtitle">本日はご列席いただき、<br>誠にありがとうございます</p>
           
           <div class="welcome-message">
             <p>
-              私たちISAMUとREINAは、本日皆様の前で<br class="pc-only">
+              私たち勇と玲菜は、本日皆様の前で<br class="pc-only">
               夫婦としての新たな一歩を踏み出すことができました。
             </p>
             <p>
@@ -281,107 +274,6 @@
       </div>
     </section>
 
-    <section id="qa" class="section container">
-      <h3 class="section-title">Q & A<span>二人で答える質問コーナー</span></h3>
-      <div class="qa-grid">
-        <details class="qa-item reveal-on-scroll">
-          <summary>お二人の出会いのきっかけは？</summary>
-          <div class="qa-content">
-            <div class="qa-person groom">
-              <span class="qa-label">ISAMU</span>
-              <p>共通の友人の紹介でした。最初はカフェで待ち合わせたのですが、彼女が本を持ってきていて、それが自分の好きな作家の本だったんです。そこから本の話で盛り上がって...</p>
-            </div>
-            <div class="qa-person bride">
-              <span class="qa-label">REINA</span>
-              <p>私もその時、ISAMUさんが本の話をするときの表情がとても生き生きしていて、印象的でした。趣味の合う人だなと思いましたね。</p>
-            </div>
-          </div>
-        </details>
-        <details class="qa-item reveal-on-scroll">
-          <summary>お互いのここが好き！というポイントは？</summary>
-          <div class="qa-content">
-            <div class="qa-person groom">
-              <span class="qa-label">ISAMU</span>
-              <p>REINAは誰に対しても優しく、でも芯の強さを持っているところです。デザインの仕事をしていますが、クライアントの要望をしっかり理解して、的確な提案ができる。その姿勢に惹かれました。</p>
-            </div>
-            <div class="qa-person bride">
-              <span class="qa-label">REINA</span>
-              <p>ISAMUさんの、物事を多角的に見る視点が素敵だなと思います。新しいものに挑戦する意欲も持っていて、私も刺激をもらっています。あとは...料理が上手なところ！</p>
-            </div>
-          </div>
-        </details>
-        <details class="qa-item reveal-on-scroll">
-          <summary>休日はどのように過ごしていますか？</summary>
-          <div class="qa-content">
-            <div class="qa-person groom">
-              <span class="qa-label">ISAMU</span>
-              <p>二人で新しいカフェを探検したり、読書をしたり。最近はポッドキャストを一緒に聴いて感想を話し合うのが楽しいです。</p>
-            </div>
-            <div class="qa-person bride">
-              <span class="qa-label">REINA</span>
-              <p>ISAMUさんが作ってくれる朝食を食べながら、一日をゆっくり始めるのが幸せです。天気が良ければ近所の公園を散歩したり、二人でデザインの展示会に行ったり。</p>
-            </div>
-          </div>
-        </details>
-        <details class="qa-item reveal-on-scroll">
-          <summary>結婚生活で大切にしたいことは？</summary>
-          <div class="qa-content">
-            <div class="qa-person groom">
-              <span class="qa-label">ISAMU</span>
-              <p>お互いの成長を応援し合える関係でありたいですね。二人の時間も大切にしながら、それぞれの夢も追いかけていければと思います。</p>
-            </div>
-            <div class="qa-person bride">
-              <span class="qa-label">REINA</span>
-              <p>日々の小さな発見や喜びを共有できる関係性を保ちたいです。お互いの仕事を理解し、支え合いながら、新しい挑戦もしていきたいと思います。</p>
-            </div>
-          </div>
-        </details>
-      </div>
-    </section>
-
-    <section id="trivia" class="section container">
-      <h3 class="section-title">Fun Facts<span>二人の豆知識</span></h3>
-      <p class="section-intro">ゲストの皆様にもっと二人のことを知っていただきたくて...</p>
-      
-      <div class="trivia-grid">
-        <div class="trivia-card reveal-on-scroll">
-          <div class="trivia-icon">🎂</div>
-          <h4>初めてのデート</h4>
-          <p>名古屋のおしゃれなカフェ。ISAMUが緊張しすぎて、REINAの分のコーヒーまで注文し忘れた</p>
-        </div>
-
-        <div class="trivia-card reveal-on-scroll">
-          <div class="trivia-icon">🎮</div>
-          <h4>共通の趣味</h4>
-          <p>二人とも読書好き。月に一度、読んだ本について語り合う「ブッククラブ」を開催中</p>
-        </div>
-
-        <div class="trivia-card reveal-on-scroll">
-          <div class="trivia-icon">🍳</div>
-          <h4>料理担当</h4>
-          <p>普段はREINAが料理担当。ISAMUは盛り付けとデザート担当という絶妙な役割分担</p>
-        </div>
-
-        <div class="trivia-card reveal-on-scroll">
-          <div class="trivia-icon">✈️</div>
-          <h4>初めての旅行</h4>
-          <p>京都。清水寺で二人の未来を誓い合った。その時の写真は今でもリビングに飾ってある</p>
-        </div>
-
-        <div class="trivia-card reveal-on-scroll">
-          <div class="trivia-icon">☕</div>
-          <h4>好きなコーヒー店</h4>
-          <p>表参道にある小さなロースタリー。毎月違う豆を買って、家で淹れるのが二人の楽しみ</p>
-        </div>
-
-        <div class="trivia-card reveal-on-scroll">
-          <div class="trivia-icon">💍</div>
-          <h4>プロポーズの言葉</h4>
-          <p>「一緒にいると、毎日が特別な日になる。これからもずっと一緒にいてください」</p>
-        </div>
-      </div>
-    </section>
-
     <section id="history" class="section container">
       <h3 class="section-title">Our Story<span>二人の歩み</span></h3>
       <div class="timeline">
@@ -439,6 +331,65 @@
         </div>
       </div>
     </section>
+
+    <section id="qa" class="section container">
+      <h3 class="section-title">Q & A<span>二人で答える質問コーナー</span></h3>
+      <div class="qa-grid">
+        <details class="qa-item reveal-on-scroll">
+          <summary>お二人の出会いのきっかけは？</summary>
+          <div class="qa-content">
+            <div class="qa-person groom">
+              <div class="qa-avatar" aria-hidden="true" style="background-image: url('img/profile/groom.jpg');"></div>
+              <p>共通の友人の紹介でした。最初はカフェで待ち合わせたのですが、彼女が本を持ってきていて、それが自分の好きな作家の本だったんです。そこから本の話で盛り上がって...</p>
+            </div>
+            <div class="qa-person bride">
+              <div class="qa-avatar" aria-hidden="true" style="background-image: url('img/profile/bride.jpg');"></div>
+              <p>私もその時、ISAMUさんが本の話をするときの表情がとても生き生きしていて、印象的でした。趣味の合う人だなと思いましたね。</p>
+            </div>
+          </div>
+        </details>
+        <details class="qa-item reveal-on-scroll">
+          <summary>お互いのここが好き！というポイントは？</summary>
+          <div class="qa-content">
+            <div class="qa-person groom">
+              <div class="qa-avatar" aria-hidden="true" style="background-image: url('img/profile/groom.jpg');"></div>
+              <p>REINAは誰に対しても優しく、でも芯の強さを持っているところです。デザインの仕事をしていますが、クライアントの要望をしっかり理解して、的確な提案ができる。その姿勢に惹かれました。</p>
+            </div>
+            <div class="qa-person bride">
+              <div class="qa-avatar" aria-hidden="true" style="background-image: url('img/profile/bride.jpg');"></div>
+              <p>ISAMUさんの、物事を多角的に見る視点が素敵だなと思います。新しいものに挑戦する意欲も持っていて、私も刺激をもらっています。あとは...料理が上手なところ！</p>
+            </div>
+          </div>
+        </details>
+        <details class="qa-item reveal-on-scroll">
+          <summary>休日はどのように過ごしていますか？</summary>
+          <div class="qa-content">
+            <div class="qa-person groom">
+              <div class="qa-avatar" aria-hidden="true" style="background-image: url('img/profile/groom.jpg');"></div>
+              <p>二人で新しいカフェを探検したり、読書をしたり。最近はポッドキャストを一緒に聴いて感想を話し合うのが楽しいです。</p>
+            </div>
+            <div class="qa-person bride">
+              <div class="qa-avatar" aria-hidden="true" style="background-image: url('img/profile/bride.jpg');"></div>
+              <p>ISAMUさんが作ってくれる朝食を食べながら、一日をゆっくり始めるのが幸せです。天気が良ければ近所の公園を散歩したり、二人でデザインの展示会に行ったり。</p>
+            </div>
+          </div>
+        </details>
+        <details class="qa-item reveal-on-scroll">
+          <summary>結婚生活で大切にしたいことは？</summary>
+          <div class="qa-content">
+            <div class="qa-person groom">
+              <div class="qa-avatar" aria-hidden="true" style="background-image: url('img/profile/groom.jpg');"></div>
+              <p>お互いの成長を応援し合える関係でありたいですね。二人の時間も大切にしながら、それぞれの夢も追いかけていければと思います。</p>
+            </div>
+            <div class="qa-person bride">
+              <div class="qa-avatar" aria-hidden="true" style="background-image: url('img/profile/bride.jpg');"></div>
+              <p>日々の小さな発見や喜びを共有できる関係性を保ちたいです。お互いの仕事を理解し、支え合いながら、新しい挑戦もしていきたいと思います。</p>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+
 
     <section id="photos" class="section container">
       <h3 class="section-title">Photos<span>ウェディングフォト</span></h3>
