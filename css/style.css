@@ -1645,7 +1645,7 @@ details p {
 .lightbox {
   display: none;
   position: fixed;
-  z-index: 20000;
+  z-index: 30000;
   left: 0;
   top: 0;
   width: 100%;
@@ -1666,6 +1666,8 @@ details p {
   border-radius: 8px;
   animation: zoomIn 0.3s ease;
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+  position: relative;
+  z-index: 30002;
 }
 
 .lightbox-content.slide-left {
@@ -1718,7 +1720,7 @@ details p {
   font-weight: 400;
   cursor: pointer;
   transition: all 0.25s ease;
-  z-index: 10000;
+  z-index: 30005;
   width: 54px;
   height: 54px;
   display: flex;
@@ -1743,6 +1745,7 @@ details p {
   justify-content: space-between;
   padding: 0 20px;
   box-sizing: border-box;
+  z-index: 30003;
 }
 
 .lightbox-prev,
