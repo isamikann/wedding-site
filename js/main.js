@@ -503,6 +503,16 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.style.overflow = '';
   }
 
+  // 背景クリックで閉じる（画像クリックは閉じない）
+  lightbox?.addEventListener('click', (e) => {
+    if (e.target === lightbox) {
+      closeLightbox();
+    }
+  });
+
+  // クローズボタン
+  lightboxClose?.addEventListener('click', closeLightbox);
+
   function showNextPhoto() {
     currentPhotoIndex = (currentPhotoIndex + 1) % photoSources.length;
     slideDirection = 'next';
