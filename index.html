@@ -400,16 +400,6 @@
       
       <!-- 写真ギャラリー（動的に生成されます） -->
       <div class="photo-gallery" id="photoGallery"></div>
-      
-      <!-- Lightbox -->
-      <div id="lightbox" class="lightbox">
-        <span class="lightbox-close">&times;</span>
-        <img class="lightbox-content" id="lightboxImg" alt="">
-        <div class="lightbox-nav">
-          <button class="lightbox-prev">&#10094;</button>
-          <button class="lightbox-next">&#10095;</button>
-        </div>
-      </div>
     </section>
 
     <section id="endroll" class="section container">
@@ -418,6 +408,16 @@
       <img src="img/endroll/endroll.jpg" alt="エンドロールムービーのサムネイル画像" style="width:100%;max-width:720px;border-radius:8px" data-image-key="endrollImage"/>
     </section>
   </main>
+
+  <!-- Lightbox (moved outside section to escape stacking contexts) -->
+  <div id="lightbox" class="lightbox">
+    <span class="lightbox-close">&times;</span>
+    <img class="lightbox-content" id="lightboxImg" alt="">
+    <div class="lightbox-nav">
+      <button class="lightbox-prev">&#10094;</button>
+      <button class="lightbox-next">&#10095;</button>
+    </div>
+  </div>
 
   <footer class="site-footer">
     <div class="container">
