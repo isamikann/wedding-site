@@ -35,7 +35,7 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Crimson+Text:wght@400;600&family=Great+Vibes&family=Noto+Serif+JP:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Crimson+Text:wght@400;600&family=Great+Vibes&family=Noto+Serif+JP:wght@300;400;600&display=swap" rel="stylesheet">
   
   <link rel="preload" as="image" href="img/main/main_visual.jpg" fetchpriority="high">
   <link rel="stylesheet" href="css/style.css">
@@ -124,18 +124,9 @@
 
     <section id="seating" class="section container">
       <h3 class="section-title">Seating<span>席次表</span></h3>
-      <p class="section-intro">本日の座席配置をご確認ください</p>
-      <div class="seating">
-        <table class="seating-table">
-          <thead>
-            <tr><th>テーブル</th><th>ゲスト</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>1</td><td>佐藤さん、鈴木さん</td></tr>
-            <tr><td>2</td><td>田中さん、山田さん</td></tr>
-            <tr><td>3</td><td>高橋さん、伊藤さん</td></tr>
-          </tbody>
-        </table>
+      <p class="section-intro">画像をタップして拡大できます</p>
+      <div class="seating-image-wrap reveal-on-scroll">
+        <img src="img/seating/seating.jpg" alt="席次表 - テーブル配置とゲスト名" class="seating-image" data-image-key="seatingImage" loading="lazy" decoding="async" id="seatingImg">
       </div>
     </section>
 
@@ -339,7 +330,7 @@
     <section id="qa" class="section container">
       <h3 class="section-title">Q & A<span>二人で答える質問コーナー</span></h3>
       <div class="qa-grid">
-        <details class="qa-item reveal-on-scroll">
+        <details class="qa-item reveal-on-scroll" open>
           <summary>お二人の出会いのきっかけは？</summary>
           <div class="qa-content">
             <div class="qa-person groom">

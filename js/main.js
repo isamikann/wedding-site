@@ -80,6 +80,30 @@ document.addEventListener('DOMContentLoaded', () => {
     setNavExpanded(willExpand);
   });
 
+  // オーバーレイ背景タップでナビを閉じる
+  document.addEventListener('click', (e) => {
+    if (nav?.classList.contains('is-open') && 
+        !nav.contains(e.target) && 
+        !navToggle?.contains(e.target)) {
+      setNavExpanded(false);
+    }
+  });
+
+  // 席次表画像タップでライトボックス表示
+  const seatingImg = document.getElementById('seatingImg');
+  if (seatingImg) {
+    seatingImg.addEventListener('click', () => {
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightboxImg');
+      if (lightbox && lightboxImg) {
+        lightboxImg.src = seatingImg.src;
+        lightboxImg.alt = seatingImg.alt;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    });
+  }
+
   // スクロールアニメーション
   const revealElements = document.querySelectorAll('.reveal-on-scroll');
   const observer = new IntersectionObserver((entries) => {
@@ -101,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const target = document.querySelector(this.getAttribute('href'));
       if (target) {
         const headerHeight = document.querySelector('.site-header')?.offsetHeight || 0;
-        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+        const targetPosition = target.getBoundingClientRect().top + window.scrollY - headerHeight;
         
         window.scrollTo({
           top: targetPosition,
