@@ -32,6 +32,9 @@
   <meta name="theme-color" content="#FFFFFF">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   
+  <!-- Web App Manifest -->
+  <link rel="manifest" href="manifest.json">
+  
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,9 +54,13 @@
         <div class="ring"></div>
         <div class="ring"></div>
       </div>
-      <p class="loading-text">Loading...</p>
+      <p class="loading-names">Isamu & Reina</p>
+      <p class="loading-date">2026.5.16</p>
     </div>
   </div>
+
+  <!-- Scroll Progress Bar -->
+  <div id="scroll-progress" class="scroll-progress"></div>
 
   <header class="site-header">
     <div class="container header-inner">
@@ -96,22 +103,22 @@
       <div class="container">
         <div class="welcome-content reveal-on-scroll">
           <h3 class="welcome-title">Welcome to Our Wedding</h3>
-          <p class="welcome-subtitle">本日はご列席いただき、<br>誠にありがとうございます</p>
+          <p class="welcome-subtitle">本日はご列席いただき<br>誠にありがとうございます</p>
           
           <div class="welcome-message">
             <p>
-              私たち勇と玲菜は、本日皆様の前で<br class="pc-only">
+              私たち勇と玲菜は 本日皆様の前で<br class="pc-only">
               夫婦としての新たな一歩を踏み出すことができました
             </p>
             <p>
-              ここまで支えてくださった家族、友人、<br class="pc-only">
-              そして今日この場に足を運んでくださった皆様に、<br class="pc-only">
+              ここまで支えてくださった家族 友人<br class="pc-only">
+              そして今日この場に足を運んでくださった皆様に<br class="pc-only">
               心から感謝申し上げます
             </p>
             <p>
-              これからも、二人で力を合わせて、<br class="pc-only">
+              これからも 二人で力を合わせて<br class="pc-only">
               笑顔あふれる温かい家庭を築いていきます<br>
-              どうぞ、末永く見守っていただけますと幸いです
+              どうぞ 末永く見守っていただけますと幸いです
             </p>
             <div class="signature">
               <p class="signature-name">ISAMU & REINA</p>
@@ -143,7 +150,7 @@
           <img src="img/menu/drink.jpg" alt="ドリンクメニュー" class="menu-image" loading="lazy" decoding="async" id="menuDrinkImg">
         </div>
       </div>
-      <p class="menu-note">※アレルギーや食事制限をお持ちの方は、お気軽にスタッフまでお声がけください</p>
+      <p class="menu-note">※アレルギーや食事制限をお持ちの方は お気軽にスタッフまでお声がけください</p>
     </section>
 
     <section id="profile" class="section container profile-section">
@@ -178,11 +185,11 @@
               </div>
               <div class="detail-item">
                 <dt>相手から見た性格</dt>
-                <dd>柔軟、知的</dd>
+                <dd>柔軟・知的</dd>
               </div>
               <div class="detail-item">
                 <dt>休日の過ごし方</dt>
-                <dd>読書、ジム、コンテンツ鑑賞</dd>
+                <dd>読書・ジム・コンテンツ鑑賞</dd>
               </div>
             </dl>
           </div>
@@ -216,11 +223,11 @@
               </div>
               <div class="detail-item">
                 <dt>相手から見た性格</dt>
-                <dd>誠実、思慮深い</dd>
+                <dd>誠実・思慮深い</dd>
               </div>
               <div class="detail-item">
                 <dt>休日の過ごし方</dt>
-                <dd>カフェ、読書、デザイン</dd>
+                <dd>カフェ・読書・デザイン</dd>
               </div>
             </dl>
           </div>
@@ -254,7 +261,7 @@
               <img src="img/history/dating.jpg" alt="交際スタート" class="timeline-image" data-image-key="historyDating" loading="lazy" decoding="async">
             </div>
             <h4>交際スタート</h4>
-            <p>意気投合し、共通の趣味であるコーヒーを通じて絆を深めていきました</p>
+            <p>意気投合し 共通の趣味であるコーヒーを通じて絆を深めていきました</p>
           </div>
         </div>
         <div class="timeline-item reveal-on-scroll">
@@ -267,7 +274,7 @@
               <img src="img/history/proposal.jpg" alt="プロポーズ" class="timeline-image" data-image-key="historyProposal" loading="lazy" decoding="async">
             </div>
             <h4>プロポーズ</h4>
-            <p>神戸の夜、サプライズプロポーズ人生の新たな一歩を踏み出すことを誓いました</p>
+            <p>神戸の夜 サプライズプロポーズ人生の新たな一歩を踏み出すことを誓いました</p>
           </div>
         </div>
         <div class="timeline-item reveal-on-scroll">
@@ -280,7 +287,7 @@
               <img src="img/history/wedding.jpg" alt="結婚式" class="timeline-image" data-image-key="historyWedding" loading="lazy" decoding="async">
             </div>
             <h4>結婚式</h4>
-            <p>たくさんの方々に見守られながら、新しい家族として歩み始めます</p>
+            <p>たくさんの方々に見守られながら 新しい家族として歩み始めます</p>
           </div>
         </div>
       </div>
@@ -294,11 +301,11 @@
           <div class="qa-content">
             <div class="qa-person groom">
               <div class="qa-avatar" aria-hidden="true" style="background-image: url('img/profile/groom.jpg');"></div>
-              <p>共通の友人の紹介でした最初はカフェで待ち合わせたのですが、彼女が本を持ってきていて、それが自分の好きな作家の本だったんですそこから本の話で盛り上がって...</p>
+              <p>共通の友人の紹介でした最初はカフェで待ち合わせたのですが 彼女が本を持ってきていて それが自分の好きな作家の本だったんですそこから本の話で盛り上がって...</p>
             </div>
             <div class="qa-person bride">
               <div class="qa-avatar" aria-hidden="true" style="background-image: url('img/profile/bride.jpg');"></div>
-              <p>私もその時、ISAMUさんが本の話をするときの表情がとても生き生きしていて、印象的でした趣味の合う人だなと思いましたね</p>
+              <p>私もその時 ISAMUさんが本の話をするときの表情がとても生き生きしていて 印象的でした趣味の合う人だなと思いましたね</p>
             </div>
           </div>
         </details>
@@ -307,11 +314,11 @@
           <div class="qa-content">
             <div class="qa-person groom">
               <div class="qa-avatar" aria-hidden="true" style="background-image: url('img/profile/groom.jpg');"></div>
-              <p>REINAは誰に対しても優しく、でも芯の強さを持っているところですデザインの仕事をしていますが、クライアントの要望をしっかり理解して、的確な提案ができるその姿勢に惹かれました</p>
+              <p>REINAは誰に対しても優しく でも芯の強さを持っているところですデザインの仕事をしていますが クライアントの要望をしっかり理解して 的確な提案ができるその姿勢に惹かれました</p>
             </div>
             <div class="qa-person bride">
               <div class="qa-avatar" aria-hidden="true" style="background-image: url('img/profile/bride.jpg');"></div>
-              <p>ISAMUさんの、物事を多角的に見る視点が素敵だなと思います新しいものに挑戦する意欲も持っていて、私も刺激をもらっていますあとは...料理が上手なところ！</p>
+              <p>ISAMUさんの 物事を多角的に見る視点が素敵だなと思います新しいものに挑戦する意欲も持っていて 私も刺激をもらっていますあとは...料理が上手なところ！</p>
             </div>
           </div>
         </details>
@@ -320,11 +327,11 @@
           <div class="qa-content">
             <div class="qa-person groom">
               <div class="qa-avatar" aria-hidden="true" style="background-image: url('img/profile/groom.jpg');"></div>
-              <p>二人で新しいカフェを探検したり、読書をしたり最近はポッドキャストを一緒に聴いて感想を話し合うのが楽しいです</p>
+              <p>二人で新しいカフェを探検したり 読書をしたり最近はポッドキャストを一緒に聴いて感想を話し合うのが楽しいです</p>
             </div>
             <div class="qa-person bride">
               <div class="qa-avatar" aria-hidden="true" style="background-image: url('img/profile/bride.jpg');"></div>
-              <p>ISAMUさんが作ってくれる朝食を食べながら、一日をゆっくり始めるのが幸せです天気が良ければ近所の公園を散歩したり、二人でデザインの展示会に行ったり</p>
+              <p>ISAMUさんが作ってくれる朝食を食べながら 一日をゆっくり始めるのが幸せです天気が良ければ近所の公園を散歩したり 二人でデザインの展示会に行ったり</p>
             </div>
           </div>
         </details>
@@ -333,11 +340,11 @@
           <div class="qa-content">
             <div class="qa-person groom">
               <div class="qa-avatar" aria-hidden="true" style="background-image: url('img/profile/groom.jpg');"></div>
-              <p>お互いの成長を応援し合える関係でありたいですね二人の時間も大切にしながら、それぞれの夢も追いかけていければと思います</p>
+              <p>お互いの成長を応援し合える関係でありたいですね二人の時間も大切にしながら それぞれの夢も追いかけていければと思います</p>
             </div>
             <div class="qa-person bride">
               <div class="qa-avatar" aria-hidden="true" style="background-image: url('img/profile/bride.jpg');"></div>
-              <p>日々の小さな発見や喜びを共有できる関係性を保ちたいですお互いの仕事を理解し、支え合いながら、新しい挑戦もしていきたいと思います</p>
+              <p>日々の小さな発見や喜びを共有できる関係性を保ちたいですお互いの仕事を理解し 支え合いながら 新しい挑戦もしていきたいと思います</p>
             </div>
           </div>
         </details>
@@ -369,6 +376,7 @@
   <!-- Lightbox (moved outside section to escape stacking contexts) -->
   <div id="lightbox" class="lightbox" role="dialog" aria-label="写真ビューアー" aria-modal="true">
     <button class="lightbox-close" aria-label="閉じる">&times;</button>
+    <div class="lightbox-counter" id="lightboxCounter"></div>
     <img class="lightbox-content" id="lightboxImg" alt="">
     <div class="lightbox-nav">
       <button class="lightbox-prev" aria-label="前の写真">&#10094;</button>
@@ -378,7 +386,12 @@
 
   <footer class="site-footer">
     <div class="container">
-      <p>&copy; ISAMU & REINA 2026 Wedding Profile</p>
+      <div class="footer-monogram">
+        <span class="monogram-i">I</span>
+        <span class="monogram-amp">&</span>
+        <span class="monogram-r">R</span>
+      </div>
+      <p class="footer-copy">&copy; ISAMU & REINA 2026 Wedding Profile</p>
     </div>
   </footer>
 </body>

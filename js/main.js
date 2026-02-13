@@ -174,6 +174,14 @@ document.addEventListener('DOMContentLoaded', () => {
   function handleScroll() {
     const scrollY = window.scrollY;
 
+    // スクロールプログレスバー
+    const scrollProgress = document.getElementById('scroll-progress');
+    if (scrollProgress) {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = docHeight > 0 ? (scrollY / docHeight) * 100 : 0;
+      scrollProgress.style.width = scrollPercent + '%';
+    }
+
     // パララックス効果（ヒーロー画像）- モーション設定尊重
     if (!prefersReducedMotion && heroImage && scrollY < window.innerHeight) {
       heroImage.style.transform = `translateY(${scrollY * 0.3}px) scale(1.1)`;
@@ -533,6 +541,15 @@ document.addEventListener('DOMContentLoaded', () => {
       // アニメーションクラスをリセット
       lightboxImg.classList.remove('slide-left', 'slide-right');
       
+      // カウンター更新
+      const counter = document.getElementById('lightboxCounter');
+      if (counter && !lightbox.classList.contains('simple')) {
+        counter.textContent = `${currentPhotoIndex + 1} / ${photoSources.length}`;
+        counter.style.display = '';
+      } else if (counter) {
+        counter.style.display = 'none';
+      }
+      
       // 少し待ってから新しい画像を設定（スムーズな切り替えのため）
       setTimeout(() => {
         lightboxImg.src = photoSources[currentPhotoIndex].src;
@@ -654,5 +671,12 @@ document.addEventListener('DOMContentLoaded', () => {
         showNextPhoto();
       }
     }
+  }
+
+  // Service Worker登録
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    });
   }
 });
