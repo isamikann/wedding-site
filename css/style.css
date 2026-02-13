@@ -1304,27 +1304,17 @@ details p {
 }
 
 .welcome-message {
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10px);
+  background: #FFFFFF;
   padding: 3rem 2rem;
   border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(143, 168, 184, 0.2);
-  border: 2px solid var(--color-accent);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  border: 2px solid var(--color-rose-gold);
   margin-bottom: 3rem;
   position: relative;
 }
 
 .welcome-message::before {
-  content: '';
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
-  background: linear-gradient(135deg, var(--color-rose-gold), var(--color-gold));
-  border-radius: 16px;
-  z-index: -1;
-  opacity: 0.3;
+  display: none;
 }
 
 .welcome-message p {
