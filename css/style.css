@@ -1735,6 +1735,11 @@ details p {
   z-index: 30003;
 }
 
+/* シンプルモード（席次表・メニュー）: ナビ非表示 */
+.lightbox.simple .lightbox-nav {
+  display: none;
+}
+
 .lightbox-prev,
 .lightbox-next {
   background: rgba(255, 255, 255, 0.2);

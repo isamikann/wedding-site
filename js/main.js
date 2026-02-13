@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 席次表画像タップでライトボックス表示
+  // 席次表画像タップでライトボックス表示（シンプルモード）
   const seatingImg = document.getElementById('seatingImg');
   if (seatingImg) {
     seatingImg.addEventListener('click', () => {
@@ -98,13 +98,13 @@ document.addEventListener('DOMContentLoaded', () => {
       if (lightbox && lightboxImg) {
         lightboxImg.src = seatingImg.src;
         lightboxImg.alt = seatingImg.alt;
-        lightbox.classList.add('active');
+        lightbox.classList.add('active', 'simple');
         document.body.style.overflow = 'hidden';
       }
     });
   }
 
-  // メニュー画像タップでライトボックス表示
+  // メニュー画像タップでライトボックス表示（シンプルモード）
   document.querySelectorAll('#menuFoodImg, #menuDrinkImg').forEach(img => {
     img.addEventListener('click', () => {
       const lightbox = document.getElementById('lightbox');
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (lightbox && lightboxImg) {
         lightboxImg.src = img.src;
         lightboxImg.alt = img.alt;
-        lightbox.classList.add('active');
+        lightbox.classList.add('active', 'simple');
         document.body.style.overflow = 'hidden';
       }
     });
@@ -557,7 +557,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function closeLightbox() {
-    lightbox.classList.remove('active');
+    lightbox.classList.remove('active', 'simple');
     document.body.style.overflow = '';
     // フォーカスを元に戻す
     if (lastFocusedElement) {
@@ -608,10 +608,12 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (e.key === 'Escape') {
       closeLightbox();
-    } else if (e.key === 'ArrowRight') {
-      showNextPhoto();
-    } else if (e.key === 'ArrowLeft') {
-      showPrevPhoto();
+    } else if (!lightbox.classList.contains('simple')) {
+      if (e.key === 'ArrowRight') {
+        showNextPhoto();
+      } else if (e.key === 'ArrowLeft') {
+        showPrevPhoto();
+      }
     }
   });
 
@@ -637,6 +639,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function handleSwipe() {
+    if (lightbox.classList.contains('simple')) return;
     const diffX = touchEndX - touchStartX;
     const diffY = touchEndY - touchStartY;
     const minSwipeDistance = 50;
