@@ -1,26 +1,26 @@
 :root {
-  --color-primary: #1F1F1F;
-  --color-secondary: #E8F1F6;
-  --color-accent: #D4A574;
-  --color-rose-gold: #D4A574;
-  --color-gold: #C5865F;
-  --color-champagne: #F7F1E9;
-  --color-background: #F7F1E9;
-  --color-text: #1F1F1F;
-  --color-text-light: #5A5A5A;
-  --color-link: #C5865F;
+  --color-primary: #2C3E50;
+  --color-secondary: #E8EFF3;
+  --color-accent: #E8935A;
+  --color-rose-gold: #8FA8B8;
+  --color-gold: #6B8FA0;
+  --color-champagne: #F5F8FA;
+  --color-background: #FFFFFF;
+  --color-text: #2C3E50;
+  --color-text-light: #6B7D8A;
+  --color-link: #D4793E;
   --color-card-bg: #FFFFFF;
-  --color-section-1: #F1F5F8;
+  --color-section-1: #F2F6F9;
   --color-section-2: #FFFFFF;
-  --color-section-3: #F7F1E9;
+  --color-section-3: #F2F6F9;
   --color-section-4: #FFFFFF;
-  --color-section-5: #F1F5F8;
+  --color-section-5: #F2F6F9;
   --font-serif: "Playfair Display", "Noto Serif JP", "游明朝", serif;
   --font-script: "Great Vibes", cursive;
   --font-body: "Crimson Text", "Noto Serif JP", "游明朝", serif;
-  --shadow-color: rgba(0, 0, 0, 0.1);
-  --shadow-gold: rgba(201, 169, 97, 0.3);
-  --border-color: #FF9966;
+  --shadow-color: rgba(0, 0, 0, 0.08);
+  --shadow-gold: rgba(107, 143, 160, 0.25);
+  --border-color: #E8935A;
   --section-spacing: 6rem;
 }
 
@@ -49,7 +49,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #E8F1F6 0%, #FFE5D9 100%);
+  background: linear-gradient(135deg, #F2F6F9 0%, #FFFFFF 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -94,7 +94,7 @@ body {
   top: 10px;
   left: 10px;
   animation-delay: 0.3s;
-  border-top-color: #9C8374;
+  border-top-color: #E8935A;
 }
 
 @keyframes spin {
@@ -375,27 +375,27 @@ main {
 }
 
 #seating {
-  background: linear-gradient(135deg, var(--color-section-1) 0%, rgba(247, 231, 206, 0.3) 100%);
+  background: linear-gradient(135deg, var(--color-section-1) 0%, rgba(143, 168, 184, 0.08) 100%);
 }
 
 #menu {
-  background: linear-gradient(135deg, var(--color-section-2) 0%, rgba(255, 255, 255, 0.8) 100%);
+  background: linear-gradient(135deg, var(--color-section-2) 0%, rgba(143, 168, 184, 0.04) 100%);
 }
 
 #profile {
-  background: linear-gradient(135deg, var(--color-section-3) 0%, rgba(212, 165, 116, 0.1) 100%);
+  background: linear-gradient(135deg, var(--color-section-3) 0%, rgba(143, 168, 184, 0.08) 100%);
 }
 
 #qa {
-  background: linear-gradient(135deg, var(--color-section-4) 0%, rgba(255, 255, 255, 0.8) 100%);
+  background: linear-gradient(135deg, var(--color-section-4) 0%, rgba(143, 168, 184, 0.04) 100%);
 }
 
 #history {
-  background: linear-gradient(135deg, var(--color-section-5) 0%, rgba(247, 231, 206, 0.3) 100%);
+  background: linear-gradient(135deg, var(--color-section-5) 0%, rgba(143, 168, 184, 0.08) 100%);
 }
 
 #photos, #endroll {
-  background: linear-gradient(135deg, var(--color-section-1) 0%, rgba(201, 169, 97, 0.08) 100%);
+  background: linear-gradient(135deg, var(--color-section-1) 0%, rgba(143, 168, 184, 0.06) 100%);
 }
 
 .section:not(#hero)::before {
@@ -445,7 +445,7 @@ main {
 
 .profile-image:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(255, 153, 102, 0.15);
+  box-shadow: 0 12px 32px rgba(143, 168, 184, 0.25);
 }
 
 .profile-image.loaded {
@@ -776,7 +776,7 @@ details p {
   align-items: baseline;
   margin-bottom: 1.2rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid rgba(212, 165, 116, 0.15);
+  border-bottom: 1px solid rgba(143, 168, 184, 0.15);
   transition: all 0.3s ease;
 }
 
@@ -788,8 +788,8 @@ details p {
 
 .detail-item:hover {
   padding-left: 0.5rem;
-  border-bottom-color: rgba(212, 165, 116, 0.4);
-  background: linear-gradient(90deg, rgba(247, 231, 206, 0.3), transparent);
+  border-bottom-color: rgba(143, 168, 184, 0.4);
+  background: linear-gradient(90deg, rgba(143, 168, 184, 0.1), transparent);
   border-radius: 4px;
 }
 
@@ -1065,7 +1065,7 @@ details p {
   margin: 0;
   border-radius: 8px;
   background: linear-gradient(135deg, var(--color-champagne) 0%, #FFFFFF 100%);
-  border: 1px solid rgba(212, 165, 116, 0.2);
+  border: 1px solid rgba(143, 168, 184, 0.2);
   max-width: 86%;
   z-index: 0;
   overflow: hidden;
@@ -1073,12 +1073,12 @@ details p {
 
 .qa-person.groom {
   align-self: flex-start;
-  background: linear-gradient(135deg, #F7E7CE 0%, #FFFFFF 100%);
+  background: linear-gradient(135deg, #EDF2F6 0%, #FFFFFF 100%);
 }
 
 .qa-person.bride {
   align-self: flex-end;
-  background: linear-gradient(135deg, #FFE5D9 0%, #FFFFFF 100%);
+  background: linear-gradient(135deg, #F0F4F7 0%, #FFFFFF 100%);
 }
 
 .qa-person .qa-avatar {
@@ -1308,7 +1308,7 @@ details p {
   backdrop-filter: blur(10px);
   padding: 3rem 2rem;
   border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(212, 165, 116, 0.2);
+  box-shadow: 0 8px 32px rgba(143, 168, 184, 0.2);
   border: 2px solid var(--color-accent);
   margin-bottom: 3rem;
   position: relative;
@@ -1380,7 +1380,7 @@ details p {
   text-align: right;
   margin-top: 2rem;
   padding-top: 2rem;
-  border-top: 1px solid rgba(255, 153, 102, 0.3);
+  border-top: 1px solid rgba(143, 168, 184, 0.3);
 }
 
 .signature-name {
@@ -1429,15 +1429,15 @@ details p {
 }
 
 .category-tab:hover {
-  background: rgba(255, 153, 102, 0.1);
+  background: rgba(232, 147, 90, 0.1);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(255, 153, 102, 0.2);
+  box-shadow: 0 4px 12px rgba(232, 147, 90, 0.2);
 }
 
 .category-tab.active {
   background: var(--color-accent);
   color: white;
-  box-shadow: 0 4px 12px rgba(255, 153, 102, 0.3);
+  box-shadow: 0 4px 12px rgba(232, 147, 90, 0.3);
 }
 
 .photo-gallery {
@@ -1507,7 +1507,7 @@ details p {
   transform: translateX(-50%);
   width: 70px;
   height: 25px;
-  background: rgba(255, 220, 100, 0.75);
+  background: rgba(184, 205, 214, 0.7);
 }
 
 .photo-item:nth-child(3n+2)::before {
@@ -1516,7 +1516,7 @@ details p {
   right: 10px;
   width: 60px;
   height: 25px;
-  background: rgba(255, 180, 180, 0.75);
+  background: rgba(200, 218, 228, 0.7);
   transform: rotate(15deg);
 }
 
@@ -1795,8 +1795,8 @@ details p {
   text-align: center;
   padding: 3rem 2rem;
   margin: 1rem 0 2rem;
-  background: linear-gradient(135deg, rgba(212, 165, 116, 0.08) 0%, rgba(247, 231, 206, 0.3) 100%);
-  border: 2px dashed rgba(212, 165, 116, 0.3);
+  background: linear-gradient(135deg, rgba(143, 168, 184, 0.06) 0%, rgba(232, 239, 243, 0.3) 100%);
+  border: 2px dashed rgba(143, 168, 184, 0.3);
   border-radius: 16px;
 }
 
