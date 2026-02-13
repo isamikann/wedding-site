@@ -28,6 +28,10 @@
   <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
   <link rel="alternate icon" href="img/favicon.ico">
   
+  <!-- Theme Color -->
+  <meta name="theme-color" content="#F7F1E9">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -197,7 +201,7 @@
       <div class="profile two-column">
         <div class="person reveal-on-scroll">
           <div class="profile-image-wrap">
-            <img src="img/profile/groom.jpg" alt="新郎ISAMU - 笑顔でカメラを見つめる優しい表情" class="profile-image" data-image-key="groomProfile">
+            <img src="img/profile/groom.jpg" alt="新郎ISAMU - 笑顔でカメラを見つめる優しい表情" class="profile-image" data-image-key="groomProfile" loading="lazy" decoding="async">
           </div>
           <div class="profile-content">
             <h4>Groom — ISAMU</h4>
@@ -235,7 +239,7 @@
         </div>
         <div class="person reveal-on-scroll">
           <div class="profile-image-wrap">
-            <img src="img/profile/bride.jpg" alt="新婦REINA - 上品な笑顔が印象的なポートレート" class="profile-image" data-image-key="brideProfile">
+            <img src="img/profile/bride.jpg" alt="新婦REINA - 上品な笑顔が印象的なポートレート" class="profile-image" data-image-key="brideProfile" loading="lazy" decoding="async">
           </div>
           <div class="profile-content">
             <h4>Bride — REINA</h4>
@@ -284,7 +288,7 @@
           </div>
           <div class="timeline-content">
             <div class="timeline-image-wrap">
-              <img src="img/history/meeting.jpg" alt="運命の出会い" class="timeline-image" data-image-key="historyMeeting">
+              <img src="img/history/meeting.jpg" alt="運命の出会い" class="timeline-image" data-image-key="historyMeeting" loading="lazy" decoding="async">
             </div>
             <h4>運命の出会い</h4>
             <p>最初の印象は「笑顔が素敵な人」でした</p>
@@ -297,7 +301,7 @@
           </div>
           <div class="timeline-content">
             <div class="timeline-image-wrap">
-              <img src="img/history/dating.jpg" alt="交際スタート" class="timeline-image" data-image-key="historyDating">
+              <img src="img/history/dating.jpg" alt="交際スタート" class="timeline-image" data-image-key="historyDating" loading="lazy" decoding="async">
             </div>
             <h4>交際スタート</h4>
             <p>意気投合し、共通の趣味であるコーヒーを通じて絆を深めていきました</p>
@@ -310,7 +314,7 @@
           </div>
           <div class="timeline-content">
             <div class="timeline-image-wrap">
-              <img src="img/history/proposal.jpg" alt="プロポーズ" class="timeline-image" data-image-key="historyProposal">
+              <img src="img/history/proposal.jpg" alt="プロポーズ" class="timeline-image" data-image-key="historyProposal" loading="lazy" decoding="async">
             </div>
             <h4>プロポーズ</h4>
             <p>神戸の夜、サプライズプロポーズ。人生の新たな一歩を踏み出すことを誓いました</p>
@@ -323,7 +327,7 @@
           </div>
           <div class="timeline-content">
             <div class="timeline-image-wrap">
-              <img src="img/history/wedding.jpg" alt="結婚式" class="timeline-image" data-image-key="historyWedding">
+              <img src="img/history/wedding.jpg" alt="結婚式" class="timeline-image" data-image-key="historyWedding" loading="lazy" decoding="async">
             </div>
             <h4>結婚式</h4>
             <p>たくさんの方々に見守られながら、新しい家族として歩み始めます</p>
@@ -404,24 +408,27 @@
 
     <section id="endroll" class="section container">
       <h3 class="section-title">Endroll<span>エンドロールムービー</span></h3>
-      <p>式後に掲載します。準備ができ次第ここに埋め込みます。</p>
-      <img src="img/endroll/endroll.jpg" alt="エンドロールムービーのサムネイル画像" style="width:100%;max-width:720px;border-radius:8px" data-image-key="endrollImage"/>
+      <div class="endroll-placeholder">
+        <p class="endroll-notice">式後に掲載予定です</p>
+        <p class="endroll-sub">エンドロールムービーは後日こちらに公開いたします。<br>お楽しみにお待ちください。</p>
+      </div>
+      <img src="img/endroll/endroll.jpg" alt="エンドロールムービーのサムネイル画像" class="endroll-image" data-image-key="endrollImage" loading="lazy" decoding="async"/>
     </section>
   </main>
 
   <!-- Lightbox (moved outside section to escape stacking contexts) -->
-  <div id="lightbox" class="lightbox">
-    <span class="lightbox-close">&times;</span>
+  <div id="lightbox" class="lightbox" role="dialog" aria-label="写真ビューアー" aria-modal="true">
+    <button class="lightbox-close" aria-label="閉じる">&times;</button>
     <img class="lightbox-content" id="lightboxImg" alt="">
     <div class="lightbox-nav">
-      <button class="lightbox-prev">&#10094;</button>
-      <button class="lightbox-next">&#10095;</button>
+      <button class="lightbox-prev" aria-label="前の写真">&#10094;</button>
+      <button class="lightbox-next" aria-label="次の写真">&#10095;</button>
     </div>
   </div>
 
   <footer class="site-footer">
     <div class="container">
-      <p>&copy; ISAMU & REINA 2025 Wedding Profile</p>
+      <p>&copy; ISAMU & REINA 2026 Wedding Profile</p>
     </div>
   </footer>
 </body>

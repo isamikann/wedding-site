@@ -24,8 +24,7 @@
   --section-spacing: 6rem;
 }
 
-/* Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Crimson+Text:wght@400;600&family=Great+Vibes&family=Noto+Serif+JP:wght@300;400;500;600&display=swap');
+/* Google Fonts - loaded via <link> in HTML, no @import needed */
 
 /* Basic reset */
 * {
@@ -264,6 +263,12 @@ h1, h2, h3, h4 {
 .site-nav a:hover,
 .site-nav a.active {
   color: var(--color-link);
+}
+
+.site-nav a:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 .site-nav a.active::after {
@@ -1140,7 +1145,9 @@ details p {
     margin: 0 0.75rem 0.35rem 0.75rem;
   }
 }
-  /* Timeline mobile adjustments */
+
+/* Timeline mobile adjustments */
+@media (max-width: 599px) {
   .timeline {
     padding: 1rem 0;
   }
@@ -1317,8 +1324,7 @@ details p {
   padding: 3rem 2rem;
   border-radius: 16px;
   box-shadow: 0 8px 32px rgba(212, 165, 116, 0.2);
-  border: 2px solid;
-  border-image: linear-gradient(135deg, var(--color-rose-gold), var(--color-gold), var(--color-rose-gold)) 1;
+  border: 2px solid var(--color-accent);
   margin-bottom: 3rem;
   position: relative;
 }
@@ -1555,8 +1561,6 @@ details p {
 .lazy-image {
   opacity: 0;
   transition: opacity 0.4s ease;
-  /* ブラウザのデコード最適化 */
-  decoding: async;
 }
 
 .lazy-image[src]:not([src=""]):not([src*="data:image"]) {
@@ -1889,5 +1893,134 @@ details p {
   .trivia-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
+  }
+}
+
+/* Endroll Section - Placeholder */
+.endroll-placeholder {
+  text-align: center;
+  padding: 3rem 2rem;
+  margin: 1rem 0 2rem;
+  background: linear-gradient(135deg, rgba(212, 165, 116, 0.08) 0%, rgba(247, 231, 206, 0.3) 100%);
+  border: 2px dashed rgba(212, 165, 116, 0.3);
+  border-radius: 16px;
+}
+
+.endroll-notice {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  color: var(--color-accent);
+  margin-bottom: 0.8rem;
+  letter-spacing: 0.1em;
+}
+
+.endroll-sub {
+  font-size: 0.95rem;
+  color: var(--color-text-light);
+  line-height: 1.8;
+}
+
+.endroll-image {
+  width: 100%;
+  max-width: 720px;
+  border-radius: 8px;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Focus visible improvements for accessibility */
+button:focus-visible,
+a:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Lightbox close button fix for <button> */
+.lightbox-close {
+  line-height: 1;
+}
+
+/* Improve touch targets for mobile */
+@media (max-width: 599px) {
+  .nav-item {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-toggle {
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Reduce hero height for mobile to show more content */
+  .hero {
+    height: 70vh;
+    min-height: 320px;
+  }
+
+  /* Better scroll hint positioning on mobile */
+  .scroll-hint {
+    bottom: 40px;
+  }
+  
+  /* Better touch targets for Q&A */
+  .qa-item summary {
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    padding-right: 3rem;
+  }
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .hero-image {
+    transform: none !important;
+  }
+  
+  .reveal-on-scroll {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Improve text readability on mobile */
+@media (max-width: 599px) {
+  .welcome-message p {
+    font-size: 0.95rem;
+    line-height: 1.9;
+  }
+  
+  .timeline-content p {
+    font-size: 0.9rem;
+  }
+  
+  .section-intro {
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
   }
 }

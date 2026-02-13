@@ -119,13 +119,26 @@ document.addEventListener('DOMContentLoaded', () => {
   const navItems = document.querySelectorAll('.nav-item');
   const heroImage = document.querySelector('.hero-image');
   const pageTopButton = createPageTopButton();
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // スクロールイベントのスロットリング
+  let ticking = false;
   window.addEventListener('scroll', () => {
-    const scrollY = window.pageYOffset;
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        handleScroll();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
 
-    // パララックス効果（ヒーロー画像）
-    if (heroImage && scrollY < window.innerHeight) {
-      heroImage.style.transform = `translateY(${scrollY * 0.5}px) scale(1.1)`;
+  function handleScroll() {
+    const scrollY = window.scrollY;
+
+    // パララックス効果（ヒーロー画像）- モーション設定尊重
+    if (!prefersReducedMotion && heroImage && scrollY < window.innerHeight) {
+      heroImage.style.transform = `translateY(${scrollY * 0.3}px) scale(1.1)`;
     }
 
     // ページトップボタンの表示/非表示
@@ -140,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
     sections.forEach(section => {
       const sectionTop = section.offsetTop;
       const sectionHeight = section.clientHeight;
-      if (pageYOffset >= sectionTop - 200) {
+      if (scrollY >= sectionTop - 200) {
         current = section.getAttribute('id');
       }
     });
@@ -151,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
         item.classList.add('active');
       }
     });
-  });
+  }
 
   // ページトップボタンの作成
   function createPageTopButton() {
@@ -444,6 +457,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentPhotoIndex = 0;
   let photoSources = [];
   let slideDirection = null;
+  let lastFocusedElement = null;
 
   function initLightbox(photos) {
     photoSources = photos.map(photo => {
@@ -468,6 +482,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const photoItems = document.querySelectorAll('.photo-item');
     photoItems.forEach((item, index) => {
       item.addEventListener('click', () => {
+        lastFocusedElement = document.activeElement;
         currentPhotoIndex = index;
         slideDirection = null; // 最初のクリックはズームイン
         showLightbox();
@@ -494,6 +509,11 @@ document.addEventListener('DOMContentLoaded', () => {
         
         lightbox.classList.add('active');
         document.body.style.overflow = 'hidden';
+        
+        // アクセシビリティ: 閉じるボタンにフォーカス
+        if (lightboxClose) {
+          lightboxClose.focus();
+        }
       }, slideDirection ? 50 : 0);
     }
   }
@@ -501,6 +521,11 @@ document.addEventListener('DOMContentLoaded', () => {
   function closeLightbox() {
     lightbox.classList.remove('active');
     document.body.style.overflow = '';
+    // フォーカスを元に戻す
+    if (lastFocusedElement) {
+      lastFocusedElement.focus();
+      lastFocusedElement = null;
+    }
   }
 
   function showNextPhoto() {
