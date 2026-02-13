@@ -1955,11 +1955,8 @@ details summary::-webkit-details-marker {
   }
 
   .nav-toggle {
-    min-width: 44px;
-    min-height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    padding: 10px;
+    box-sizing: content-box;
   }
 
   /* Reduce hero height for mobile to show more content */
