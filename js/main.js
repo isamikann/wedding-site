@@ -105,19 +105,18 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // メニュー画像タップでライトボックス表示
-  const menuImg = document.getElementById('menuImg');
-  if (menuImg) {
-    menuImg.addEventListener('click', () => {
+  document.querySelectorAll('#menuFoodImg, #menuDrinkImg').forEach(img => {
+    img.addEventListener('click', () => {
       const lightbox = document.getElementById('lightbox');
       const lightboxImg = document.getElementById('lightboxImg');
       if (lightbox && lightboxImg) {
-        lightboxImg.src = menuImg.src;
-        lightboxImg.alt = menuImg.alt;
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
         lightbox.classList.add('active');
         document.body.style.overflow = 'hidden';
       }
     });
-  }
+  });
 
   // スクロールアニメーション
   const revealElements = document.querySelectorAll('.reveal-on-scroll');

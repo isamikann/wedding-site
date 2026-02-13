@@ -508,9 +508,31 @@ main {
 }
 
 /* メニュー画像 */
+.menu-images-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin: 1rem 0 2rem;
+}
+
+@media (max-width: 599px) {
+  .menu-images-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
 .menu-image-wrap {
   text-align: center;
-  margin: 1rem 0 2rem;
+}
+
+.menu-image-title {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  color: var(--color-primary);
+  margin-bottom: 0.8rem;
+  letter-spacing: 0.08em;
+  font-weight: 600;
 }
 
 .menu-image {
