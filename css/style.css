@@ -412,10 +412,6 @@ main {
   background: linear-gradient(135deg, var(--color-section-4) 0%, rgba(143, 168, 184, 0.04) 100%);
 }
 
-#history {
-  background: linear-gradient(135deg, var(--color-section-5) 0%, rgba(143, 168, 184, 0.08) 100%);
-}
-
 #photos, #endroll {
   background: linear-gradient(135deg, var(--color-section-1) 0%, rgba(143, 168, 184, 0.06) 100%);
 }
@@ -591,30 +587,6 @@ details p {
   padding: 1rem;
   background: transparent;
   border-radius: 4px;
-}
-
-#history ol {
-  max-width: 500px;
-  margin: 2rem auto;
-  list-style: none;
-  position: relative;
-}
-
-#history li {
-  margin: 2rem 0;
-  padding-left: 2rem;
-  position: relative;
-}
-
-#history li:before {
-  content: '';
-  width: 12px;
-  height: 12px;
-  background: var(--color-primary);
-  border-radius: 50%;
-  position: absolute;
-  left: 0;
-  top: 0.4rem;
 }
 
 .site-footer {
@@ -941,110 +913,6 @@ details p {
   }
 }
 
-/* Timeline styles */
-.timeline {
-  position: relative;
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 2rem 0;
-}
-
-.timeline::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(180deg, var(--color-rose-gold), var(--color-gold));
-  opacity: 0.4;
-}
-
-.timeline-item {
-  position: relative;
-  margin-bottom: 3rem;
-  width: 50%;
-  padding-right: 2rem;
-}
-
-.timeline-item:nth-child(even) {
-  margin-left: auto;
-  padding-right: 0;
-  padding-left: 2rem;
-}
-
-.timeline-date {
-  position: absolute;
-  top: 0;
-  right: -3.5rem;
-  text-align: center;
-  width: 7rem;
-}
-
-.timeline-item:nth-child(even) .timeline-date {
-  right: auto;
-  left: -3.5rem;
-}
-
-.timeline-date .year {
-  display: block;
-  font-family: var(--font-serif);
-  font-size: 1.8rem;
-  background: linear-gradient(135deg, var(--color-rose-gold), var(--color-gold));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-weight: 600;
-}
-
-.timeline-date .month {
-  font-size: 0.9rem;
-  color: var(--color-text-light);
-}
-
-.timeline-content {
-  background: var(--color-card-bg);
-  padding: 1.5rem;
-  border-radius: 4px;
-  box-shadow: 0 4px 12px rgba(26, 59, 75, 0.15);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-}
-
-.timeline-image-wrap {
-  width: 100%;
-  margin-bottom: 1rem;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  aspect-ratio: 4 / 3;
-}
-
-.timeline-image {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.3s ease, filter 0.3s ease;
-}
-
-.timeline-item:hover .timeline-image {
-  transform: scale(1.05);
-  filter: brightness(1.05);
-}
-
-.timeline-content h4 {
-  color: var(--color-primary);
-  margin-bottom: 0.5rem;
-  font-weight: bold;
-  font-size: 1.1rem;
-  border-left: 3px solid var(--color-accent);
-  padding-left: 0.8rem;
-}
-
-
-
 .menu-note {
   text-align: center;
   font-size: 0.9rem;
@@ -1200,63 +1068,6 @@ details p {
     width: 3.8rem;
     height: 3.8rem;
     margin: 0 0.75rem 0.35rem 0.75rem;
-  }
-}
-
-/* Timeline mobile adjustments */
-@media (max-width: 599px) {
-  .timeline {
-    padding: 1rem 0;
-  }
-  
-  .timeline::before {
-    left: 1.5rem;
-  }
-  
-  .timeline-item {
-    width: 100%;
-    padding-right: 0;
-    padding-left: 4rem;
-    margin-bottom: 2rem;
-  }
-  
-  .timeline-item:nth-child(even) {
-    margin-left: 0;
-    padding-left: 4rem;
-    padding-right: 0;
-  }
-  
-  .timeline-date {
-    position: relative;
-    right: auto;
-    left: auto;
-    width: auto;
-    text-align: left;
-    margin-bottom: 0.5rem;
-    display: flex;
-    align-items: baseline;
-    gap: 0.5rem;
-  }
-  
-  .timeline-item:nth-child(even) .timeline-date {
-    right: auto;
-    left: auto;
-  }
-  
-  .timeline-date .year {
-    font-size: 1.5rem;
-  }
-  
-  .timeline-date .month {
-    font-size: 0.85rem;
-  }
-  
-  .timeline-content {
-    padding: 1rem 1.2rem;
-  }
-  
-  .timeline-content h4 {
-    font-size: 1rem;
   }
 }
 
