@@ -402,69 +402,131 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // 写真を表示する関数
+    let carouselCurrentIndex = 0;
+
     function displayPhotos(categoryFilter = 'all') {
       const photosToDisplay = categoryFilter === 'all' 
         ? allPhotos 
         : allPhotos.filter(photo => photo.category === categoryFilter);
 
       if (photosToDisplay.length === 0) {
-        galleryContainer.innerHTML = '<p style="text-align: center; color: var(--color-text-light); grid-column: 1/-1;">写真がまだ追加されていません</p>';
+        galleryContainer.innerHTML = '<p style="text-align: center; color: var(--color-text-light);">写真がまだ追加されていません</p>';
         return;
       }
 
-      // プレースホルダー用の1x1透明画像
-      const placeholder = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"%3E%3C/svg%3E';
+      carouselCurrentIndex = 0;
 
-      galleryContainer.innerHTML = photosToDisplay.map((photo, index) => {
-        // 画像URLを最適化
-        const optimizedSrc = optimizeImageUrl(photo.src);
-        
-        return `
-          <div class="photo-item reveal-on-scroll" data-index="${index}" data-category="${photo.category}">
-            <div class="photo-image-wrapper">
-              <img src="${placeholder}" data-src="${optimizedSrc}" alt="${photo.alt}" class="gallery-image lazy-image">
-              <div class="photo-overlay">
-                <span class="photo-icon">🔍</span>
-              </div>
+      // カルーセルHTMLを生成
+      galleryContainer.innerHTML = `
+        <div class="photo-carousel">
+          <div class="carousel-main" id="carouselMain">
+            <button class="carousel-btn carousel-prev-btn" aria-label="前の写真">&#10094;</button>
+            <div class="carousel-main-frame">
+              <img id="carouselMainImg"
+                src="${optimizeImageUrl(photosToDisplay[0].src)}"
+                alt="${photosToDisplay[0].alt}"
+                class="carousel-main-img">
+            </div>
+            <button class="carousel-btn carousel-next-btn" aria-label="次の写真">&#10095;</button>
+            <div class="carousel-counter-badge" id="carouselCounter">1 / ${photosToDisplay.length}</div>
+            <div class="carousel-caption" id="carouselCaption">${photosToDisplay[0].categoryTitle}</div>
+            <div class="carousel-expand-hint">クリックで拡大 🔍</div>
+          </div>
+          <div class="carousel-thumbnails-wrap">
+            <div class="carousel-thumbnails" id="carouselThumbnails">
+              ${photosToDisplay.map((photo, i) => `
+                <img
+                  src="${optimizeImageUrl(photo.src)}"
+                  alt="${photo.alt}"
+                  class="carousel-thumb${i === 0 ? ' active' : ''}"
+                  data-index="${i}"
+                  loading="lazy"
+                >
+              `).join('')}
             </div>
           </div>
-        `;
-      }).join('');
+        </div>
+      `;
 
-      // 新しく追加された画像に遅延読み込みを適用
-      const lazyImages = galleryContainer.querySelectorAll('.lazy-image');
+      // カルーセル更新関数
+      function updateCarousel(index) {
+        carouselCurrentIndex = (index + photosToDisplay.length) % photosToDisplay.length;
+        const mainImg = document.getElementById('carouselMainImg');
+        const counter = document.getElementById('carouselCounter');
+        const caption = document.getElementById('carouselCaption');
+        const thumbs = document.querySelectorAll('.carousel-thumb');
 
-      // IntersectionObserverが使える場合は遅延読み込み
-      if ('IntersectionObserver' in window) {
-        lazyImages.forEach(img => {
-          lazyImageObserver.observe(img);
+        mainImg.classList.add('fade');
+        setTimeout(() => {
+          mainImg.src = optimizeImageUrl(photosToDisplay[carouselCurrentIndex].src);
+          mainImg.alt = photosToDisplay[carouselCurrentIndex].alt;
+          mainImg.classList.remove('fade');
+        }, 180);
+
+        counter.textContent = `${carouselCurrentIndex + 1} / ${photosToDisplay.length}`;
+        caption.textContent = photosToDisplay[carouselCurrentIndex].categoryTitle;
+
+        thumbs.forEach((thumb, i) => {
+          thumb.classList.toggle('active', i === carouselCurrentIndex);
         });
+
+        // アクティブサムネイルを表示領域にスクロール
+        const activeThumb = document.querySelector('.carousel-thumb.active');
+        if (activeThumb) {
+          activeThumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
       }
 
-      // フェイルセーフ: 一定時間後に未ロードの画像を強制ロード
-      setTimeout(() => {
-        lazyImages.forEach(img => {
-          const dataSrc = img.getAttribute('data-src');
-          if (dataSrc) {
-            img.src = dataSrc;
-            img.removeAttribute('data-src');
-          }
-        });
-      }, 800);
-
-      // 新しく追加された要素にスクロールアニメーションを適用
-      const newRevealElements = galleryContainer.querySelectorAll('.reveal-on-scroll');
-      newRevealElements.forEach(el => {
-        observer.observe(el);
-        // 既に表示領域にある場合は即座に表示
-        setTimeout(() => {
-          if (el.getBoundingClientRect().top < window.innerHeight) {
-            el.classList.add('is-visible');
-          }
-        }, 100);
+      // 前/次ボタン
+      galleryContainer.querySelector('.carousel-prev-btn').addEventListener('click', (e) => {
+        e.stopPropagation();
+        updateCarousel(carouselCurrentIndex - 1);
+      });
+      galleryContainer.querySelector('.carousel-next-btn').addEventListener('click', (e) => {
+        e.stopPropagation();
+        updateCarousel(carouselCurrentIndex + 1);
       });
 
-      // ライトボックス機能を再初期化
+      // サムネイルクリック
+      document.getElementById('carouselThumbnails').addEventListener('click', (e) => {
+        const thumb = e.target.closest('.carousel-thumb');
+        if (thumb) {
+          updateCarousel(parseInt(thumb.dataset.index));
+        }
+      });
+
+      // スワイプ操作（モバイル）
+      let swipeStartX = 0;
+      const mainFrame = galleryContainer.querySelector('.carousel-main-frame');
+      mainFrame.addEventListener('touchstart', (e) => {
+        swipeStartX = e.touches[0].clientX;
+      }, { passive: true });
+      mainFrame.addEventListener('touchend', (e) => {
+        const diff = swipeStartX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) {
+          updateCarousel(carouselCurrentIndex + (diff > 0 ? 1 : -1));
+        }
+      }, { passive: true });
+
+      // キーボード操作（ライトボックスが閉じているとき）
+      galleryContainer._carouselKeyHandler && document.removeEventListener('keydown', galleryContainer._carouselKeyHandler);
+      galleryContainer._carouselKeyHandler = (e) => {
+        if (lightbox && lightbox.classList.contains('active')) return;
+        if (e.key === 'ArrowRight') updateCarousel(carouselCurrentIndex + 1);
+        if (e.key === 'ArrowLeft') updateCarousel(carouselCurrentIndex - 1);
+      };
+      document.addEventListener('keydown', galleryContainer._carouselKeyHandler);
+
+      // メイン画像クリック → ライトボックスで拡大表示
+      document.getElementById('carouselMain').addEventListener('click', (e) => {
+        if (!e.target.classList.contains('carousel-btn') && !e.target.closest('.carousel-btn')) {
+          currentPhotoIndex = carouselCurrentIndex;
+          slideDirection = null;
+          showLightbox();
+        }
+      });
+
+      // ライトボックス用に photoSources を初期化
       initLightbox(photosToDisplay);
     }
 
