@@ -412,7 +412,7 @@ main {
   background: linear-gradient(135deg, var(--color-section-4) 0%, rgba(143, 168, 184, 0.04) 100%);
 }
 
-#photos, #endroll {
+#photos {
   background: linear-gradient(135deg, var(--color-section-1) 0%, rgba(143, 168, 184, 0.06) 100%);
 }
 
@@ -1860,38 +1860,6 @@ details p {
     font-size: 24px;
     padding: 12px 16px;
   }
-}
-
-/* Endroll Section - Placeholder */
-.endroll-placeholder {
-  text-align: center;
-  padding: 3rem 2rem;
-  margin: 1rem 0 2rem;
-  background: linear-gradient(135deg, rgba(143, 168, 184, 0.06) 0%, rgba(232, 239, 243, 0.3) 100%);
-  border: 2px dashed rgba(143, 168, 184, 0.3);
-  border-radius: 16px;
-}
-
-.endroll-notice {
-  font-family: var(--font-serif);
-  font-size: 1.3rem;
-  color: var(--color-accent);
-  margin-bottom: 0.8rem;
-  letter-spacing: 0.1em;
-}
-
-.endroll-sub {
-  font-size: 0.95rem;
-  color: var(--color-text-light);
-  line-height: 1.8;
-}
-
-.endroll-image {
-  width: 100%;
-  max-width: 720px;
-  border-radius: 8px;
-  display: block;
-  margin: 0 auto;
 }
 
 /* Focus visible improvements for accessibility */
