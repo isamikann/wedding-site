@@ -1328,17 +1328,20 @@ details p {
 }
 
 .carousel-main-frame {
-  aspect-ratio: 4/3;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+  max-height: 70vh;
+  min-height: 240px;
+  transition: max-height 0.3s ease;
 }
 
 .carousel-main-img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
+  max-height: 70vh;
+  object-fit: contain;
   transition: opacity 0.35s ease;
   display: block;
 }
@@ -1489,7 +1492,11 @@ details p {
     height: 52px;
   }
   .carousel-main-frame {
-    aspect-ratio: 3/2;
+    max-height: 56vw;
+    min-height: 200px;
+  }
+  .carousel-main-img {
+    max-height: 56vw;
   }
 }
 
