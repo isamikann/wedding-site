@@ -452,16 +452,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
       carouselCurrentIndex = 0;
 
-      // カルーセルHTMLを生成
+      // カルーセルHTMLを生成（ダブルバッファ構成: front/backの2枚重ね）
       galleryContainer.innerHTML = `
         <div class="photo-carousel">
           <div class="carousel-main" id="carouselMain">
             <button class="carousel-btn carousel-prev-btn" aria-label="前の写真">&#10094;</button>
             <div class="carousel-main-frame">
-              <img id="carouselMainImg"
+              <img id="carouselImgFront"
                 src="${optimizeImageUrl(photosToDisplay[0].src)}"
                 alt="${photosToDisplay[0].alt}"
-                class="carousel-main-img">
+                class="carousel-main-img carousel-buf-front">
+              <img id="carouselImgBack"
+                src=""
+                alt=""
+                class="carousel-main-img carousel-buf-back">
             </div>
             <button class="carousel-btn carousel-next-btn" aria-label="次の写真">&#10095;</button>
             <div class="carousel-counter-badge" id="carouselCounter">1 / ${photosToDisplay.length}</div>
@@ -484,65 +488,62 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       `;
 
-      // カルーセル更新関数
-      let fadeTimerId = null;
+      // ダブルバッファによるカルーセル更新
+      // front = 現在表示中, back = 裏で先読み中
+      // 新画像をbackで完全ロードしてからfrontと入れ替えることで空白フレームをゼロにする
+      let pendingIndex = null; // 最新のリクエストだけを処理するために使用
 
       function updateCarousel(index) {
         carouselCurrentIndex = (index + photosToDisplay.length) % photosToDisplay.length;
+        pendingIndex = carouselCurrentIndex;
 
-        const mainImg = document.getElementById('carouselMainImg');
+        const imgFront = document.getElementById('carouselImgFront');
+        const imgBack  = document.getElementById('carouselImgBack');
         const counter  = document.getElementById('carouselCounter');
         const caption  = document.getElementById('carouselCaption');
-        const frame    = document.querySelector('.carousel-main-frame');
         const thumbs   = document.querySelectorAll('.carousel-thumb');
 
-        // ① 前のタイマーをキャンセル（高速スワイプで古いコールバックが発火しないようにする）
-        if (fadeTimerId !== null) {
-          clearTimeout(fadeTimerId);
-          fadeTimerId = null;
-        }
-
-        // ② ロード中のコンテナ高さを固定してレイアウトシフト(びくつき)を防ぐ
-        if (frame.offsetHeight > 0) {
-          frame.style.minHeight = frame.offsetHeight + 'px';
-        }
-
-        mainImg.classList.add('fade');
-
-        // このスワイプが要求しているindexを変数に閉じ込める
         const targetIndex = carouselCurrentIndex;
+        const targetSrc   = optimizeImageUrl(photosToDisplay[targetIndex].src);
+        const targetAlt   = photosToDisplay[targetIndex].alt;
 
-        fadeTimerId = setTimeout(() => {
-          fadeTimerId = null;
-          mainImg.src = optimizeImageUrl(photosToDisplay[targetIndex].src);
-          mainImg.alt = photosToDisplay[targetIndex].alt;
-
-          const showImage = () => {
-            // さらに新しいスワイプがあった場合はフェードインしない
-            if (carouselCurrentIndex === targetIndex) {
-              mainImg.classList.remove('fade');
-              frame.style.minHeight = '';
-            }
-          };
-
-          if (mainImg.complete && mainImg.naturalWidth > 0) {
-            showImage();
-          } else {
-            mainImg.addEventListener('load', showImage, { once: true });
-          }
-        }, 360);
-
-        counter.textContent = `${carouselCurrentIndex + 1} / ${photosToDisplay.length}`;
-        caption.textContent  = photosToDisplay[carouselCurrentIndex].categoryTitle;
-
+        // UI（カウンター・キャプション・サムネイル）は即時更新
+        counter.textContent = `${targetIndex + 1} / ${photosToDisplay.length}`;
+        caption.textContent  = photosToDisplay[targetIndex].categoryTitle;
         thumbs.forEach((thumb, i) => {
-          thumb.classList.toggle('active', i === carouselCurrentIndex);
+          thumb.classList.toggle('active', i === targetIndex);
         });
-
-        // アクティブサムネイルを表示領域にスクロール
         const activeThumb = document.querySelector('.carousel-thumb.active');
         if (activeThumb) {
           activeThumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+
+        // 同じ画像なら何もしない
+        if (imgFront.src === targetSrc || (imgFront.src.endsWith(targetSrc) && !targetSrc.startsWith('/'))) {
+          return;
+        }
+
+        // backバッファで新画像を先読み
+        imgBack.alt = targetAlt;
+        imgBack.src = targetSrc;
+
+        const swap = () => {
+          // より新しいリクエストがあれば古いswapはスキップ
+          if (pendingIndex !== targetIndex) return;
+
+          // frontとbackをCSS上でスワップ（z-indexで切り替え）
+          imgFront.src = targetSrc;
+          imgFront.alt = targetAlt;
+
+          // backをリセット（次回のために空にする）
+          imgBack.src = '';
+          imgBack.alt = '';
+        };
+
+        if (imgBack.complete && imgBack.naturalWidth > 0) {
+          swap();
+        } else {
+          imgBack.addEventListener('load', swap, { once: true });
         }
       }
 

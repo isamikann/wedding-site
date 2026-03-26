@@ -1328,26 +1328,37 @@ details p {
 }
 
 .carousel-main-frame {
-  overflow: hidden;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   max-height: 70vh;
   min-height: 240px;
-  transition: max-height 0.3s ease;
+  overflow: hidden;
 }
 
+/* ダブルバッファ: front/backを重ねる */
 .carousel-main-img {
   width: 100%;
   height: auto;
   max-height: 70vh;
   object-fit: contain;
-  transition: opacity 0.35s ease;
   display: block;
 }
 
-.carousel-main-img.fade {
+.carousel-buf-front {
+  position: relative;
+  z-index: 1;
+}
+
+/* backは見えない位置に置いておき、ロード専用として使う */
+.carousel-buf-back {
+  position: absolute;
   opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+  width: 1px;
+  height: 1px;
 }
 
 .carousel-btn {
