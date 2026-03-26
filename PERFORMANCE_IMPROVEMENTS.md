@@ -9,19 +9,17 @@
 - ファイル名の記述ミスで画像が表示されない問題が発生しやすかった
 
 **解決策:**
-- ディレクトリから画像を自動検出する機能を実装
-- 対応パターン:
-  - 連番: `1.jpg`, `2.jpg`, `3.jpg` ...
-  - photo連番: `photo1.jpg`, `photo2.jpg` ...
-  - IMG連番: `IMG_0001.jpg`, `IMG_0002.jpg` ...
+- `manifest.json` があれば、その一覧を優先して画像を自動検出
+- 既存フォルダは従来どおり連番探索にフォールバック
+- 任意ファイル名の画像も表示可能
 
 **使い方:**
 ```bash
-# カテゴリーフォルダに画像を入れるだけ！
+# カテゴリーフォルダに画像を入れて manifest を更新
 img/photos/prewedding/
-  ├── 1.jpg      ← 自動検出
-  ├── 2.jpg      ← 自動検出
-  └── 3.jpg      ← 自動検出
+  ├── vacation.jpg
+  ├── ceremony.png
+  └── dinner.webp
 ```
 
 ### 2. 真の遅延読み込み（Lazy Loading）
@@ -82,7 +80,7 @@ const photoCategoryNames = {
   'prewedding': '前撮り',
   'memories': '思い出',
 };
-// ファイル名のリストは不要になりました！
+// ファイル名のリストは不要。manifest.json が読み込まれます。
 ```
 
 ## 📊 パフォーマンス比較

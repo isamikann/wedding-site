@@ -55,6 +55,8 @@ cp endroll-thumbnail.jpg img/endroll/endroll.jpg
 ### 4. フォトギャラリー
 **場所**: `img/photos/[カテゴリー名]/`
 
+任意のファイル名を使う場合は、`optimize-images.sh` を実行して各フォルダの `manifest.json` を更新してください。
+
 詳しくは `PHOTO_MANAGEMENT.md` を参照してください。
 
 ## ✨ 画像の追加・変更方法
@@ -150,4 +152,4 @@ cp photo2.jpg img/photos/memories/
 2. 画像ファイルを配置
 3. ブラウザをリロード
 
-**設定ファイルの編集は基本的に不要です！**
+**設定ファイルの編集は基本的に不要ですが、任意ファイル名を使う場合は manifest の更新が必要です。**

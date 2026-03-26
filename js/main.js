@@ -259,38 +259,75 @@ document.addEventListener('DOMContentLoaded', () => {
     return originalUrl;
   }
 
-  // ディレクトリから画像を自動検出する関数（連番前提）
+  // ディレクトリから画像を自動検出する関数
   async function detectImagesInDirectory(categoryKey) {
     const categoryPath = photoBasePath + categoryKey + '/';
     const detectedImages = [];
-    
+    const extensions = typeof supportedImageExtensions !== 'undefined'
+      ? supportedImageExtensions
+      : ['.jpg', '.jpeg', '.png', '.webp', '.gif'];
+
     console.log(`📸 検出開始: ${categoryKey}`);
-    
-    // 拡張子（jpg/jpeg両方チェック）
-    const extensions = ['jpg', 'jpeg', 'png', 'webp'];
-    
-    // photo1から順番に検索（連番前提なので見つからなかったら即終了）
+
+    // まず manifest.json があれば、そのファイル名一覧を優先する
+    try {
+      const manifestResponse = await fetch(categoryPath + 'manifest.json', { cache: 'no-store' });
+      if (manifestResponse.ok) {
+        const manifest = await manifestResponse.json();
+        const candidateItems = Array.isArray(manifest)
+          ? manifest
+          : Array.isArray(manifest?.images)
+            ? manifest.images
+            : [];
+
+        candidateItems.forEach((item, index) => {
+          const filename = typeof item === 'string' ? item.trim() : (item?.file || item?.src || '').trim();
+          if (!filename || !extensions.some((ext) => filename.toLowerCase().endsWith(ext))) {
+            return;
+          }
+
+          const label = typeof item === 'object' && item !== null
+            ? (item.alt || item.title || item.label || '')
+            : '';
+
+          detectedImages.push({
+            filename,
+            alt: label || `${photoCategoryNames[categoryKey]} ${index + 1}`,
+          });
+          console.log(`  ✓ ${filename} (manifest)`);
+        });
+
+        if (detectedImages.length > 0) {
+          console.log(`✅ ${categoryKey}: ${detectedImages.length}枚検出（manifest）`);
+          return detectedImages;
+        }
+      }
+    } catch (error) {
+      console.warn(`  → manifest の読み込みに失敗: ${categoryKey}`, error);
+    }
+
+    // manifest がない場合は従来の連番探索にフォールバック
+    const legacyExtensions = ['jpg', 'jpeg', 'png', 'webp'];
     let index = 1;
-    const maxIndex = 30; // 上限
-    
+    const maxIndex = 30;
+
     while (index <= maxIndex) {
       let foundThisIndex = false;
-      
-      // 各拡張子を試す
-      for (const ext of extensions) {
+
+      for (const ext of legacyExtensions) {
         const filename = `photo${index}.${ext}`;
         const url = categoryPath + filename;
-        
+
         try {
           const response = await fetch(url, { method: 'HEAD', cache: 'no-store' });
-
-          // 一部サーバーはHEADでContent-Lengthを返さないことがあるため
-          // content-typeがimage/なら存在とみなす。content-typeが空でも200なら存在とみなす。
           const contentType = response.headers.get('content-type') || '';
           const isImage = contentType === '' || contentType.startsWith('image/');
 
           if (response.ok && isImage) {
-            detectedImages.push(filename);
+            detectedImages.push({
+              filename,
+              alt: `${photoCategoryNames[categoryKey]} ${index}`,
+            });
             console.log(`  ✓ ${filename}`);
             foundThisIndex = true;
             break;
@@ -299,8 +336,7 @@ document.addEventListener('DOMContentLoaded', () => {
           // 無視（次の拡張子を試す）
         }
       }
-      
-      // 連番なので、見つからなかったら即終了
+
       if (!foundThisIndex) {
         if (index === 1) {
           console.log(`  → スキップ（写真なし）`);
@@ -309,10 +345,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         break;
       }
-      
+
       index++;
     }
-    
+
     console.log(`✅ ${categoryKey}: ${detectedImages.length}枚検出`);
     return detectedImages;
   }
@@ -354,11 +390,11 @@ document.addEventListener('DOMContentLoaded', () => {
           
           const categoryPath = photoBasePath + categoryKey + '/';
           
-          files.forEach((filename, index) => {
+          files.forEach((photo, index) => {
             allPhotos.push({
               category: categoryKey,
-              src: categoryPath + filename,
-              alt: `${photoCategoryNames[categoryKey]} ${index + 1}`,
+              src: categoryPath + photo.filename,
+              alt: photo.alt || `${photoCategoryNames[categoryKey]} ${index + 1}`,
               categoryTitle: photoCategoryNames[categoryKey]
             });
           });

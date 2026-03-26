@@ -2,8 +2,10 @@
 
 ## 🚀 新機能: 自動画像検出
 
-**ファイル名を設定ファイルに記述する必要がなくなりました！**
-フォルダに画像を追加するだけで自動的に表示されます。
+**ファイル名の制約をゆるめました。**
+フォルダ内の画像を `manifest.json` 経由で読み込むので、任意のファイル名でも表示できます。
+`optimize-images.sh` がファイル名をもとに表示名も自動生成します。
+HEIC/HEIF は JPEG に変換されます。
 
 ## 📸 写真の追加方法
 
@@ -17,7 +19,7 @@ wedding-site/
     └── photos/
         ├── prewedding/     ← 前撮り写真
         │   ├── 1.jpg       ← 自動検出されます
-        │   ├── 2.jpg       ← 自動検出されます
+        │   ├── vacation.jpg ← 自動検出されます
         │   ├── photo1.jpg  ← 自動検出されます
         │   └── IMG_0001.jpg ← 自動検出されます
         ├── memories/       ← 思い出の写真
@@ -28,15 +30,11 @@ wedding-site/
 
 ### 対応ファイル名パターン
 
-以下のファイル名で画像を保存してください：
-
 **✅ 対応パターン:**
 - `photo1.jpg`, `photo2.jpg`, `photo3.jpg`, ...
-- `photo1.jpeg`, `photo2.jpeg`, `photo3.jpeg`, ...
-- `photo1.png`, `photo2.png`, ...
-- `photo1.webp`, `photo2.webp`, ...
+- `vacation.jpg`, `ceremony-01.png`, `IMG_0001.webp` など任意の名前
 
-**重要:** ファイル名は必ず `photo` + `連番` + `.拡張子` の形式にしてください。
+**重要:** 任意ファイル名を使う場合は、フォルダ直下に `manifest.json` が必要です。
 
 ### 対応ファイル形式
 
@@ -46,9 +44,9 @@ wedding-site/
 
 ### 🎯 自動検出の仕組み
 
-- `photo1` から順番に検索開始
-- 各番号で `.jpg`, `.jpeg`, `.png`, `.webp` を順に確認
-- 連続3回見つからなくなったら検索終了
+- `manifest.json` がある場合は、その一覧を優先して表示
+- `manifest.json` がない場合は、従来どおり `photo1` からの連番探索にフォールバック
+- 表示名はファイル名から自動整形されます
 - 実際に存在するファイルのみを表示
 - ファイル数に制限なし（100枚まで推奨）
 
@@ -77,13 +75,14 @@ const photoCategoryNames = {
 ```
 
 ### ステップ3: 写真を追加
-作成したフォルダに写真を入れるだけで完了です！
+作成したフォルダに写真を入れます。任意ファイル名を使う場合は、`optimize-images.sh` を実行して `manifest.json` を生成してください。
+HEIC/HEIF も自動的に JPEG に変換されます。
 
 ```
 img/photos/honeymoon/
-  ├── 1.jpg
-  ├── 2.jpg
-  └── 3.jpg
+  ├── vacation.jpg
+  ├── ceremony.png
+  └── dinner.webp
 ```
 
 ## 🎨 デフォルトカテゴリー
@@ -98,16 +97,13 @@ img/photos/honeymoon/
 ## 💡 ヒント
 
 ### ファイル名の付け方
-以下のパターンで命名してください（自動検出対応）:
+以下のパターンに対応しています。
 
 **✅ 推奨:**
 - `1.jpg`, `2.jpg`, `3.jpg` ... （シンプルな連番）
 - `photo1.jpg`, `photo2.jpg`, `photo3.jpg` ...
 - `IMG_0001.jpg`, `IMG_0002.jpg` ... （カメラのデフォルト形式）
-
-**❌ 非対応:**
-- `beach_sunset.jpg` （カスタム名は現在未対応）
-- `my_photo.jpg`
+- `beach_sunset.jpg`, `my_photo.jpg` ...（任意名。manifest.json 必須）
 
 ### 画像サイズ
 - **推奨サイズ**: 幅1000-2000px程度
@@ -121,8 +117,19 @@ img/photos/honeymoon/
 ## 🚀 使い方まとめ
 
 1. カテゴリーフォルダに写真を入れる（対応するファイル名で）
-2. ブラウザをリロード
-3. 自動的に表示されます！
+2. `optimize-images.sh` を実行する
+3. ローカルサーバーで `index.html` を開く
+4. ブラウザをリロードすると自動的に表示されます！
+
+### ブラウザで見る方法
+
+`file://` で直接開くのではなく、ローカルサーバー経由で確認してください。
+
+```bash
+python3 -m http.server 8000
+```
+
+そのあと、ブラウザで `http://localhost:8000` を開きます。
 
 ## 🔄 変更の反映
 
