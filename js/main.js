@@ -493,11 +493,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const thumbs = document.querySelectorAll('.carousel-thumb');
 
         mainImg.classList.add('fade');
+        // CSSのtransition(0.35s)完了後にsrcを切り替える
         setTimeout(() => {
           mainImg.src = optimizeImageUrl(photosToDisplay[carouselCurrentIndex].src);
           mainImg.alt = photosToDisplay[carouselCurrentIndex].alt;
-          mainImg.classList.remove('fade');
-        }, 180);
+          // ロード完了後にフェードイン（キャッシュ済みの場合は即時）
+          const removeFade = () => {
+            mainImg.classList.remove('fade');
+            mainImg.removeEventListener('load', removeFade);
+          };
+          if (mainImg.complete && mainImg.naturalWidth > 0) {
+            removeFade();
+          } else {
+            mainImg.addEventListener('load', removeFade);
+          }
+        }, 360);
 
         counter.textContent = `${carouselCurrentIndex + 1} / ${photosToDisplay.length}`;
         caption.textContent = photosToDisplay[carouselCurrentIndex].categoryTitle;
