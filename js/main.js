@@ -485,32 +485,55 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
 
       // カルーセル更新関数
+      let fadeTimerId = null;
+
       function updateCarousel(index) {
         carouselCurrentIndex = (index + photosToDisplay.length) % photosToDisplay.length;
+
         const mainImg = document.getElementById('carouselMainImg');
-        const counter = document.getElementById('carouselCounter');
-        const caption = document.getElementById('carouselCaption');
-        const thumbs = document.querySelectorAll('.carousel-thumb');
+        const counter  = document.getElementById('carouselCounter');
+        const caption  = document.getElementById('carouselCaption');
+        const frame    = document.querySelector('.carousel-main-frame');
+        const thumbs   = document.querySelectorAll('.carousel-thumb');
+
+        // ① 前のタイマーをキャンセル（高速スワイプで古いコールバックが発火しないようにする）
+        if (fadeTimerId !== null) {
+          clearTimeout(fadeTimerId);
+          fadeTimerId = null;
+        }
+
+        // ② ロード中のコンテナ高さを固定してレイアウトシフト(びくつき)を防ぐ
+        if (frame.offsetHeight > 0) {
+          frame.style.minHeight = frame.offsetHeight + 'px';
+        }
 
         mainImg.classList.add('fade');
-        // CSSのtransition(0.35s)完了後にsrcを切り替える
-        setTimeout(() => {
-          mainImg.src = optimizeImageUrl(photosToDisplay[carouselCurrentIndex].src);
-          mainImg.alt = photosToDisplay[carouselCurrentIndex].alt;
-          // ロード完了後にフェードイン（キャッシュ済みの場合は即時）
-          const removeFade = () => {
-            mainImg.classList.remove('fade');
-            mainImg.removeEventListener('load', removeFade);
+
+        // このスワイプが要求しているindexを変数に閉じ込める
+        const targetIndex = carouselCurrentIndex;
+
+        fadeTimerId = setTimeout(() => {
+          fadeTimerId = null;
+          mainImg.src = optimizeImageUrl(photosToDisplay[targetIndex].src);
+          mainImg.alt = photosToDisplay[targetIndex].alt;
+
+          const showImage = () => {
+            // さらに新しいスワイプがあった場合はフェードインしない
+            if (carouselCurrentIndex === targetIndex) {
+              mainImg.classList.remove('fade');
+              frame.style.minHeight = '';
+            }
           };
+
           if (mainImg.complete && mainImg.naturalWidth > 0) {
-            removeFade();
+            showImage();
           } else {
-            mainImg.addEventListener('load', removeFade);
+            mainImg.addEventListener('load', showImage, { once: true });
           }
         }, 360);
 
         counter.textContent = `${carouselCurrentIndex + 1} / ${photosToDisplay.length}`;
-        caption.textContent = photosToDisplay[carouselCurrentIndex].categoryTitle;
+        caption.textContent  = photosToDisplay[carouselCurrentIndex].categoryTitle;
 
         thumbs.forEach((thumb, i) => {
           thumb.classList.toggle('active', i === carouselCurrentIndex);
