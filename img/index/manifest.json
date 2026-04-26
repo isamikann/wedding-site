@@ -1,0 +1,42 @@
+[
+  {
+    "file": "favorites.jpg",
+    "title": "favorites",
+    "alt": "favorites"
+  },
+  {
+    "file": "food.jpg",
+    "title": "food",
+    "alt": "food"
+  },
+  {
+    "file": "menu.jpg",
+    "title": "menu",
+    "alt": "menu"
+  },
+  {
+    "file": "photos.jpg",
+    "title": "photos",
+    "alt": "photos"
+  },
+  {
+    "file": "profile.jpg",
+    "title": "profile",
+    "alt": "profile"
+  },
+  {
+    "file": "qa.jpg",
+    "title": "qa",
+    "alt": "qa"
+  },
+  {
+    "file": "seating.jpg",
+    "title": "seating",
+    "alt": "seating"
+  },
+  {
+    "file": "story.jpg",
+    "title": "story",
+    "alt": "story"
+  }
+]

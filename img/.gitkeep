@@ -1,0 +1,11 @@
+# Placeholder for image directory
+# Replace placeholder images with actual photos before deployment
+
+## Required images:
+- main_visual.jpg (Hero section background - recommend 1920x1080px)
+- groom.jpg (Groom's profile photo - square format recommended)
+- bride.jpg (Bride's profile photo - square format recommended)
+- photos.jpg (Wedding day photo gallery placeholder)
+- endroll.jpg (Endroll movie thumbnail)
+- favicon.svg (Site favicon)
+- favicon.ico (Fallback favicon for older browsers)
