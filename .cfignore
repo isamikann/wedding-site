@@ -1,0 +1,18 @@
+# Documentation
+*.md
+
+# Python
+__pycache__/
+venv/
+*.py
+requirements.txt
+
+# Shell scripts
+*.sh
+
+# Development configs
+.gitignore
+.cfignore
+
+# Backup images
+img/**/*_backup_*/
