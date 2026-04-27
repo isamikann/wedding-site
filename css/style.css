@@ -2278,6 +2278,7 @@ html {
 
 .timeline-image {
     width: 100%;
+    max-width: 400px;
     border-radius: 8px;
     margin-bottom: 0.75rem;
     aspect-ratio: 16 / 9;
