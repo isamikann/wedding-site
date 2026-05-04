@@ -468,8 +468,8 @@ main {
 #profile {
     background: linear-gradient(
         135deg,
-        var(--color-section-3) 0%,
-        var(--color-steel-blue-08) 100%
+        var(--color-section-2) 0%,
+        var(--color-steel-blue-04) 100%
     );
 }
 
@@ -484,8 +484,8 @@ main {
 #photos {
     background: linear-gradient(
         135deg,
-        var(--color-section-1) 0%,
-        var(--color-steel-blue-06) 100%
+        var(--color-section-2) 0%,
+        var(--color-steel-blue-04) 100%
     );
 }
 
