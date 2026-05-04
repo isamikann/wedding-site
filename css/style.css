@@ -2042,7 +2042,20 @@ details p {
 }
 
 .lightbox.simple .lightbox-rotate {
-    display: none;
+    position: fixed;
+    top: calc(14px + env(safe-area-inset-top, 0px));
+    left: calc(14px + env(safe-area-inset-left, 0px));
+    width: 54px;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+    border-radius: 16px;
+    font-size: 26px;
+    padding: 0;
 }
 
 .lightbox-content.rotated-90 {
@@ -2138,6 +2151,14 @@ details p {
         width: 50px;
         height: 50px;
         font-size: 32px;
+    }
+
+    .lightbox.simple .lightbox-rotate {
+        top: calc(10px + env(safe-area-inset-top, 0px));
+        left: calc(10px + env(safe-area-inset-left, 0px));
+        width: 50px;
+        height: 50px;
+        font-size: 22px;
     }
 
     .lightbox-prev,
