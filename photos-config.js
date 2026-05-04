@@ -4,6 +4,7 @@
 
 const photoCategoryNames = {
     prewedding: "前撮り",
+    memories: "思い出",
 };
 
 // 画像のベースパス
