@@ -1044,11 +1044,8 @@ details p {
 #story .section-hero {
     background-image: url("../img/index/story.jpg");
 }
-#local-food .section-hero {
-    background-image: url("../img/index/food.jpg");
-}
-#favorites .section-hero {
-    background-image: url("../img/index/favorites.jpg");
+#our-favorites .section-hero {
+    background-image: url("../img/index/our-favorites.jpg");
 }
 #photos .section-hero {
     background-image: url("../img/index/photos.jpg");
@@ -2391,11 +2388,7 @@ html {
     background: white;
 }
 
-#local-food {
-    background: white;
-}
-
-#favorites {
+#our-favorites {
     background: white;
 }
 

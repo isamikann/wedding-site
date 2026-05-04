@@ -165,8 +165,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "profile",
         "qa",
         "story",
-        "local-food",
-        "favorites",
+        "our-favorites",
         "photos",
     ];
 

@@ -318,13 +318,23 @@ def cmd_cleanup(args: argparse.Namespace) -> int:
 
 def cmd_optimize(args: argparse.Namespace) -> int:
     """Run image optimization."""
-    target_dir = Path(args.target)
-    if not target_dir.exists() or not target_dir.is_dir():
-        print(f"エラー: ディレクトリが見つかりません: {target_dir}")
-        return 1
+    # If no target specified, optimize default directories
+    targets = args.target if args.target else ["img/photos", "img/favorites"]
+    # If target is a single string (legacy), treat it as a list
+    if isinstance(targets, str):
+        targets = [targets]
 
-    no_backup = args.no_backup
-    print_header(target_dir)
+    overall_total_before = 0
+    overall_total_after = 0
+
+    for target in targets:
+        target_dir = Path(target)
+        if not target_dir.exists() or not target_dir.is_dir():
+            print(f"エラー: ディレクトリが見つかりません: {target_dir}")
+            return 1
+
+        no_backup = args.no_backup
+        print_header(target_dir)
 
     if no_backup:
         print("⚠ バックアップ無効モード (--no-backup)")
