@@ -1980,21 +1980,37 @@ details p {
 }
 
 .lightbox-rotate {
+    position: fixed;
+    top: calc(14px + env(safe-area-inset-top, 0px));
+    right: calc(78px + env(safe-area-inset-right, 0px));
     color: white;
-    font-size: 28px;
+    font-size: 26px;
     cursor: pointer;
     transition:
-        background-color 0.3s ease,
-        transform 0.3s ease;
-    background: rgba(255, 255, 255, 0.15);
-    border: none;
-    padding: 16px 20px;
-    border-radius: 8px;
+        color 0.25s ease,
+        background-color 0.25s ease,
+        transform 0.4s ease;
+    z-index: 30005;
+    width: 54px;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
 }
 
 .lightbox-rotate:hover {
-    background: var(--color-accent);
-    transform: rotate(90deg) scale(1.1);
+    color: var(--color-accent);
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(90deg);
+}
+
+.lightbox-rotate.is-rotated {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
 }
 
 .lightbox.simple .lightbox-rotate {
@@ -2008,7 +2024,8 @@ details p {
 }
 
 .lightbox-nav {
-    position: absolute;
+    position: fixed;
+    bottom: calc(60px + env(safe-area-inset-bottom, 0px));
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -2082,6 +2099,14 @@ details p {
         top: calc(10px + env(safe-area-inset-top, 0px));
         right: calc(10px + env(safe-area-inset-right, 0px));
         font-size: 32px;
+        width: 50px;
+        height: 50px;
+    }
+
+    .lightbox-rotate {
+        top: calc(10px + env(safe-area-inset-top, 0px));
+        right: calc(70px + env(safe-area-inset-right, 0px));
+        font-size: 22px;
         width: 50px;
         height: 50px;
     }

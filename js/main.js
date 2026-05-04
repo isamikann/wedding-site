@@ -948,6 +948,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "rotated-180",
             "rotated-270",
         );
+        if (lightboxRotate) lightboxRotate.classList.remove("is-rotated");
     }
 
     function initLightbox(photos) {
@@ -1079,9 +1080,11 @@ document.addEventListener("DOMContentLoaded", () => {
             if (rotationDeg === 0) {
                 rotationDeg = 90;
                 lightboxImg.classList.add("rotated-90");
+                lightboxRotate.classList.add("is-rotated");
             } else {
                 rotationDeg = 0;
                 lightboxImg.classList.remove("rotated-90");
+                lightboxRotate.classList.remove("is-rotated");
             }
         });
     }
