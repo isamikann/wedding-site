@@ -234,11 +234,19 @@ def optimize_image(
         if extension in {".heic", ".heif"}:
             return convert_heic_to_jpeg(source_path, image, backup_dir, target_dir)
 
+        temp_path = source_path.with_suffix(source_path.suffix + ".tmp")
+        save_image(image, temp_path, extension)
+
+        size_before = source_path.stat().st_size
+        size_after = temp_path.stat().st_size
+        if size_after >= size_before * 0.98:
+            # ほぼ変化なし → 元ファイルを維持してスキップ
+            temp_path.unlink(missing_ok=True)
+            return source_path
+
         if backup_dir is not None:
             backup_source(source_path, backup_dir, target_dir)
 
-        temp_path = source_path.with_suffix(source_path.suffix + ".tmp")
-        save_image(image, temp_path, extension)
         os.replace(temp_path, source_path)
         return source_path
 
@@ -349,12 +357,15 @@ def cmd_optimize(args: argparse.Namespace) -> int:
             optimized_path = optimize_image(source_path, effective_backup, target_dir)
             size_after = optimized_path.stat().st_size
             total_after += size_after
-            print("最適化中...")
-            print("✓ 最適化完了")
-            print(f"新しいサイズ: {bytes_to_mb(size_after)}MB")
-            print(
-                f"削減量: {bytes_to_mb(size_before - size_after)}MB ({bytes_to_percent(size_before, size_after)}%)"
-            )
+            if size_after >= size_before * 0.98:
+                print("⏭ スキップ（既に最適化済み）")
+            else:
+                print("最適化中...")
+                print("✓ 最適化完了")
+                print(f"新しいサイズ: {bytes_to_mb(size_after)}MB")
+                print(
+                    f"削減量: {bytes_to_mb(size_before - size_after)}MB ({bytes_to_percent(size_before, size_after)}%)"
+                )
         except Exception as exc:
             print(f"⚠ 最適化に失敗: {exc}")
             total_after += size_before
