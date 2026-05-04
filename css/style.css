@@ -696,6 +696,34 @@ main {
     text-align: center;
 }
 
+/* プロフィール: 画像のみレイアウト */
+.profile-images-only {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.profile-image-wrap {
+    width: 100%;
+}
+
+.profile-photo {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 4px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    object-fit: cover;
+}
+
+@media (max-width: 599px) {
+    .profile-images-only {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+
 /* 席次表画像 */
 .seating-image-wrap {
     text-align: center;
@@ -2480,6 +2508,34 @@ html {
     color: var(--color-text-light);
     line-height: 1.85;
     margin: 0;
+}
+
+/* --- Timeline Map --- */
+.timeline-map-caption {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--color-text-light);
+    margin: 0.25rem 0 0.4rem;
+    letter-spacing: 0.05em;
+}
+
+.timeline-map-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    margin: 0.75rem auto 1rem;
+    aspect-ratio: 1 / 1;
+    background: linear-gradient(160deg, #dceef5 0%, #eaf4f8 100%);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--color-secondary);
+}
+
+.timeline-map {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
 }
 
 @media (max-width: 599px) {
