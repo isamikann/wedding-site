@@ -931,6 +931,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const lightbox = document.getElementById("lightbox");
     const lightboxImg = document.getElementById("lightboxImg");
     const lightboxClose = document.querySelector(".lightbox-close");
+    const lightboxRotate = document.querySelector(".lightbox-rotate");
     const lightboxPrev = document.querySelector(".lightbox-prev");
     const lightboxNext = document.querySelector(".lightbox-next");
 
@@ -938,6 +939,16 @@ document.addEventListener("DOMContentLoaded", () => {
     let photoSources = [];
     let slideDirection = null;
     let lastFocusedElement = null;
+    let rotationDeg = 0;
+
+    function resetRotation() {
+        rotationDeg = 0;
+        lightboxImg.classList.remove(
+            "rotated-90",
+            "rotated-180",
+            "rotated-270",
+        );
+    }
 
     function initLightbox(photos) {
         photoSources = photos.map((photo) => {
@@ -980,8 +991,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function showLightbox() {
         if (photoSources[currentPhotoIndex]) {
-            // アニメーションクラスをリセット
+            // アニメーションクラスと回転をリセット
             lightboxImg.classList.remove("slide-left", "slide-right");
+            resetRotation();
 
             // カウンター更新
             const counter = document.getElementById("lightboxCounter");
@@ -1026,6 +1038,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         lightbox.classList.remove("active", "simple");
         document.body.style.overflow = "";
+        resetRotation();
         // フォーカスを元に戻す
         if (lastFocusedElement) {
             lastFocusedElement.focus();
@@ -1059,6 +1072,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (lightboxPrev) {
         lightboxPrev.addEventListener("click", showPrevPhoto);
+    }
+
+    if (lightboxRotate) {
+        lightboxRotate.addEventListener("click", () => {
+            rotationDeg = (rotationDeg + 90) % 360;
+            lightboxImg.classList.remove(
+                "rotated-90",
+                "rotated-180",
+                "rotated-270",
+            );
+            if (rotationDeg !== 0) {
+                lightboxImg.classList.add(`rotated-${rotationDeg}`);
+            }
+        });
     }
 
     // ライトボックス背景クリックで閉じる
