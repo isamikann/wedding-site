@@ -450,43 +450,23 @@ main {
 }
 
 #seating {
-    background: linear-gradient(
-        135deg,
-        var(--color-section-1) 0%,
-        var(--color-steel-blue-08) 100%
-    );
+    background: white;
 }
 
 #menu {
-    background: linear-gradient(
-        135deg,
-        var(--color-section-2) 0%,
-        var(--color-steel-blue-04) 100%
-    );
+    background: white;
 }
 
 #profile {
-    background: linear-gradient(
-        135deg,
-        var(--color-section-2) 0%,
-        var(--color-steel-blue-04) 100%
-    );
+    background: white;
 }
 
 #qa {
-    background: linear-gradient(
-        135deg,
-        var(--color-section-4) 0%,
-        var(--color-steel-blue-04) 100%
-    );
+    background: white;
 }
 
 #photos {
-    background: linear-gradient(
-        135deg,
-        var(--color-section-2) 0%,
-        var(--color-steel-blue-04) 100%
-    );
+    background: white;
 }
 
 .section:not(#hero)::before {
@@ -2184,27 +2164,15 @@ html {
    New Section Backgrounds
    ========================================== */
 #story {
-    background: linear-gradient(
-        135deg,
-        var(--color-section-5) 0%,
-        var(--color-steel-blue-08) 100%
-    );
+    background: white;
 }
 
 #local-food {
-    background: linear-gradient(
-        135deg,
-        var(--color-section-2) 0%,
-        var(--color-steel-blue-04) 100%
-    );
+    background: white;
 }
 
 #favorites {
-    background: linear-gradient(
-        135deg,
-        var(--color-section-3) 0%,
-        var(--color-steel-blue-08) 100%
-    );
+    background: white;
 }
 
 /* ==========================================
