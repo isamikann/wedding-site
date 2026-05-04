@@ -1950,12 +1950,12 @@ details p {
     }
 }
 
-.lightbox-close,
-.lightbox-rotate {
+.lightbox-close {
     position: fixed;
     top: calc(14px + env(safe-area-inset-top, 0px));
+    right: calc(14px + env(safe-area-inset-right, 0px));
     color: white;
-    font-size: 28px;
+    font-size: 38px;
     font-weight: 400;
     cursor: pointer;
     transition:
@@ -1975,11 +1975,6 @@ details p {
     line-height: 1;
 }
 
-.lightbox-close {
-    right: calc(14px + env(safe-area-inset-right, 0px));
-    font-size: 38px;
-}
-
 .lightbox-close:hover {
     color: var(--color-accent);
     background: rgba(255, 255, 255, 0.2);
@@ -1987,18 +1982,25 @@ details p {
 }
 
 .lightbox-rotate {
-    right: calc(78px + env(safe-area-inset-right, 0px));
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    font-size: 28px;
+    padding: 16px 24px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition:
+        background-color 0.3s ease,
+        transform 0.3s ease;
 }
 
 .lightbox-rotate:hover {
-    color: var(--color-accent);
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--color-accent);
     transform: rotate(90deg);
 }
 
 .lightbox-rotate.is-rotated {
-    color: var(--color-accent);
-    border-color: var(--color-accent);
+    background: var(--color-accent);
 }
 
 .lightbox.simple .lightbox-rotate {
@@ -2083,25 +2085,18 @@ details p {
         font-size: 0.8rem;
     }
 
-    .lightbox-close,
-    .lightbox-rotate {
+    .lightbox-close {
         top: calc(10px + env(safe-area-inset-top, 0px));
+        right: calc(10px + env(safe-area-inset-right, 0px));
         width: 50px;
         height: 50px;
-    }
-
-    .lightbox-close {
-        right: calc(10px + env(safe-area-inset-right, 0px));
         font-size: 32px;
     }
 
-    .lightbox-rotate {
-        right: calc(70px + env(safe-area-inset-right, 0px));
-    }
-
     .lightbox-prev,
-    .lightbox-next {
-        font-size: 24px;
+    .lightbox-next,
+    .lightbox-rotate {
+        font-size: 20px;
         padding: 12px 16px;
     }
 }
