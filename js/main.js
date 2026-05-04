@@ -1076,14 +1076,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (lightboxRotate) {
         lightboxRotate.addEventListener("click", () => {
-            rotationDeg = (rotationDeg + 90) % 360;
-            lightboxImg.classList.remove(
-                "rotated-90",
-                "rotated-180",
-                "rotated-270",
-            );
-            if (rotationDeg !== 0) {
-                lightboxImg.classList.add(`rotated-${rotationDeg}`);
+            if (rotationDeg === 0) {
+                rotationDeg = 90;
+                lightboxImg.classList.add("rotated-90");
+            } else {
+                rotationDeg = 0;
+                lightboxImg.classList.remove("rotated-90");
             }
         });
     }
