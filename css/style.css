@@ -254,6 +254,29 @@ h4 {
         padding: 3.5rem 1rem 3rem;
     }
 
+    .profile-card {
+        aspect-ratio: 2 / 3;
+    }
+
+    .profile-overlay,
+    .profile-overlay--right,
+    .profile-overlay--left {
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        align-items: flex-start;
+        text-align: left;
+        padding: 1.5rem 1.2rem 1.2rem;
+        background: linear-gradient(
+            to top,
+            rgba(0, 0, 0, 0.75) 0%,
+            rgba(0, 0, 0, 0) 100%
+        );
+        justify-content: flex-end;
+    }
+
     .hero {
         height: 78vh;
         min-height: 360px;
@@ -496,6 +519,115 @@ main {
     display: flex;
     gap: 2rem;
     align-items: flex-start;
+}
+
+.profile-card {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    border-radius: 4px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+.profile-card .profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    margin-bottom: 0;
+    border-radius: 0;
+    animation: none;
+    background: #f0f0f0;
+    transition: transform 0.5s ease;
+}
+
+.profile-card:hover .profile-image {
+    transform: scale(1.03);
+}
+
+.profile-overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 52%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem 1.5rem;
+    background: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.65) 0%,
+        rgba(0, 0, 0, 0) 100%
+    );
+}
+
+.profile-overlay--right {
+    right: 0;
+    left: auto;
+    align-items: flex-end;
+    text-align: right;
+    background: linear-gradient(
+        to left,
+        rgba(0, 0, 0, 0.65) 0%,
+        rgba(0, 0, 0, 0) 100%
+    );
+}
+
+.profile-overlay--left {
+    left: 0;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.profile-overlay h4 {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    color: white;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    width: 100%;
+}
+
+.profile-overlay .profile-details {
+    margin-top: 0;
+    background: none;
+    padding: 0;
+    border-radius: 0;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
+    width: 100%;
+}
+
+.profile-overlay .detail-item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    gap: 0;
+}
+
+.profile-overlay .detail-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.profile-overlay .detail-item dt {
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.6);
+    letter-spacing: 0.1em;
+}
+
+.profile-overlay .detail-item dd {
+    font-size: 0.85rem;
+    color: white;
+    font-weight: 500;
 }
 
 .profile-image {
@@ -1050,23 +1182,6 @@ details p {
     .two-column {
         grid-template-columns: 1fr 1fr;
         gap: 4rem;
-    }
-
-    .profile-image-wrap {
-        position: relative;
-        margin-bottom: 2rem;
-    }
-
-    .profile-image-wrap::after {
-        content: "";
-        position: absolute;
-        top: 1rem;
-        right: -1rem;
-        width: 100%;
-        height: 100%;
-        background: rgba(156, 131, 116, 0.1);
-        border-radius: 50%;
-        z-index: -1;
     }
 }
 
