@@ -2034,28 +2034,13 @@ details p {
 }
 
 .lightbox-rotate:hover {
-    background: var(--color-accent);
+    color: var(--color-accent);
+    background: rgba(255, 255, 255, 0.2);
 }
 
 .lightbox-rotate.is-rotated {
-    background: var(--color-accent);
-}
-
-.lightbox.simple .lightbox-rotate {
-    position: fixed;
-    top: calc(14px + env(safe-area-inset-top, 0px));
-    left: calc(14px + env(safe-area-inset-left, 0px));
-    width: 54px;
-    height: 54px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
-    border-radius: 16px;
-    font-size: 26px;
-    padding: 0;
+    color: var(--color-accent);
+    border-color: var(--color-accent);
 }
 
 .lightbox-content.rotated-90 {
@@ -2102,8 +2087,7 @@ details p {
 }
 
 .lightbox-prev,
-.lightbox-next,
-.lightbox-rotate {
+.lightbox-next {
     -webkit-appearance: none;
     appearance: none;
     background: rgba(255, 255, 255, 0.2);
@@ -2118,10 +2102,6 @@ details p {
         background-color 0.3s ease,
         opacity 0.3s ease,
         transform 0.3s ease;
-}
-
-.lightbox-rotate {
-    font-size: 28px;
 }
 
 .lightbox-prev:hover,
@@ -2153,17 +2133,16 @@ details p {
         font-size: 32px;
     }
 
-    .lightbox.simple .lightbox-rotate {
+    .lightbox-rotate {
         top: calc(10px + env(safe-area-inset-top, 0px));
-        left: calc(10px + env(safe-area-inset-left, 0px));
+        right: calc(70px + env(safe-area-inset-right, 0px));
         width: 50px;
         height: 50px;
         font-size: 22px;
     }
 
     .lightbox-prev,
-    .lightbox-next,
-    .lightbox-rotate {
+    .lightbox-next {
         font-size: 20px;
         padding: 12px 16px;
     }
