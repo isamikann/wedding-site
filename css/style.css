@@ -548,7 +548,7 @@ main {
 }
 
 .profile-image--right {
-    object-position: right center;
+    object-position: left center;
 }
 
 .profile-overlay {
