@@ -1950,17 +1950,18 @@ details p {
     }
 }
 
-.lightbox-close {
+.lightbox-close,
+.lightbox-rotate {
     position: fixed;
     top: calc(14px + env(safe-area-inset-top, 0px));
-    right: calc(14px + env(safe-area-inset-right, 0px));
     color: white;
-    font-size: 38px;
+    font-size: 28px;
     font-weight: 400;
     cursor: pointer;
     transition:
         color 0.25s ease,
-        background-color 0.25s ease;
+        background-color 0.25s ease,
+        transform 0.25s ease;
     z-index: 30005;
     width: 54px;
     height: 54px;
@@ -1971,6 +1972,12 @@ details p {
     background: rgba(0, 0, 0, 0.5);
     border: 1px solid rgba(255, 255, 255, 0.18);
     box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+    line-height: 1;
+}
+
+.lightbox-close {
+    right: calc(14px + env(safe-area-inset-right, 0px));
+    font-size: 38px;
 }
 
 .lightbox-close:hover {
@@ -1980,26 +1987,7 @@ details p {
 }
 
 .lightbox-rotate {
-    position: fixed;
-    top: calc(14px + env(safe-area-inset-top, 0px));
     right: calc(78px + env(safe-area-inset-right, 0px));
-    color: white;
-    font-size: 26px;
-    cursor: pointer;
-    transition:
-        color 0.25s ease,
-        background-color 0.25s ease,
-        transform 0.4s ease;
-    z-index: 30005;
-    width: 54px;
-    height: 54px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 16px;
-    background: rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
 }
 
 .lightbox-rotate:hover {
@@ -2095,20 +2083,20 @@ details p {
         font-size: 0.8rem;
     }
 
-    .lightbox-close {
+    .lightbox-close,
+    .lightbox-rotate {
         top: calc(10px + env(safe-area-inset-top, 0px));
-        right: calc(10px + env(safe-area-inset-right, 0px));
-        font-size: 32px;
         width: 50px;
         height: 50px;
     }
 
+    .lightbox-close {
+        right: calc(10px + env(safe-area-inset-right, 0px));
+        font-size: 32px;
+    }
+
     .lightbox-rotate {
-        top: calc(10px + env(safe-area-inset-top, 0px));
         right: calc(70px + env(safe-area-inset-right, 0px));
-        font-size: 22px;
-        width: 50px;
-        height: 50px;
     }
 
     .lightbox-prev,
@@ -2129,11 +2117,6 @@ summary:focus-visible {
 
 details summary::-webkit-details-marker {
     display: none;
-}
-
-/* Lightbox close button fix for <button> */
-.lightbox-close {
-    line-height: 1;
 }
 
 /* Improve touch targets for mobile */
