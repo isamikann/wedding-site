@@ -271,8 +271,8 @@ h4 {
         padding: 1.5rem 1.2rem 1.2rem;
         background: linear-gradient(
             to top,
-            rgba(245, 235, 220, 0.95) 0%,
-            rgba(245, 235, 220, 0) 100%
+            rgba(0, 0, 0, 0.75) 0%,
+            rgba(0, 0, 0, 0) 100%
         );
         justify-content: flex-end;
     }
@@ -548,7 +548,7 @@ main {
 }
 
 .profile-image--right {
-    object-position: left center;
+    object-position: right center;
 }
 
 .profile-overlay {
@@ -562,8 +562,8 @@ main {
     padding: 2rem 1.5rem;
     background: linear-gradient(
         to right,
-        rgba(250, 243, 233, 0.97) 55%,
-        rgba(250, 243, 233, 0) 100%
+        rgba(0, 0, 0, 0.65) 55%,
+        rgba(0, 0, 0, 0) 100%
     );
 }
 
@@ -574,8 +574,8 @@ main {
     text-align: right;
     background: linear-gradient(
         to left,
-        rgba(250, 243, 233, 0.97) 55%,
-        rgba(250, 243, 233, 0) 100%
+        rgba(0, 0, 0, 0.65) 55%,
+        rgba(0, 0, 0, 0) 100%
     );
 }
 
@@ -588,12 +588,12 @@ main {
 .profile-overlay h4 {
     font-family: var(--font-serif);
     font-size: 1.1rem;
-    color: var(--color-primary);
+    color: white;
     margin-bottom: 1rem;
     font-weight: 600;
     letter-spacing: 0.08em;
     padding-bottom: 0.6rem;
-    border-bottom: 1px solid rgba(44, 62, 80, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
     width: 100%;
 }
 
@@ -613,7 +613,7 @@ main {
     flex-direction: column;
     margin-bottom: 0.5rem;
     padding-bottom: 0.4rem;
-    border-bottom: 1px solid rgba(44, 62, 80, 0.12);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
     gap: 0;
 }
 
@@ -624,13 +624,13 @@ main {
 
 .profile-overlay .detail-item dt {
     font-size: 0.65rem;
-    color: var(--color-text-light);
+    color: rgba(255, 255, 255, 0.6);
     letter-spacing: 0.1em;
 }
 
 .profile-overlay .detail-item dd {
     font-size: 0.85rem;
-    color: var(--color-primary);
+    color: white;
     font-weight: 500;
 }
 
