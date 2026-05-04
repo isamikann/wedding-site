@@ -2715,11 +2715,7 @@ html {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(
-        135deg,
-        var(--color-section-1) 0%,
-        var(--color-background) 100%
-    );
+    background: var(--color-background);
     padding: 1.5rem;
 }
 
