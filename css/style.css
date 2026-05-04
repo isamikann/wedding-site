@@ -2033,6 +2033,33 @@ details p {
     transform: rotate(90deg);
 }
 
+.lightbox-rotate {
+    position: fixed;
+    top: calc(14px + env(safe-area-inset-top, 0px));
+    right: calc(78px + env(safe-area-inset-right, 0px));
+    color: white;
+    font-size: 26px;
+    font-weight: 400;
+    cursor: pointer;
+    transition:
+        color 0.25s ease,
+        background-color 0.25s ease,
+        transform 0.25s ease;
+    z-index: 30005;
+    width: 54px;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+    line-height: 1;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
 .lightbox-rotate:hover {
     color: var(--color-accent);
     background: rgba(255, 255, 255, 0.2);
