@@ -547,7 +547,7 @@ main {
     transform: scale(1.03);
 }
 
-.profile-image--right {
+.profile-card .profile-image--right {
     object-position: left center;
 }
 
@@ -562,7 +562,7 @@ main {
     padding: 2rem 1.5rem;
     background: linear-gradient(
         to right,
-        rgba(0, 0, 0, 0.65) 55%,
+        rgba(0, 0, 0, 0.65) 0%,
         rgba(0, 0, 0, 0) 100%
     );
 }
@@ -574,7 +574,7 @@ main {
     text-align: right;
     background: linear-gradient(
         to left,
-        rgba(0, 0, 0, 0.65) 55%,
+        rgba(0, 0, 0, 0.65) 0%,
         rgba(0, 0, 0, 0) 100%
     );
 }
