@@ -1983,7 +1983,6 @@ details p {
 
 .lightbox-rotate:hover {
     background: var(--color-accent);
-    transform: rotate(90deg);
 }
 
 .lightbox-rotate.is-rotated {
