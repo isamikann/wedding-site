@@ -1981,19 +1981,6 @@ details p {
     transform: rotate(90deg);
 }
 
-.lightbox-rotate {
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-    border: none;
-    font-size: 28px;
-    padding: 16px 24px;
-    cursor: pointer;
-    border-radius: 8px;
-    transition:
-        background-color 0.3s ease,
-        transform 0.3s ease;
-}
-
 .lightbox-rotate:hover {
     background: var(--color-accent);
     transform: rotate(90deg);
@@ -2051,17 +2038,26 @@ details p {
 }
 
 .lightbox-prev,
-.lightbox-next {
+.lightbox-next,
+.lightbox-rotate {
+    -webkit-appearance: none;
+    appearance: none;
     background: rgba(255, 255, 255, 0.2);
     color: white;
     border: none;
     font-size: 32px;
+    font-family: inherit;
     padding: 16px 24px;
     cursor: pointer;
     border-radius: 8px;
     transition:
         background-color 0.3s ease,
-        opacity 0.3s ease;
+        opacity 0.3s ease,
+        transform 0.3s ease;
+}
+
+.lightbox-rotate {
+    font-size: 28px;
 }
 
 .lightbox-prev:hover,
