@@ -608,11 +608,12 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // カテゴリータブを作成（写真が存在するカテゴリーのみ）
+        // カテゴリータブを作成（写真が存在するカテゴリーが複数の場合のみ表示）
         const availableCategories = [
             ...new Set(allPhotos.map((p) => p.category)),
         ];
-        const categoryTabsHTML = `
+        if (availableCategories.length > 1) {
+            const categoryTabsHTML = `
       <button class="category-tab active" data-category="all">すべて</button>
       ${availableCategories
           .map((categoryKey) => {
@@ -620,7 +621,8 @@ document.addEventListener("DOMContentLoaded", () => {
           })
           .join("")}
     `;
-        categoriesContainer.innerHTML = categoryTabsHTML;
+            categoriesContainer.innerHTML = categoryTabsHTML;
+        }
 
         // 写真を表示する関数
         let carouselCurrentIndex = 0;
