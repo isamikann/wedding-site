@@ -326,57 +326,6 @@ document.addEventListener("DOMContentLoaded", () => {
         .getElementById("page-back-btn")
         ?.addEventListener("click", () => navigateTo("home"));
 
-    // セクションページ間のスワイプナビゲーション
-    let sectionSwipeStartX = 0;
-    let sectionSwipeStartY = 0;
-
-    document.addEventListener(
-        "touchstart",
-        (e) => {
-            if (!document.body.classList.contains("is-section-page")) return;
-            sectionSwipeStartX = e.touches[0].clientX;
-            sectionSwipeStartY = e.touches[0].clientY;
-        },
-        { passive: true },
-    );
-
-    document.addEventListener(
-        "touchend",
-        (e) => {
-            if (!document.body.classList.contains("is-section-page")) return;
-            // ライトボックスが開いている場合はスキップ
-            const lb = document.getElementById("lightbox");
-            if (lb && lb.classList.contains("active")) return;
-
-            const diffX = e.changedTouches[0].clientX - sectionSwipeStartX;
-            const diffY = e.changedTouches[0].clientY - sectionSwipeStartY;
-            const minSwipe = 80;
-
-            // 横スワイプが縦より大きく、最小距離を超えた場合のみ
-            if (
-                Math.abs(diffX) > Math.abs(diffY) &&
-                Math.abs(diffX) > minSwipe
-            ) {
-                const currentPage = document.querySelector(
-                    ".page-section.is-page-active",
-                );
-                if (!currentPage) return;
-                const currentId = currentPage.id;
-                const currentIndex = PAGE_SECTIONS.indexOf(currentId);
-                if (currentIndex === -1) return;
-
-                if (diffX < 0 && currentIndex < PAGE_SECTIONS.length - 1) {
-                    // 左スワイプ = 次のセクション
-                    navigateTo(PAGE_SECTIONS[currentIndex + 1]);
-                } else if (diffX > 0 && currentIndex > 0) {
-                    // 右スワイプ = 前のセクション
-                    navigateTo(PAGE_SECTIONS[currentIndex - 1]);
-                }
-            }
-        },
-        { passive: true },
-    );
-
     // アクティブセクションの検出とパララックス効果
     const sections = document.querySelectorAll("section[id]");
     const navItems = document.querySelectorAll(".nav-item");
