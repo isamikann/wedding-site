@@ -32,16 +32,25 @@ document.addEventListener("DOMContentLoaded", () => {
         // silently ignore
     }
 
-    // ローディング画面の非表示
-    window.addEventListener("load", () => {
-        const loadingScreen = document.getElementById("loading-screen");
-        if (loadingScreen) {
-            loadingScreen.classList.add("hidden");
-            setTimeout(() => {
-                loadingScreen.remove();
-            }, 500);
-        }
-    });
+    // ローディング画面: フォント読み込み完了後に表示し、ページロード完了後に非表示
+    const loadingScreen = document.getElementById("loading-screen");
+    if (loadingScreen) {
+        // フォント読み込み完了後にローディング画面をフェードイン
+        document.fonts.ready.then(() => {
+            loadingScreen.classList.add("visible");
+        });
+
+        // ページ全体のロード完了後にフェードアウト
+        window.addEventListener("load", () => {
+            // フォントがまだ表示されていない場合は確実に表示してからフェードアウト
+            document.fonts.ready.then(() => {
+                loadingScreen.classList.add("hidden");
+                setTimeout(() => {
+                    loadingScreen.remove();
+                }, 400);
+            });
+        });
+    }
 
     // 画像の遅延読み込みとローディング表示
     document.querySelectorAll("img").forEach((img) => {
